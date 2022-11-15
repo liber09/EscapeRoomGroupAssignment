@@ -1,12 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   font-family: Roboto;
   font-size: 18px;
 }
 @media (min-width: 1000px) {
-  html, body {
+  html,
+body {
     font-size: 24px;
   }
 }
@@ -33,11 +35,11 @@ li {
   font-size: 1.1rem;
 }
 .button.primary {
-  background-color: #E3170A;
+  background-color: #e3170a;
   color: white;
 }
 .button.secondary {
-  background-color: #8ACFE5;
+  background-color: #8acfe5;
   color: #011827;
 }
 
@@ -173,8 +175,20 @@ header h1 {
     right: 1em;
     bottom: 1em;
     z-index: 1000;
-    animation: main-menu_reveal 0.3s 0.2s;
-    animation-fill-mode: backwards;
+    -webkit-animation: main-menu_reveal 0.3s 0.2s;
+            animation: main-menu_reveal 0.3s 0.2s;
+    -webkit-animation-fill-mode: backwards;
+            animation-fill-mode: backwards;
+  }
+  @-webkit-keyframes main-menu_reveal {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
   @keyframes main-menu_reveal {
     from {
@@ -221,13 +235,14 @@ header h1 {
     transition: color 0.2s;
   }
   .main-menu-item a:hover {
-    color: #8ACFE5;
+    color: #8acfe5;
   }
 }
 .hero img {
   width: 100%;
   min-height: 40vh;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 @media (min-width: 600px) {
   .hero img {
@@ -244,7 +259,7 @@ header h1 {
 }
 .hero-cta .button.primary {
   background-color: transparent;
-  color: #36769D;
+  color: #36769d;
   text-decoration: underline;
   margin: 1em 0;
 }
@@ -255,7 +270,7 @@ header h1 {
     gap: 1em;
   }
   .hero-cta .button.primary {
-    background-color: #E3170A;
+    background-color: #e3170a;
     margin: 0;
     text-decoration: none;
     color: white;
@@ -283,7 +298,8 @@ header h1 {
 .testimonial-item figure {
   display: grid;
   grid-template-columns: 74px auto;
-  column-gap: 1em;
+  -moz-column-gap: 1em;
+       column-gap: 1em;
 }
 .testimonial-item figure blockquote {
   margin: 0;
@@ -364,7 +380,7 @@ header h1 {
 }
 .challenges-cta .button.primary {
   background-color: transparent;
-  color: #36769D;
+  color: #36769d;
   text-decoration: underline;
   margin: 1em 0;
 }
@@ -375,7 +391,7 @@ header h1 {
     gap: 1em;
   }
   .challenges-cta .button.primary {
-    background-color: #E3170A;
+    background-color: #e3170a;
     margin: 0;
     text-decoration: none;
     color: white;
@@ -396,8 +412,8 @@ header h1 {
   margin-bottom: 2rem;
 }
 .story .button {
-  border: 2px solid #8ACFE5;
-  color: #8ACFE5;
+  border: 2px solid #8acfe5;
+  color: #8acfe5;
   background-color: transparent;
 }
 
@@ -410,7 +426,8 @@ header h1 {
   margin: 0 0 2rem;
 }
 .usps .usp .usp-image {
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .usps .usp .usp-title,
 .usps .usp .usp-intro,
@@ -466,7 +483,7 @@ footer a {
   text-decoration: none;
 }
 footer a:hover {
-  color: #8ACFE5;
+  color: #8acfe5;
 }
 @media (min-width: 1000px) {
   footer {
@@ -483,4 +500,31 @@ footer a:hover {
   footer .footer-social {
     grid-column: 10/12;
   }
+}
+
+.challengesBody {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.challengesMain {
+  text-align: center;
+}
+.challengesMain h2 {
+  font-size: 2em;
+}
+.challengesMain .button {
+  border: 2px solid #8acfe5;
+  color: #8acfe5;
+  background-color: transparent;
+  padding: 10px;
+  font-size: 1em;
+  margin: 10px auto 50px;
+}
+
+/* Makes footer stay at the bottom even when 
+   the content is not filling the screen */
+.challengesFooter {
+  margin-top: auto;
 }
