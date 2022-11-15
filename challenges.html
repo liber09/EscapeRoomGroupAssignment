@@ -9,7 +9,7 @@
   </head>
   <body class="challengesBody">
     <header>
-      <h1>Hacker Escape Rooms</h1>
+      <h1><a href="index.html">Hacker Escape Rooms</a></h1>
     </header>
     <nav class="main-nav">
       <button class="main-nav-toggle"></button>
@@ -26,9 +26,38 @@
     </nav>
     <main class="challengesMain">
       <h2>Our challenges</h2>
-      <button class="button primary">Filter challenges</button>
+      <button class="button secondary">Filter challenges</button>
+      <!-- CHALLENGE CARDS -->
+      <section class="challenges">
+        <ul class="challenge-list">
+          <li class="challenge-item">
+            <img class="challenge-image" alt="Hacker" src="static/hero.png" />
+            <h3 class="challenge-title">Title of room (on-site)</h3>
+            <ul
+              role="meter"
+              class="rating"
+              aria-label="rating"
+              arial-valuemin="0"
+              aria-valuemax="5"
+              aria-valuenow="4"
+              aria-valuetext="4 out of 5"
+            >
+              <li class="rating-star active"></li>
+              <li class="rating-star active"></li>
+              <li class="rating-star active"></li>
+              <li class="rating-star active"></li>
+              <li class="rating-star"></li>
+            </ul>
+            <small class="challenge-meta">2-6 participants</small>
+            <p class="challenge-description">
+              Praeterea, ex culpa non invenies unum aut non accusatis unum. Et
+              nihil inuitam. Nemo nocere tibi erit, et non inimicos, et
+            </p>
+            <button class="button primary">Book this room</button>
+          </li>
+        </ul>
+      </section>
     </main>
-    <div class="fill"></div>
     <footer class="challengesFooter">
       <div class="footer-summary">
         <h2>[Esc] Hacker Escape Rooms</h2>
