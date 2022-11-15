@@ -507,14 +507,16 @@ footer a:hover {
   display: flex;
   flex-direction: column;
 }
-
-.challengesMain {
-  text-align: center;
+.challengesBody h1 a {
+  text-decoration: none;
+  color: white;
 }
+
 .challengesMain h2 {
   font-size: 2em;
+  text-align: center;
 }
-.challengesMain .button {
+.challengesMain .secondary {
   border: 2px solid #8acfe5;
   color: #8acfe5;
   background-color: transparent;

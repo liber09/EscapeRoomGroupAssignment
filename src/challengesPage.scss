@@ -2,16 +2,21 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  h1 {
+    a {
+      text-decoration: none;
+      color: white;
+    }
+  }
 }
 
 .challengesMain {
-  text-align: center;
-
   h2 {
     font-size: 2em;
+    text-align: center;
   }
 
-  .button {
+  .secondary {
     border: 2px solid $c-lightblue;
     color: $c-lightblue;
     background-color: transparent;
