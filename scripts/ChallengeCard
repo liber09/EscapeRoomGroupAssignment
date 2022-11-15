@@ -1,0 +1,11 @@
+//Constructor for ChallengeCard object to be used as a blueprint 
+function ChallengeCard(title,description,type,minParticipants,maxParticipants,rating,imageUrl,tags){
+  this.title = title;
+  this.description = description;
+  this.typ = type;
+  this.minParticipants = minParticipants;
+  this.maxParticipants = maxParticipants;
+  this.rating = rating;
+  this.imageUrl = imageUrl;
+  this.tags = tags;
+}
