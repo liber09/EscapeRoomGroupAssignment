@@ -1,0 +1,33 @@
+.challengesBody {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  h1 {
+    a {
+      text-decoration: none;
+      color: white;
+    }
+  }
+}
+
+.challengesMain {
+  h2 {
+    font-size: 2em;
+    text-align: center;
+  }
+
+  .secondary {
+    border: 2px solid $c-lightblue;
+    color: $c-lightblue;
+    background-color: transparent;
+    padding: 10px;
+    font-size: 1em;
+    margin: 10px auto 50px;
+  }
+}
+
+/* Makes footer stay at the bottom even when 
+   the content is not filling the screen */
+.challengesFooter {
+  margin-top: auto;
+}
