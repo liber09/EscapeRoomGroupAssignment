@@ -26,7 +26,12 @@
     </nav>
     <main class="challengesMain">
       <h2>Our challenges</h2>
-      <button class="button secondary">Filter challenges</button>
+      <button class="button secondary" id="filterButton" aria-controls="filterSection" aria-expanded="false">Filter challenges</button>
+      <!-- FILTER SECTION -->
+      <section class="filter" id="filterSection">
+        <h3>Filter challenges</h3>
+        <button class="filterCloseButton" aria-label="Close filter section">&times</button>
+      </section>
       <!-- CHALLENGE CARDS -->
       <section class="challenges">
         <ul class="challenge-list">

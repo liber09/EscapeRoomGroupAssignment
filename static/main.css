@@ -8,7 +8,7 @@ body {
 }
 @media (min-width: 1000px) {
   html,
-body {
+  body {
     font-size: 24px;
   }
 }
@@ -102,7 +102,7 @@ header h1 {
     width: 3em;
     height: 0.4em;
     border-radius: 0.2em;
-    background-color: white;
+    background-color: black;
     /* Reset button styling */
     margin: 0;
     padding: 0;
@@ -116,7 +116,7 @@ header h1 {
     width: 3em;
     height: 0.4em;
     border-radius: 0.2em;
-    background-color: white;
+    background-color: black;
     position: relative;
     top: 0.8em;
     transition: transform 0.5s;
@@ -127,7 +127,7 @@ header h1 {
     width: 3em;
     height: 0.4em;
     border-radius: 0.2em;
-    background-color: white;
+    background-color: black;
     position: relative;
     top: 1.2em;
   }
@@ -175,20 +175,8 @@ header h1 {
     right: 1em;
     bottom: 1em;
     z-index: 1000;
-    -webkit-animation: main-menu_reveal 0.3s 0.2s;
-            animation: main-menu_reveal 0.3s 0.2s;
-    -webkit-animation-fill-mode: backwards;
-            animation-fill-mode: backwards;
-  }
-  @-webkit-keyframes main-menu_reveal {
-    from {
-      opacity: 0;
-      transform: scale(0.8);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
+    animation: main-menu_reveal 0.3s 0.2s;
+    animation-fill-mode: backwards;
   }
   @keyframes main-menu_reveal {
     from {
@@ -241,8 +229,7 @@ header h1 {
 .hero img {
   width: 100%;
   min-height: 40vh;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 @media (min-width: 600px) {
   .hero img {
@@ -298,8 +285,7 @@ header h1 {
 .testimonial-item figure {
   display: grid;
   grid-template-columns: 74px auto;
-  -moz-column-gap: 1em;
-       column-gap: 1em;
+  column-gap: 1em;
 }
 .testimonial-item figure blockquote {
   margin: 0;
@@ -398,6 +384,29 @@ header h1 {
   }
 }
 
+.filter {
+  display: none;
+  position: relative;
+  border: solid 5px rgb(240, 240, 240);
+  width: 90%;
+  height: 500px;
+  margin: auto;
+}
+.filter h3 {
+  color: grey;
+  margin: 1rem;
+}
+.filter .filterCloseButton {
+  position: absolute;
+  font-size: 65px;
+  background-color: transparent;
+  border: none;
+  right: 15px;
+  margin: 0;
+  color: grey;
+  cursor: pointer;
+}
+
 .story {
   display: flex;
   flex-direction: column;
@@ -426,8 +435,7 @@ header h1 {
   margin: 0 0 2rem;
 }
 .usps .usp .usp-image {
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .usps .usp .usp-title,
 .usps .usp .usp-intro,
@@ -523,6 +531,7 @@ footer a:hover {
   padding: 10px;
   font-size: 1em;
   margin: 10px auto 50px;
+  cursor: pointer;
 }
 
 /* Makes footer stay at the bottom even when 
