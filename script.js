@@ -18,14 +18,16 @@ filterCloseButton.addEventListener("click", () => {
   filterButton.setAttribute("aria-expanded", false);
 });
 
-// Modal
-const openModal = document.querySelector("#modal-open");
+// -------------------- MODAL --------------------
+const openModal = document.querySelectorAll(".modal-open");
 const modal = document.querySelector(".modal");
 const closeModal = document.querySelector(".modal-close");
 
 // When user clicks on "book this room", open modal
-openModal.addEventListener("click", function () {
-  modal.style.display = "block";
+openModal.forEach(function (e) {
+  e.addEventListener("click", function () {
+    modal.style.display = "block";
+  });
 });
 // When user clicks on "X", close modal
 closeModal.addEventListener("click", function () {
@@ -38,3 +40,5 @@ window.onclick = function (event) {
     modal.style.display = "none";
   }
 };
+
+// -------------------- END OF MODAL JS --------------------
