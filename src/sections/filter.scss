@@ -1,0 +1,25 @@
+.filter{
+  display: none;
+  position: relative;
+  border: solid 5px rgb(240, 240, 240);
+  width: 90%;
+  height: 500px;
+  margin: auto;
+  
+  h3{
+    color: grey;
+    margin: 1rem;
+  }
+
+  .filterCloseButton{
+    position: absolute;
+    font-size: 65px;
+    background-color: transparent;
+    border: none;
+    right: 15px;
+    margin: 0;
+    color:grey;
+    cursor: pointer;
+  }
+
+}
