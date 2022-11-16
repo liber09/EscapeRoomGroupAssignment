@@ -32,7 +32,7 @@ closeModal.addEventListener("click", function () {
   modal.style.display = "none";
 });
 
-// If user clicks outside of modal pop-up, close it
+// If user clicks outside of modal-content, close it
 window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
