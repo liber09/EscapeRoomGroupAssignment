@@ -26,7 +26,14 @@
     </nav>
     <main class="challengesMain">
       <h2>Our challenges</h2>
-      <button class="button secondary" id="filterButton" aria-controls="filterSection" aria-expanded="false">Filter challenges</button>
+      <button
+        class="button secondary"
+        id="filterButton"
+        aria-controls="filterSection"
+        aria-expanded="false"
+      >
+        Filter challenges
+      </button>
       <!-- FILTER SECTION -->
       <section class="filter" id="filterSection">
         <div>
@@ -77,10 +84,37 @@
               Praeterea, ex culpa non invenies unum aut non accusatis unum. Et
               nihil inuitam. Nemo nocere tibi erit, et non inimicos, et
             </p>
-            <button class="button primary">Book this room</button>
+            <!-- Trigger/Open the modal -->
+            <button class="button primary modal-open">Book this room</button>
+          </li>
+          <li class="challenge-item">
+            <img class="challenge-image" alt="Hacker" src="static/hero.png" />
+            <h3 class="challenge-title">Title of room (on-site)</h3>
+            <ul
+              role="meter"
+              class="rating"
+              aria-label="rating"
+              arial-valuemin="0"
+              aria-valuemax="5"
+              aria-valuenow="4"
+              aria-valuetext="4 out of 5"
+            >
+              <li class="rating-star active"></li>
+              <li class="rating-star active"></li>
+              <li class="rating-star active"></li>
+              <li class="rating-star active"></li>
+              <li class="rating-star"></li>
+            </ul>
+            <small class="challenge-meta">2-6 participants</small>
+            <p class="challenge-description">
+              Praeterea, ex culpa non invenies unum aut non accusatis unum. Et
+              nihil inuitam. Nemo nocere tibi erit, et non inimicos, et
+            </p>
+            <!-- Trigger/Open the modal -->
+            <button class="button primary modal-open">Book this room</button>
           </li>
         </ul>
-      </section>
+      
     </main>
     <footer class="challengesFooter">
       <div class="footer-summary">
