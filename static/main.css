@@ -571,12 +571,11 @@ footer a:hover {
   margin-top: auto;
 }
 
-#modal-open {
+.modal-open {
   cursor: pointer;
 }
 
-.modal {
-  display: none;
+.backdrop {
   position: fixed;
   background-color: white;
   width: 100%;
@@ -585,7 +584,7 @@ footer a:hover {
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
 }
-.modal .modal-content {
+.backdrop .modal-content {
   text-align: center;
   position: relative;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
@@ -594,29 +593,29 @@ footer a:hover {
   width: 90%;
   max-width: 700px;
   height: 50%;
-  margin: 50% auto; /* Pop-up 50% from top and centered on screen */
+  margin: 50% auto;
   -webkit-animation: fadeInModal 0.6s;
           animation: fadeInModal 0.6s;
 }
-.modal .modal-content h3 {
+.backdrop .modal-content .modal-heading {
   margin: 1em;
 }
-.modal .modal-content p {
+.backdrop .modal-content .p-question {
   margin: 40px;
 }
-.modal .modal-content label {
+.backdrop .modal-content label {
   font-weight: bold;
   margin-right: 10px;
 }
-.modal .modal-content input {
+.backdrop .modal-content input {
   font-size: 20px;
 }
-.modal .modal-content button {
+.backdrop .modal-content button {
   cursor: pointer;
   margin: 40px auto;
   font-size: 0.7em;
 }
-.modal .modal-content .modal-close {
+.backdrop .modal-content .modal-close {
   margin-top: 0px;
   margin-left: 85%;
   text-align: right;

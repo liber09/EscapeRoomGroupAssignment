@@ -1,9 +1,8 @@
-#modal-open {
+.modal-open {
   cursor: pointer;
 }
 
-.modal {
-  display: none;
+.backdrop {
   position: fixed;
   background-color: white;
   width: 100%;
@@ -25,11 +24,11 @@
     margin: 50% auto;
     animation: fadeInModal 0.6s;
 
-    h3 {
+    .modal-heading {
       margin: 1em;
     }
 
-    p {
+    .p-question {
       margin: 40px;
     }
 
