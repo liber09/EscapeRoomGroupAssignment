@@ -6,7 +6,8 @@ document.querySelector(".main-nav-toggle").addEventListener("click", () => {
 // -------------------- FILTER SECTION  --------------------
 // Only runs filter code if it is on the right html file
 const host = "http://127.0.0.1:5500/";
-if (window.location.href == host + "challenges.html") {
+const hostOnline = "https://liber09.github.io/EscapeRoomGroupAssignment/";
+if (window.location.href == host || hostOnline + "challenges.html") {
   const filterSection = document.querySelector(".filter");
   const filterButton = document.querySelector("#filterButton");
   const filterCloseButton = document.querySelector(".filterCloseButton");
