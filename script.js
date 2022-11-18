@@ -125,8 +125,11 @@ openModal.forEach(function (e) {
 
 //---------------------- CREATING MODAL2 ----------------------
 
-// --------------- Waiting for button to apply modalPopUp2 & 3------------
-// --------------------------- needs to apply remove the first modal------------------
+//search avalible times button creats new modal
+button.addEventListener("click", function () {
+  backDrop.remove();
+  modalPopUp2();
+});
 
 function modalPopUp2() {
   //variables
