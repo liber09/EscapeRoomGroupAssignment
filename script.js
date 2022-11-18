@@ -4,7 +4,7 @@ document.querySelector(".main-nav-toggle").addEventListener("click", () => {
 });
 
 // -------------------- FILTER SECTION  --------------------
-// Only runs filter code if it is on the right html file
+// Only runs filter code on the right html file
 const host = "http://127.0.0.1:5500/";
 const hostOnline = "https://liber09.github.io/EscapeRoomGroupAssignment/";
 if (
@@ -50,6 +50,10 @@ const closeBtn = document.createElement("small");
 closeBtn.classList.add("modal-close");
 closeBtn.innerHTML = "&times;";
 
+// Button
+const button = document.createElement("button");
+button.classList.add("button", "primary", "modal-button");
+
 // Function to close modal if click outside of modalbox
 function closeModal() {
   window.onclick = function (event) {
@@ -76,7 +80,7 @@ openModal.forEach(function (e) {
     // Set heading inside modal
 
     modalHeading.innerHTML =
-      'Book room <span class="room-title">"Title of room"</span> (step 1)';
+      'Book room <span class="room-title">"Title of room"</span> <br>(step 1)';
     modal.appendChild(modalHeading);
 
     backDrop.appendChild(modal);
@@ -97,6 +101,10 @@ openModal.forEach(function (e) {
     inputDate.id = "date";
     inputDate.type = "date";
     modal.appendChild(inputDate);
+
+    // Button "search available times"
+    button.innerHTML = "Search available times";
+    modal.appendChild(button);
   });
 });
 

@@ -611,7 +611,7 @@ footer a:hover {
 .backdrop .modal-content input {
   font-size: 20px;
 }
-.backdrop .modal-content button {
+.backdrop .modal-content .modal-button {
   cursor: pointer;
   margin: 40px auto;
   font-size: 0.7em;
