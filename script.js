@@ -4,10 +4,13 @@ document.querySelector(".main-nav-toggle").addEventListener("click", () => {
 });
 
 // -------------------- FILTER SECTION  --------------------
-// Only runs filter code if it is on the right html file
+// Only runs filter code on the right html file
 const host = "http://127.0.0.1:5500/";
 const hostOnline = "https://liber09.github.io/EscapeRoomGroupAssignment/";
-if (window.location.href == host || hostOnline + "challenges.html") {
+if (
+  window.location.href == host + "challenges.html" ||
+  window.location.href == hostOnline + "challenges.html"
+) {
   const filterSection = document.querySelector(".filter");
   const filterButton = document.querySelector("#filterButton");
   const filterCloseButton = document.querySelector(".filterCloseButton");
@@ -47,6 +50,10 @@ const closeBtn = document.createElement("small");
 closeBtn.classList.add("modal-close");
 closeBtn.innerHTML = "&times;";
 
+// Button
+const button = document.createElement("button");
+button.classList.add("button", "primary", "modal-button");
+
 // Function to close modal if click outside of modalbox
 function closeModal() {
   window.onclick = function (event) {
@@ -73,7 +80,7 @@ openModal.forEach(function (e) {
     // Set heading inside modal
 
     modalHeading.innerHTML =
-      'Book room <span class="room-title">"Title of room"</span> (step 1)';
+      'Book room <span class="room-title">"Title of room"</span> <br>(step 1)';
     modal.appendChild(modalHeading);
 
     backDrop.appendChild(modal);
@@ -93,7 +100,24 @@ openModal.forEach(function (e) {
 
     inputDate.id = "date";
     inputDate.type = "date";
+    inputDate.valueAsNumber =
+      Date.now() - new Date().getTimezoneOffset() * 60000;
     modal.appendChild(inputDate);
+
+    // Button "search available times"
+    button.innerHTML = "Search available times";
+    button.type = "submit";
+    modal.appendChild(button);
+    button.addEventListener("click", async function () {
+      const res = await fetch(
+        `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${inputDate.value}&challenge=3"`
+      );
+      const data = await res.json();
+      console.log(inputDate.value);
+      data.slots.forEach((slot) => {
+        console.log(slot);
+      });
+    });
   });
 });
 
