@@ -98,3 +98,5 @@ openModal.forEach(function (e) {
 });
 
 // -------------------- END OF MODAL JS --------------------
+
+//---------------------- CREATING MODAL2 ----------------------
