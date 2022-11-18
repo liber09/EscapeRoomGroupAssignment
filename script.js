@@ -229,10 +229,10 @@ function modalPopUp2() {
     //displaying info about the booking
     bookingDoneText1.innerText = "Your team name is: " + bookingInfo.nameInfo;
     bookingDoneText2.innerText =
-      "We have sent a confirmitation mail to: " + bookingInfo.emailInfo;
+      "We have sent a confirmation mail to: " + bookingInfo.emailInfo;
     bookingDoneText3.innerText = "Your time is: " + bookingInfo.timeInfo;
     bookingDoneText4.innerText =
-      "This is room is booked for " + bookingInfo.participantInfo;
+      "This room is booked for " + bookingInfo.participantInfo;
 
     //return to homepage tag
     const homePageBtn = document.createElement("a");
