@@ -100,11 +100,24 @@ openModal.forEach(function (e) {
 
     inputDate.id = "date";
     inputDate.type = "date";
+    inputDate.valueAsNumber =
+      Date.now() - new Date().getTimezoneOffset() * 60000;
     modal.appendChild(inputDate);
 
     // Button "search available times"
     button.innerHTML = "Search available times";
+    button.type = "submit";
     modal.appendChild(button);
+    button.addEventListener("click", async function () {
+      const res = await fetch(
+        `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${inputDate.value}&challenge=3"`
+      );
+      const data = await res.json();
+      console.log(inputDate.value);
+      data.slots.forEach((slot) => {
+        console.log(slot);
+      });
+    });
   });
 });
 
