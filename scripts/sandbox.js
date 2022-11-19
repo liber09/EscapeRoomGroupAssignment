@@ -47,9 +47,7 @@
           <button class="button primary modal-open">Book this room</button>
         </li>
         
-        `
-    
-      
+        `    
 
     }
 
@@ -65,10 +63,19 @@ async function getChallenges(){
         if(res.ok){
             let data = await res.json()
             //challenges = data
-            data.challenges.slice(0, 10).map(challenge => {
+            data.challenges.map(challenge => {
+                if(window.location.href === 'http://127.0.0.1:5501/index.html'){
+                    if(challenge.rating >= 4 && challenge.maxParticipants>=7){
+                        addChallengesToDom(challenge)
+                       
+                    }
 
-                addChallengesToDom(challenge)
-                console.log('challenge',challenge)
+                }else if(window.location.href === 'http://127.0.0.1:5501/challenges.html'){
+                    addChallengesToDom(challenge)
+                }
+
+                console.log('challenge',challenge.rating)
+                 
             })
         }
       
