@@ -2,23 +2,6 @@
   let  list = document.querySelector('.challenge-list')
 
 
-// create a class as a blueprint
- class Challenges {
-    constructor(title,description,type,minParticipants,maxParticipants,rating,imageUrl,tags){
-        this.title = title;
-        this.description = description;
-        this.typ = type;
-        this.minParticipants = minParticipants;
-        this.maxParticipants = maxParticipants;
-        this.rating = rating;
-        this.imageUrl = imageUrl;
-        this.tags = tags;
-
-    }
- }
-
- // class for the ui
-
     function addChallengesToDom(challenge){
       
        list.innerHTML+= `
@@ -32,9 +15,9 @@
             arial-valuemin="0"
             aria-valuemax="5"
             aria-valuenow="4"
-            aria-valuetext=${challenge.rating}
+            aria-valuetext= ${getRatings(challenge.rating)}
           >
-            <li class="rating-star active"></li>
+          <li class="rating-star active"></li>
             <li class="rating-star active"></li>
             <li class="rating-star active"></li>
             <li class="rating-star active"></li>
@@ -48,6 +31,7 @@
         </li>
         
         `    
+    
 
     }
 
@@ -62,20 +46,27 @@ async function getChallenges(){
         let res = await fetch('https://lernia-sjj-assignments.vercel.app/api/challenges')
         if(res.ok){
             let data = await res.json()
-            //challenges = data
+            let ratingsArray =[]
+          
+            for(let ratingEl of data.challenges){
+                ratingsArray.push(ratingEl.rating)
+              
+            }
+
+            let maxRating = Math.max(...ratingsArray)
+          
             data.challenges.map(challenge => {
+
                 if(window.location.href === 'http://127.0.0.1:5501/index.html'){
-                    if(challenge.rating >= 4 && challenge.maxParticipants>=7){
+                    if(challenge.rating === maxRating && challenge.maxParticipants>=7){
                         addChallengesToDom(challenge)
-                       
+                          
                     }
 
                 }else if(window.location.href === 'http://127.0.0.1:5501/challenges.html'){
                     addChallengesToDom(challenge)
                 }
-
-                console.log('challenge',challenge.rating)
-                 
+   
             })
         }
       
@@ -88,4 +79,38 @@ async function getChallenges(){
 getChallenges()
 
 
-// event listeners
+// get ratings
+
+function getRatings (challenge){
+    console.log('challenge', challenge)
+    let ratingList = document.querySelectorAll('li.rating-star')
+   
+   console.log('ratinglist',ratingList)
+    
+    for(let i = 0; i<ratingList.length; i++){
+       if(challenge === 0){
+        ratingList[i].classList.remove('active')
+       }else if(challenge === 1){
+        ratingList[1][2][3][4].classList.remove('active')
+
+       }else if(challenge=== 2){
+        
+        ratingList[2][3][4].classList.remove('active')
+
+       }else if(challenge=== 3){
+        ratingList[3][4].classList.remove('active')
+
+       }else if(challenge === 4){
+        ratingList[4].classList.remove('active')
+    }else{
+        ratingList[i]
+    }
+        
+}
+   
+   
+}
+
+
+
+
