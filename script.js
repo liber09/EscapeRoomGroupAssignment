@@ -147,13 +147,18 @@ function modalPopUp2() {
 
   //object and array for storing input value
   const bookingInfo = {};
-  let completedBooking = []; //maybe use later
+  let completedBooking = [];
 
   //errormessages if input is empty !!!!!! not able yet
   const errorMessages = {
-    nameError: "You must enter your name!",
-    emailError: "You must enter an email!",
+    nameError: "You must enter your team name!",
+    emailError: "You must enter an valid email!",
     timeError: "You must enter a time you want to visit!",
+  };
+  const completedMessages = {
+    nameCompleted: "Your team name is valid",
+    emailCompleted: "This email is valid",
+    timeCompleted: "This time exist",
   };
 
   //creating modal
@@ -174,7 +179,6 @@ function modalPopUp2() {
   const emailLabel = document.createElement("p");
   emailLabel.classList.add("label");
   emailLabel.innerText = "Email?";
-
   const input2 = document.createElement("input");
   input2.classList.add("input");
   input2.type = "email";
@@ -229,15 +233,52 @@ function modalPopUp2() {
 
   // storing user input in object an array when submit button is pressed.
   confirmBtn.addEventListener("click", function () {
-    bookingInfo.nameInfo = input1.value;
-    bookingInfo.emailInfo = input2.value;
-    bookingInfo.timeInfo = input3.value;
-    bookingInfo.participantInfo = input4.value;
+    event.preventDefault();
+    if (input1.value === "") {
+      nameLabel.innerText = errorMessages.nameError;
+      nameLabel.style.color = "red";
+    } else if (input1.value.length < 3) {
+      nameLabel.innerText = "Your team name must be at least 3 letters long";
+      nameLabel.style.color = "red";
+    } else {
+      nameLabel.innerText = completedMessages.nameCompleted;
+      nameLabel.style.color = "black";
+    }
 
-    completedBooking.push(bookingInfo);
+    if (input2.value === "") {
+      emailLabel.innerText = "You haven't enter anything";
+      emailLabel.style.color = "red";
+    } else if (input2.value.length < 10) {
+      emailLabel.innerText = "This is not a valid email adress";
+      emailLabel.style.color = "red";
+    } else if (input2.value) {
+      emailLabel.innerText = completedMessages.emailCompleted;
+      emailLabel.style.color = "black";
+    }
 
-    form.remove(); //removing the "form" element from modal 2
-    modalPopUp3(); // replacing vid modal 3
+    if (input3.value.length < 2 || input3.value != isNaN) {
+      timeLabel.innerText = "You haven't enter a time";
+      timeLabel.style.color = "red";
+    } else {
+      timeLabel.innerText = completedMessages.timeCompleted;
+      timeLabel.style.color = "black";
+    }
+
+    //moving forward if inputfields are correct
+    if (
+      nameLabel.innerText == completedMessages.nameCompleted &&
+      emailLabel.innerText == completedMessages.emailCompleted &&
+      timeLabel.innerHTML == completedMessages.timeCompleted
+    ) {
+      form.remove(); //removing the "form" element from modal 2
+      modalPopUp3(); // replacing vid modal 3
+      bookingInfo.nameInfo = input1.value;
+      bookingInfo.emailInfo = input2.value;
+      bookingInfo.timeInfo = input3.value;
+      bookingInfo.participantInfo = input4.value;
+      completedBooking.push(bookingInfo);
+      console.log(completedBooking);
+    }
   });
 
   //------------------------- Modal 3 ------------------------------
