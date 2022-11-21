@@ -149,6 +149,8 @@ function modalPopUp2() {
   const errorMessages = {
     nameError: "You must enter your team name!",
     emailError: "You must enter an valid email!",
+    emptyError: "You haven't enter anything",
+    shortError: "Your team name must be at least 3 letters long",
   };
   const completedMessages = {
     nameCompleted: "Your team name is valid",
@@ -233,7 +235,7 @@ function modalPopUp2() {
       nameLabel.innerText = errorMessages.nameError;
       nameLabel.style.color = "red";
     } else if (input1.value.length < 3) {
-      nameLabel.innerText = "Your team name must be at least 3 letters long";
+      nameLabel.innerText = errorMessages.shortError;
       nameLabel.style.color = "red";
     } else {
       nameLabel.innerText = completedMessages.nameCompleted;
@@ -241,10 +243,10 @@ function modalPopUp2() {
     }
 
     if (input2.value === "") {
-      emailLabel.innerText = "You haven't enter anything";
+      emailLabel.innerText = errorMessages.emptyError;
       emailLabel.style.color = "red";
     } else if (input2.value.length < 10) {
-      emailLabel.innerText = "This is not a valid email adress";
+      emailLabel.innerText = errorMessages.emailError;
       emailLabel.style.color = "red";
     } else if (input2.value.includes("@")) {
       emailLabel.innerText = completedMessages.emailCompleted;
@@ -271,10 +273,10 @@ function modalPopUp2() {
     confirmationHeading.classList.add("heading-modal");
     confirmationHeading.innerText = "Your booking has been confirmed";
 
-    const bookingDoneText1 = document.createElement("h2");
-    const bookingDoneText2 = document.createElement("h2");
-    const bookingDoneText3 = document.createElement("h2");
-    const bookingDoneText4 = document.createElement("h2");
+    const bookingDoneText1 = document.createElement("p");
+    const bookingDoneText2 = document.createElement("p");
+    const bookingDoneText3 = document.createElement("p");
+    const bookingDoneText4 = document.createElement("p");
 
     //object and array for storing input value
     const bookingInfo = {};
