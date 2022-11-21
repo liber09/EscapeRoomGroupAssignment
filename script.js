@@ -145,20 +145,14 @@ function modalPopUp2() {
   confirmBtn.innerText = "Submit booking";
   confirmBtn.classList.add("submit-booking");
 
-  //object and array for storing input value
-  const bookingInfo = {};
-  let completedBooking = [];
-
   //errormessages if input is empty !!!!!! not able yet
   const errorMessages = {
     nameError: "You must enter your team name!",
     emailError: "You must enter an valid email!",
-    timeError: "You must enter a time you want to visit!",
   };
   const completedMessages = {
     nameCompleted: "Your team name is valid",
     emailCompleted: "This email is valid",
-    timeCompleted: "This time exist",
   };
 
   //creating modal
@@ -188,6 +182,7 @@ function modalPopUp2() {
   timeLabel.innerText = "What time would you like to come?";
   const input3 = document.createElement("input");
   input3.classList.add("input");
+  input3.type = "time";
 
   const participantsLabel = document.createElement("p");
   participantsLabel.classList.add("label");
@@ -251,33 +246,20 @@ function modalPopUp2() {
     } else if (input2.value.length < 10) {
       emailLabel.innerText = "This is not a valid email adress";
       emailLabel.style.color = "red";
-    } else if (input2.value) {
+    } else if (input2.value.includes("@")) {
       emailLabel.innerText = completedMessages.emailCompleted;
       emailLabel.style.color = "black";
     }
 
-    if (input3.value.length < 2 || input3.value != isNaN) {
-      timeLabel.innerText = "You haven't enter a time";
-      timeLabel.style.color = "red";
-    } else {
-      timeLabel.innerText = completedMessages.timeCompleted;
-      timeLabel.style.color = "black";
-    }
+    //!!!!!!!!!! mayber needs to att condition to input 3
 
-    //moving forward if inputfields are correct
     if (
       nameLabel.innerText == completedMessages.nameCompleted &&
-      emailLabel.innerText == completedMessages.emailCompleted &&
-      timeLabel.innerHTML == completedMessages.timeCompleted
+      emailLabel.innerText == completedMessages.emailCompleted
     ) {
+      //moving forward if inputfields are correct
       form.remove(); //removing the "form" element from modal 2
       modalPopUp3(); // replacing vid modal 3
-      bookingInfo.nameInfo = input1.value;
-      bookingInfo.emailInfo = input2.value;
-      bookingInfo.timeInfo = input3.value;
-      bookingInfo.participantInfo = input4.value;
-      completedBooking.push(bookingInfo);
-      console.log(completedBooking);
     }
   });
 
@@ -294,6 +276,15 @@ function modalPopUp2() {
     const bookingDoneText3 = document.createElement("h2");
     const bookingDoneText4 = document.createElement("h2");
 
+    //object and array for storing input value
+    const bookingInfo = {};
+    const completedBooking = [];
+
+    bookingInfo.nameInfo = input1.value;
+    bookingInfo.emailInfo = input2.value;
+    bookingInfo.timeInfo = input3.value;
+    bookingInfo.participantInfo = input4.value;
+
     //displaying info about the booking
     bookingDoneText1.innerText = "Your team name is: " + bookingInfo.nameInfo;
     bookingDoneText2.innerText =
@@ -307,6 +298,9 @@ function modalPopUp2() {
     homePageBtn.setAttribute("href", "challenges.html");
     homePageBtn.classList.add("submit-booking");
     homePageBtn.innerText = "Return to homepage";
+
+    //adding the bookked object to array
+    completedBooking.push(bookingInfo);
 
     //appending all element to modal 3
     modal.append(
