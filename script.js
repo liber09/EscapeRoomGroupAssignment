@@ -5,7 +5,7 @@ document.querySelector(".main-nav-toggle").addEventListener("click", () => {
 
 // -------------------- FILTER SECTION  --------------------
 // Only runs filter code on the right html file
-const host = "http://127.0.0.1:5500/";
+const host = "http://127.0.0.1:5501/";
 const hostOnline = "https://liber09.github.io/EscapeRoomGroupAssignment/";
 if (
   window.location.href == host + "challenges.html" ||
@@ -26,6 +26,36 @@ if (
     filterButton.style.display = "block";
     filterButton.setAttribute("aria-expanded", false);
   });
+
+  const starsFrom = document.querySelectorAll(".star_from");
+  const starsTo = document.querySelectorAll(".star_to")
+  starsFrom.forEach( (starFrom, i) =>{
+    starFrom.onclick = function () {
+      let current_star_level_from = i+1;
+
+      starsFrom.forEach((starFrom,j) => {
+        if( current_star_level_from >= j+1){
+          starFrom.innerHTML = "&#9733";
+        }else{
+          starFrom.innerHTML = "&#9734";
+        }
+      })
+    }
+  })
+
+  starsTo.forEach( (starTo, i) =>{
+    starTo.onclick = function () {
+      let current_star_level_to = i+1;
+
+      starsTo.forEach((starTo,j) => {
+        if( current_star_level_to >= j+1){
+          starTo.innerHTML = "&#9733";
+        }else{
+          starTo.innerHTML = "&#9734";
+        }
+      })
+    }
+  })
 }
 
 // -------------------- MODAL --------------------

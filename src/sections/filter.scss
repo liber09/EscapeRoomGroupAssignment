@@ -1,14 +1,21 @@
+@import "../variables.scss";
+
 .filter{
   display: none;
   position: relative;
-  border: solid 5px rgb(240, 240, 240);
+  border: solid 6px rgba(240, 240, 240, 0.9);
   width: 90%;
   height: 500px;
   margin: auto;
+  display: flex;
+  place-items: center;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 0 1em rgba(black, 0.4);
   
   h3{
     color: grey;
-    margin: 1rem;
+    margin: 0 1rem;
   }
 
   .filterCloseButton{
@@ -17,6 +24,7 @@
     background-color: transparent;
     border: none;
     right: 15px;
+    top: 10px;
     margin: 0;
     color:grey;
     cursor: pointer;
@@ -40,4 +48,40 @@
       }
     }
   }
+  
+  .filterByRating{
+    h4{
+      margin: 1rem;
+    }
+  }
+  .rating {
+      position: relative;
+      width: 520px; 
+      height: 25px;
+      background: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: .1em;
+      padding: 5px;
+      border-radius: 20px;
+      box-shadow: 0 0 2px #b3acac;
+      user-select: none;
+      margin: 1rem;
+  }
+  
+  .star_from, .star_to {
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #dabd18b2;
+    transition: filter linear .3s;
+    background-color: transparent;
+    border: none;
+  }
+  
+  .star_from:hover, .star_to:hover {
+    filter: drop-shadow(3px 3px 4px gold);
+  }
 }
+
+
