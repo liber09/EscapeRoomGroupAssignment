@@ -145,15 +145,14 @@ function modalPopUp2() {
   confirmBtn.innerText = "Submit booking";
   confirmBtn.classList.add("submit-booking");
 
-  //object and array for storing input value
-  const bookingInfo = {};
-  let completedBooking = []; //maybe use later
-
   //errormessages if input is empty !!!!!! not able yet
   const errorMessages = {
-    nameError: "You must enter your name!",
-    emailError: "You must enter an email!",
-    timeError: "You must enter a time you want to visit!",
+    nameError: "You must enter your team name!",
+    emailError: "You must enter an valid email!",
+  };
+  const completedMessages = {
+    nameCompleted: "Your team name is valid",
+    emailCompleted: "This email is valid",
   };
 
   //creating modal
@@ -174,7 +173,6 @@ function modalPopUp2() {
   const emailLabel = document.createElement("p");
   emailLabel.classList.add("label");
   emailLabel.innerText = "Email?";
-
   const input2 = document.createElement("input");
   input2.classList.add("input");
   input2.type = "email";
@@ -184,6 +182,7 @@ function modalPopUp2() {
   timeLabel.innerText = "What time would you like to come?";
   const input3 = document.createElement("input");
   input3.classList.add("input");
+  input3.type = "time";
 
   const participantsLabel = document.createElement("p");
   participantsLabel.classList.add("label");
@@ -229,15 +228,39 @@ function modalPopUp2() {
 
   // storing user input in object an array when submit button is pressed.
   confirmBtn.addEventListener("click", function () {
-    bookingInfo.nameInfo = input1.value;
-    bookingInfo.emailInfo = input2.value;
-    bookingInfo.timeInfo = input3.value;
-    bookingInfo.participantInfo = input4.value;
+    event.preventDefault();
+    if (input1.value === "") {
+      nameLabel.innerText = errorMessages.nameError;
+      nameLabel.style.color = "red";
+    } else if (input1.value.length < 3) {
+      nameLabel.innerText = "Your team name must be at least 3 letters long";
+      nameLabel.style.color = "red";
+    } else {
+      nameLabel.innerText = completedMessages.nameCompleted;
+      nameLabel.style.color = "black";
+    }
 
-    completedBooking.push(bookingInfo);
+    if (input2.value === "") {
+      emailLabel.innerText = "You haven't enter anything";
+      emailLabel.style.color = "red";
+    } else if (input2.value.length < 10) {
+      emailLabel.innerText = "This is not a valid email adress";
+      emailLabel.style.color = "red";
+    } else if (input2.value.includes("@")) {
+      emailLabel.innerText = completedMessages.emailCompleted;
+      emailLabel.style.color = "black";
+    }
 
-    form.remove(); //removing the "form" element from modal 2
-    modalPopUp3(); // replacing vid modal 3
+    //!!!!!!!!!! mayber needs to att condition to input 3
+
+    if (
+      nameLabel.innerText == completedMessages.nameCompleted &&
+      emailLabel.innerText == completedMessages.emailCompleted
+    ) {
+      //moving forward if inputfields are correct
+      form.remove(); //removing the "form" element from modal 2
+      modalPopUp3(); // replacing vid modal 3
+    }
   });
 
   //------------------------- Modal 3 ------------------------------
@@ -253,6 +276,15 @@ function modalPopUp2() {
     const bookingDoneText3 = document.createElement("h2");
     const bookingDoneText4 = document.createElement("h2");
 
+    //object and array for storing input value
+    const bookingInfo = {};
+    const completedBooking = [];
+
+    bookingInfo.nameInfo = input1.value;
+    bookingInfo.emailInfo = input2.value;
+    bookingInfo.timeInfo = input3.value;
+    bookingInfo.participantInfo = input4.value;
+
     //displaying info about the booking
     bookingDoneText1.innerText = "Your team name is: " + bookingInfo.nameInfo;
     bookingDoneText2.innerText =
@@ -266,6 +298,9 @@ function modalPopUp2() {
     homePageBtn.setAttribute("href", "challenges.html");
     homePageBtn.classList.add("submit-booking");
     homePageBtn.innerText = "Return to homepage";
+
+    //adding the bookked object to array
+    completedBooking.push(bookingInfo);
 
     //appending all element to modal 3
     modal.append(
