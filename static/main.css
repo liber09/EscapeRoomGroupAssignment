@@ -175,20 +175,8 @@ header h1 {
     right: 1em;
     bottom: 1em;
     z-index: 1000;
-    -webkit-animation: main-menu_reveal 0.3s 0.2s;
-            animation: main-menu_reveal 0.3s 0.2s;
-    -webkit-animation-fill-mode: backwards;
-            animation-fill-mode: backwards;
-  }
-  @-webkit-keyframes main-menu_reveal {
-    from {
-      opacity: 0;
-      transform: scale(0.8);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
+    animation: main-menu_reveal 0.3s 0.2s;
+    animation-fill-mode: backwards;
   }
   @keyframes main-menu_reveal {
     from {
@@ -241,8 +229,7 @@ header h1 {
 .hero img {
   width: 100%;
   min-height: 40vh;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 @media (min-width: 600px) {
   .hero img {
@@ -298,8 +285,7 @@ header h1 {
 .testimonial-item figure {
   display: grid;
   grid-template-columns: 74px auto;
-  -moz-column-gap: 1em;
-       column-gap: 1em;
+  column-gap: 1em;
 }
 .testimonial-item figure blockquote {
   margin: 0;
@@ -401,14 +387,19 @@ header h1 {
 .filter {
   display: none;
   position: relative;
-  border: solid 5px rgb(240, 240, 240);
+  border: solid 6px rgba(240, 240, 240, 0.9);
   width: 90%;
   height: 500px;
   margin: auto;
+  display: flex;
+  place-items: center;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0.4);
 }
 .filter h3 {
   color: grey;
-  margin: 1rem;
+  margin: 0 1rem;
 }
 .filter .filterCloseButton {
   position: absolute;
@@ -416,6 +407,7 @@ header h1 {
   background-color: transparent;
   border: none;
   right: 15px;
+  top: 10px;
   margin: 0;
   color: grey;
   cursor: pointer;
@@ -435,6 +427,35 @@ header h1 {
 }
 .filter .filterByType .filterChallengeTypes label {
   margin: 1rem;
+}
+.filter .filterByRating h4 {
+  margin: 1rem;
+}
+.filter .rating {
+  position: relative;
+  width: 520px;
+  height: 25px;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.1em;
+  padding: 5px;
+  border-radius: 20px;
+  box-shadow: 0 0 2px #b3acac;
+  user-select: none;
+  margin: 1rem;
+}
+.filter .star_from, .filter .star_to {
+  font-size: 1.5em;
+  cursor: pointer;
+  color: rgba(218, 189, 24, 0.6980392157);
+  transition: filter linear 0.3s;
+  background-color: transparent;
+  border: none;
+}
+.filter .star_from:hover, .filter .star_to:hover {
+  filter: drop-shadow(3px 3px 4px gold);
 }
 
 .story {
@@ -465,8 +486,7 @@ header h1 {
   margin: 0 0 2rem;
 }
 .usps .usp .usp-image {
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .usps .usp .usp-title,
 .usps .usp .usp-intro,
@@ -595,8 +615,7 @@ footer a:hover {
   max-width: 700px;
   height: 50%;
   margin: 20vh auto;
-  -webkit-animation: fadeInModal 0.6s;
-          animation: fadeInModal 0.6s;
+  animation: fadeInModal 0.6s;
 }
 .backdrop .modal-content .modal-heading {
   margin: 1em;
@@ -622,15 +641,6 @@ footer a:hover {
   text-align: right;
   font-size: 70px;
   cursor: pointer;
-}
-
-@-webkit-keyframes fadeInModal {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
 }
 
 @keyframes fadeInModal {

@@ -5,8 +5,17 @@ document.querySelector(".main-nav-toggle").addEventListener("click", () => {
 
 // -------------------- FILTER SECTION  --------------------
 // Only runs filter code on the right html file
-const host = "http://127.0.0.1:5501/";
+
+
+const host = "http://127.0.0.1:5500/";
 const hostOnline = "https://liber09.github.io/EscapeRoomGroupAssignment/";
+
+//Moved variables to global scope
+let current_star_level_from = 0;
+let current_star_level_to = 0;
+//-------------------------------
+
+const starsFrom = document.querySelectorAll(".star_from");
 if (
   window.location.href == host + "challenges.html" ||
   window.location.href == hostOnline + "challenges.html"
@@ -14,6 +23,8 @@ if (
   const filterSection = document.querySelector(".filter");
   const filterButton = document.querySelector("#filterButton");
   const filterCloseButton = document.querySelector(".filterCloseButton");
+ ;
+  
 
   filterButton.addEventListener("click", () => {
     filterSection.style.display = "flex";
@@ -27,25 +38,27 @@ if (
     filterButton.setAttribute("aria-expanded", false);
   });
 
-  const starsFrom = document.querySelectorAll(".star_from");
+  
   const starsTo = document.querySelectorAll(".star_to")
   starsFrom.forEach( (starFrom, i) =>{
     starFrom.onclick = function () {
-      let current_star_level_from = i+1;
+      current_star_level_from = i+1;
 
-      starsFrom.forEach((starFrom,j) => {
+       
+        starsFrom.forEach((starFrom,j) => {
         if( current_star_level_from >= j+1){
           starFrom.innerHTML = "&#9733";
         }else{
           starFrom.innerHTML = "&#9734";
         }
       })
+      
     }
   })
 
   starsTo.forEach( (starTo, i) =>{
     starTo.onclick = function () {
-      let current_star_level_to = i+1;
+      current_star_level_to = i+1;
 
       starsTo.forEach((starTo,j) => {
         if( current_star_level_to >= j+1){
@@ -54,9 +67,12 @@ if (
           starTo.innerHTML = "&#9734";
         }
       })
+    
     }
   })
 }
+
+
 
 // -------------------- MODAL --------------------
 
@@ -343,3 +359,119 @@ function modalPopUp2() {
     );
   }
 }
+
+// -------- FILTER BY RATING FUNCTION -------
+//Create A List
+class ChallengeList {
+  async render() {
+      const api = new APIAdapter();
+      const challenges = await api.loadChallenges();
+
+      const ctr = document.createElement("div");
+
+      
+      this.filter = new RatingFilter(this);
+      const filterInterface = this.filter.render();
+      ctr.append(filterInterface);
+
+      this.ul = document.createElement("ul");
+      ctr.append(this.ul);
+      
+      this.challenges = challenges;
+      this.update();
+      
+      return ctr;
+  }
+  //Update function
+  update() {
+    this.ul.innerHTML = "";
+    for (let i = 0; i < this.challenges.length; i++) {
+      if (this.filter.challengeDoesMatch(this.challenges[i])) {
+        const li = this.challenges[i].render();
+        this.ul.append(li);
+      }
+    }
+  }
+}
+//API IMPORT
+class APIAdapter {
+  async loadChallenges() {
+      const res = await fetch ("https://lernia-sjj-assignments.vercel.app/api/challenges");
+      const data = await res.json();
+      const challenges = [];
+
+      for (let i = 0; i < data.challenges.length; i++) {
+          challenges[i] = new Challenge(data.challenges[i]);
+      }
+
+      return challenges;
+  }
+}
+
+class Challenge {
+  constructor(data) {
+      this.data = data;
+  }
+  render () {
+      const container = document.createElement("li");
+
+      const title = document.createElement("span");
+      title.innerText = this.data.title;
+      container.append(title);
+
+      const rating = document.createElement("span");
+      rating.innerText = this.data.rating;
+      container.append(rating)
+
+      return container;
+  }  
+}
+
+//Collection for all filters
+class FilterCollection {
+  challengeDoesMatch(challenge) {
+
+  }
+}
+
+//Filter for rating
+class RatingFilter {
+  constructor(list) {
+      this.minRating = 0;
+      this.maxRating = 5;
+      this.list = list;
+  }
+
+  challengeDoesMatch(challenge) {
+      if (challenge.data.rating >= this.minRating && challenge.data.rating <= this.maxRating) {
+          return true;
+      }
+      else {
+          return false;
+      }
+  }
+
+  render() {
+    
+    const ratingChange = document.getElementsByName("rating");
+    for (let rating of ratingChange) {
+      rating.addEventListener("click", () => {
+        this.minRating = current_star_level_from;
+        this.maxRating = current_star_level_to;
+        this.list.update();
+      })
+    }
+    return current_star_level_from;
+  }
+  
+}
+
+//Initializing functions
+async function init() {
+  const ctr = document.querySelector("#challenges");
+
+  const challengeList = new ChallengeList();
+  const ul = await challengeList.render();
+  ctr.append(ul);
+}
+init();
