@@ -401,14 +401,19 @@ header h1 {
 .filter {
   display: none;
   position: relative;
-  border: solid 5px rgb(240, 240, 240);
+  border: solid 6px rgba(240, 240, 240, 0.9);
   width: 90%;
   height: 500px;
   margin: auto;
+  display: flex;
+  place-items: center;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0.4);
 }
 .filter h3 {
   color: grey;
-  margin: 1rem;
+  margin: 0 1rem;
 }
 .filter .filterCloseButton {
   position: absolute;
@@ -416,6 +421,7 @@ header h1 {
   background-color: transparent;
   border: none;
   right: 15px;
+  top: 10px;
   margin: 0;
   color: grey;
   cursor: pointer;
@@ -435,6 +441,38 @@ header h1 {
 }
 .filter .filterByType .filterChallengeTypes label {
   margin: 1rem;
+}
+.filter .filterByRating h4 {
+  margin: 1rem;
+}
+.filter .rating {
+  position: relative;
+  width: 520px;
+  height: 25px;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.1em;
+  padding: 5px;
+  border-radius: 20px;
+  box-shadow: 0 0 2px #b3acac;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  margin: 1rem;
+}
+.filter .star_from, .filter .star_to {
+  font-size: 1.5em;
+  cursor: pointer;
+  color: rgba(218, 189, 24, 0.6980392157);
+  transition: filter linear 0.3s;
+  background-color: transparent;
+  border: none;
+}
+.filter .star_from:hover, .filter .star_to:hover {
+  filter: drop-shadow(3px 3px 4px gold);
 }
 
 .story {

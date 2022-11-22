@@ -26,7 +26,7 @@ function addChallengesToDom(challenge) {
         ${challenge.description}
        </p>
        <button class="button primary modal-open">Book this room</button>
-     </li>
+     
      
      `;
 }
