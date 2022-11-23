@@ -288,29 +288,21 @@ function modalPopUp2() {
       nameLabel.innerText == completedMessages.nameCompleted &&
       emailLabel.innerText == completedMessages.emailCompleted
     ) {
-      //object and array for storing input value
-      const bookingInfo = {};
-      bookingInfo.nameInfo = input1.value;
-      bookingInfo.emailInfo = input2.value;
-      bookingInfo.timeInfo = input3.value;
-      bookingInfo.participantInfo = input4.value;
       //POST Request
       const bookingResult = await fetch('https://lernia-sjj-assignments.vercel.app/api/booking/reservations', {
       method: 'POST',
       headers: {'Content-Type': 'application/json',},
       body: JSON.stringify({
-        challenge: 12,
-        name: bookingInfo.nameInfo,
-        email: bookingInfo.emailInfo,
-        date: "2023-11-23",
-        time: bookingInfo.timeInfo,
-        participants: 4,
+        challenge: 3,
+        name: input1.value,
+        email: input2.value,
+        date: inputDate.value,
+        time: input3.value,
+        participants: 4, //input4.value.match(/\d+/g),
     }),
 });
-const data = await bookingResult.json();
-console.log(data);
-      
-
+const booking = await bookingResult.json();
+console.log(booking);
       //moving forward if inputfields are correct
       form.remove(); //removing the "form" element from modal 2
       modalPopUp3(); // replacing vid modal 3
@@ -329,10 +321,15 @@ console.log(data);
     const bookingDoneText2 = document.createElement("h2");
     const bookingDoneText3 = document.createElement("h2");
     const bookingDoneText4 = document.createElement("h2");
-
     
+    //object and array for storing input value
     const completedBooking = [];
+    const bookingInfo = {};
 
+    bookingInfo.nameInfo = input1.value;
+    bookingInfo.emailInfo = input2.value;
+    bookingInfo.timeInfo = input3.value;
+    bookingInfo.participantInfo = input4.value;
     //displaying info about the booking
     bookingDoneText1.innerText = "Your team name is: " + bookingInfo.nameInfo;
     bookingDoneText2.innerText =
@@ -340,12 +337,6 @@ console.log(data);
     bookingDoneText3.innerText = "Your time is: " + bookingInfo.timeInfo;
     bookingDoneText4.innerText =
       "This room is booked for " + bookingInfo.participantInfo;
-
-    //return to homepage tag
-    const homePageBtn = document.createElement("a");
-    homePageBtn.setAttribute("href", "challenges.html");
-    homePageBtn.classList.add("submit-booking");
-    homePageBtn.innerText = "Return to homepage";
 
     //adding the bookked object to array
     completedBooking.push(bookingInfo);
