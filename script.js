@@ -28,34 +28,34 @@ if (
   });
 
   const starsFrom = document.querySelectorAll(".star_from");
-  const starsTo = document.querySelectorAll(".star_to")
-  starsFrom.forEach( (starFrom, i) =>{
+  const starsTo = document.querySelectorAll(".star_to");
+  starsFrom.forEach((starFrom, i) => {
     starFrom.onclick = function () {
-      let current_star_level_from = i+1;
+      let current_star_level_from = i + 1;
 
-      starsFrom.forEach((starFrom,j) => {
-        if( current_star_level_from >= j+1){
+      starsFrom.forEach((starFrom, j) => {
+        if (current_star_level_from >= j + 1) {
           starFrom.innerHTML = "&#9733";
-        }else{
+        } else {
           starFrom.innerHTML = "&#9734";
         }
-      })
-    }
-  })
+      });
+    };
+  });
 
-  starsTo.forEach( (starTo, i) =>{
+  starsTo.forEach((starTo, i) => {
     starTo.onclick = function () {
-      let current_star_level_to = i+1;
+      let current_star_level_to = i + 1;
 
-      starsTo.forEach((starTo,j) => {
-        if( current_star_level_to >= j+1){
+      starsTo.forEach((starTo, j) => {
+        if (current_star_level_to >= j + 1) {
           starTo.innerHTML = "&#9733";
-        }else{
+        } else {
           starTo.innerHTML = "&#9734";
         }
-      })
-    }
-  })
+      });
+    };
+  });
 }
 
 // -------------------- MODAL --------------------
@@ -313,20 +313,23 @@ function modalPopUp2() {
       emailLabel.innerText == completedMessages.emailCompleted
     ) {
       //POST Request
-      const bookingResult = await fetch('https://lernia-sjj-assignments.vercel.app/api/booking/reservations', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json',},
-      body: JSON.stringify({
-        challenge: 3,
-        name: input1.value,
-        email: input2.value,
-        date: inputDate.value,
-        time: input3.value,
-        participants: parseInt(input4.value.match(/\d+/g)),
-    }),
-});
-const booking = await bookingResult.json();
-console.log(booking);
+      const bookingResult = await fetch(
+        "https://lernia-sjj-assignments.vercel.app/api/booking/reservations",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            challenge: 3,
+            name: input1.value,
+            email: input2.value,
+            date: inputDate.value,
+            time: input3.value,
+            participants: parseInt(input4.value.match(/\d+/g)),
+          }),
+        }
+      );
+      const booking = await bookingResult.json();
+      console.log(booking);
       //moving forward if inputfields are correct
       form.remove(); //removing the "form" element from modal 2
       modalPopUp3(); // replacing vid modal 3
@@ -341,19 +344,11 @@ console.log(booking);
     confirmationHeading.classList.add("heading-modal");
     confirmationHeading.innerText = "Your booking has been confirmed";
 
-<<<<<<< HEAD
     const bookingDoneText1 = document.createElement("p");
     const bookingDoneText2 = document.createElement("p");
     const bookingDoneText3 = document.createElement("p");
     const bookingDoneText4 = document.createElement("p");
 
-=======
-    const bookingDoneText1 = document.createElement("h2");
-    const bookingDoneText2 = document.createElement("h2");
-    const bookingDoneText3 = document.createElement("h2");
-    const bookingDoneText4 = document.createElement("h2");
-    
->>>>>>> main
     //object and array for storing input value
     const completedBooking = [];
     const bookingInfo = {};
@@ -372,21 +367,17 @@ console.log(booking);
       bookingInfo.participantInfo +
       " participants";
 
-      //return to homepage tag
+    //return to homepage tag
     const homePageBtn = document.createElement("a");
     homePageBtn.setAttribute("href", "challenges.html");
     homePageBtn.classList.add("submit-booking");
     homePageBtn.innerText = "Return to homepage";
-<<<<<<< HEAD
 
-    //adding the booked object to array
-=======
-    
     //adding the bookked object to array
->>>>>>> main
+
     completedBooking.push(bookingInfo);
 
-    //appending all element to modal 3
+    //appending all elements to modal 3
     modal.append(
       confirmationHeading,
       bookingDoneText1,
