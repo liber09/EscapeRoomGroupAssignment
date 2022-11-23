@@ -2,7 +2,6 @@
 document.querySelector(".main-nav-toggle").addEventListener("click", () => {
   document.querySelector(".main-nav").classList.toggle("open");
 });
-
 // -------------------- FILTER SECTION  --------------------
 // Only runs filter code on the right html file
 const host = "http://127.0.0.1:5501/";
@@ -30,56 +29,75 @@ if (
     filterButton.setAttribute("aria-expanded", false);
   });
 
+
+  //Filter by rating Input
+  //Added more functionallity, being able to put stars back to 0 --Anton
   const starsFrom = document.querySelectorAll(".star_from");
   const starsTo = document.querySelectorAll(".star_to");
   starsFrom.forEach((starFrom, i) => {
     starFrom.onclick = function () {
-      current_star_level_from = i + 1;
-
-      starsFrom.forEach((starFrom, j) => {
-        if (current_star_level_from >= j + 1) {
-          starFrom.innerHTML = "&#9733";
-        } else {
-          starFrom.innerHTML = "&#9734";
-        }
-      });
+      if (current_star_level_from == 1) {
+        starFrom.innerHTML = "&#9734"
+        current_star_level_from = 0;
+        console.log("works");
+        console.log(current_star_level_from);
+      }
+      else {
+        current_star_level_from = i + 1;
+        console.log(current_star_level_from);
+        starsFrom.forEach((starFrom, j) => {
+          if (starsFrom[1].innerHTML == "&#9733") {
+            console.log("JA");
+            starsFrom[0].innerHTML ="&#9734";
+          }
+          else {
+            if (current_star_level_from >= j + 1) {
+              starFrom.innerHTML = "&#9733";
+            } else {
+              starFrom.innerHTML = "&#9734";
+            }
+          }
+        });
+      }
     };
   });
 
   starsTo.forEach((starTo, i) => {
     starTo.onclick = function () {
-      current_star_level_to = i + 1;
-
-      starsTo.forEach((starTo, j) => {
-        if (current_star_level_to >= j + 1) {
-          starTo.innerHTML = "&#9733";
-        } else {
-          starTo.innerHTML = "&#9734";
-        }
-      });
+      if (current_star_level_to == 1) {
+        starTo.innerHTML = "&#9734"
+        current_star_level_to = 0;
+        console.log("works");
+        console.log(current_star_level_to);
+      }
+      else {
+        current_star_level_to = i + 1;
+        starsTo.forEach((starTo, j) => {
+          if (current_star_level_to >= j + 1) {
+            starTo.innerHTML = "&#9733";
+          } else {
+            starTo.innerHTML = "&#9734";
+          }
+        });
+      }
     };
   });
 
-   // Rating filter
-   let cards = document.querySelectorAll(".challenge-item");
-   let ratingInput = document.getElementsByName("rating");
-  
+   //------ Rating filter -------
+   const ratingInput = document.getElementsByName("rating");
+   
    function ratingFilter() {
+    let cards = document.querySelectorAll(".challenge-item");
      for (let i = 0; i < cards.length; i++) {
-       if (cards[i].aria-valuenow >= current_star_level_from && cards[i].aria-valuenow <= current_star_level_to) {
-         cards[i].classList.remove("is-hidden");
-       }
-       else if (current_star_level_from == 0 && current_star_level_to == 0) {
-         cards[i].classList.remove("is-hidden");
-       }
-       else {
-         cards[i].classList.add("is-hidden");
-       }
-       console.log(current_star_level_from);
-       console.log(cards);
-     }
-   }
-  
+       if (cards[i].querySelector("ul.rating").ariaValueNow >= current_star_level_from && cards[i].querySelector("ul.rating").ariaValueNow <= current_star_level_to ) {
+          cards[i].classList.remove("is-hidden");   
+        }
+        else {
+          cards[i].classList.add("is-hidden");
+        }
+      }  
+    }
+    
    //Trigger för Rating Filter
    for (let rating of ratingInput) {
      rating.addEventListener("click", () => {
@@ -87,38 +105,37 @@ if (
      })
    }
   
-   // Type filter
-   function typeFilter() {
-    
-   }
+  // Free search
+
+  function freeSearch() {
+    let cards = document.querySelectorAll(".challenge-item");
+    let searchInput = document.querySelector(".searchInput");
+    searchInput = searchInput.value;
+
+    for (let i = 0; i < cards.length; i++) {
+      if (cards[i].innerText.toLowerCase().includes(searchInput.toLowerCase())) {
+        cards[i].classList.remove("is-hidden");
+      } else {
+        cards[i].classList.add("is-hidden");
+      }
+    }
+  }
+  // Event listener and search delay on input field
+  let typingTimer;
+  let typeInterval = 500;
+  let searchInput = document.querySelector(".searchInput");
+
+  searchInput.addEventListener("keyup", () => {
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(freeSearch, typeInterval);
+  });
  
 }
 
-// Free search
 
-function freeSearch() {
-  let cards = document.querySelectorAll(".challenge-item");
-  let searchInput = document.querySelector(".searchInput");
-  searchInput = searchInput.value;
 
-  for (let i = 0; i < cards.length; i++) {
-    if (cards[i].innerText.toLowerCase().includes(searchInput.toLowerCase())) {
-      cards[i].classList.remove("is-hidden");
-    } else {
-      cards[i].classList.add("is-hidden");
-    }
-  }
-}
 
-// Event listener and search delay on input field
-let typingTimer;
-let typeInterval = 500;
-let searchInput = document.querySelector(".searchInput");
 
-searchInput.addEventListener("keyup", () => {
-  clearTimeout(typingTimer);
-  typingTimer = setTimeout(freeSearch, typeInterval);
-});
 
 // -------------------- MODAL --------------------
 

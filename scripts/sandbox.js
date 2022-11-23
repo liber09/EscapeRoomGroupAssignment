@@ -6,6 +6,7 @@ function addChallengesToDom(challenge) {
        <img class="challenge-image" alt="Hacker" src=${challenge.image} />
        <h3 class="challenge-title">${challenge.title} (${challenge.type})</h3>
        <ul
+       id="challenge-${challenge.id}
          role="meter"
          class="rating"
          aria-label="rating"
@@ -30,7 +31,6 @@ function addChallengesToDom(challenge) {
      
      `;
 }
-
 // get alll challenges
 
 async function getChallenges() {
@@ -49,7 +49,7 @@ async function getChallenges() {
       let maxRating = Math.max(...ratingsArray);
 
       data.challenges.map((challenge) => {
-        if (window.location.href === "http://127.0.0.1:5500/index.html") {
+        if (window.location.href === "http://127.0.0.1:5501/index.html") {
           if (
             challenge.rating === maxRating &&
             challenge.maxParticipants >= 7
@@ -58,7 +58,7 @@ async function getChallenges() {
             getRatings();
           }
         } else if (
-          window.location.href === "http://127.0.0.1:5500/challenges.html"
+          window.location.href === "http://127.0.0.1:5501/challenges.html"
         ) {
           addChallengesToDom(challenge);
           getRatings();
@@ -80,6 +80,7 @@ function getRatings() {
   let ratingsList = Array.from(ratingChil);
   console.log("ratingsChil", ratingChil);
   console.log("ratingsList", ratingsList);
+  
   let ratValue = ratingsUl.getAttribute("aria-valuenow");
 
   for (let i = 0; i < ratingsList.length; i++) {
@@ -101,3 +102,11 @@ function getRatings() {
 }
 
 //event listeners
+host = "http://127.0.0.1:5501/";
+hostOnline = "https://liber09.github.io/EscapeRoomGroupAssignment/";
+if (
+  window.location.href == host + "challenges.html" ||
+  window.location.href == hostOnline + "challenges.html"
+) {
+  getChallenges();
+}
