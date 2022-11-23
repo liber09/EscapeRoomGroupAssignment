@@ -298,7 +298,7 @@ function modalPopUp2() {
         email: input2.value,
         date: inputDate.value,
         time: input3.value,
-        participants: 4, //input4.value.match(/\d+/g),
+        participants: parseInt(input4.value.match(/\d+/g)),
     }),
 });
 const booking = await bookingResult.json();
@@ -338,6 +338,12 @@ console.log(booking);
     bookingDoneText4.innerText =
       "This room is booked for " + bookingInfo.participantInfo;
 
+      //return to homepage tag
+    const homePageBtn = document.createElement("a");
+    homePageBtn.setAttribute("href", "challenges.html");
+    homePageBtn.classList.add("submit-booking");
+    homePageBtn.innerText = "Return to homepage";
+    
     //adding the bookked object to array
     completedBooking.push(bookingInfo);
 
