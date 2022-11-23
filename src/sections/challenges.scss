@@ -56,9 +56,13 @@
         font-size: 0.7em;
         padding: 1em;
     }
+    .is-hidden {
+        visibility: hidden;
+    }
 }
 
 .challenges-cta {
     @include responsive-ctas;
     margin: 4rem 3rem;
 }
+

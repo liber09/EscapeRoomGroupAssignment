@@ -10,10 +10,7 @@ document.querySelector(".main-nav-toggle").addEventListener("click", () => {
 const host = "http://127.0.0.1:5500/";
 const hostOnline = "https://liber09.github.io/EscapeRoomGroupAssignment/";
 
-//Moved variables to global scope
-let current_star_level_from = 0;
-let current_star_level_to = 0;
-//-------------------------------
+
 
 const starsFrom = document.querySelectorAll(".star_from");
 if (
@@ -24,7 +21,8 @@ if (
   const filterButton = document.querySelector("#filterButton");
   const filterCloseButton = document.querySelector(".filterCloseButton");
  ;
-  
+ let current_star_level_from = 0;
+ let current_star_level_to = 0;
 
   filterButton.addEventListener("click", () => {
     filterSection.style.display = "flex";
@@ -43,15 +41,17 @@ if (
   starsFrom.forEach( (starFrom, i) =>{
     starFrom.onclick = function () {
       current_star_level_from = i+1;
-
        
         starsFrom.forEach((starFrom,j) => {
         if( current_star_level_from >= j+1){
           starFrom.innerHTML = "&#9733";
-        }else{
+        }
+        else{
           starFrom.innerHTML = "&#9734";
         }
       })
+      
+
       
     }
   })
@@ -70,6 +70,41 @@ if (
     
     }
   })
+
+
+  // Rating filter
+  let cards = document.querySelectorAll(".challenge-item");
+  let ratingInput = document.getElementsByName("rating");
+  
+  function ratingFilter() {
+    for (let i = 0; i < cards.length; i++) {
+      if (cards[i].value >= current_star_level_from && cards[i].value <= current_star_level_to) {
+        cards[i].classList.remove("is-hidden");
+      }
+      else if (current_star_level_from == 0 && current_star_level_to == 0) {
+        cards[i].classList.remove("is-hidden");
+      }
+      else {
+        cards[i].classList.add("is-hidden");
+      }
+      console.log(current_star_level_from);
+      console.log(cards);
+    }
+  }
+
+  //Trigger för Rating Filter
+  for (let rating of ratingInput) {
+    rating.addEventListener("click", () => {
+      ratingFilter();
+    })
+  }
+
+  // Type filter
+  
+
+
+
+
 }
 
 
@@ -359,7 +394,11 @@ function modalPopUp2() {
     );
   }
 }
+/*
 
+
+// ----- ANTON TEST NOT SURE IF USABLE-----
+// ----- USED FOR TESTING, REMOVE WHEN OTHER FUNCTIONS WORK PROPER
 // -------- FILTER BY RATING FUNCTION -------
 //Create A List
 class ChallengeList {
@@ -368,7 +407,6 @@ class ChallengeList {
       const challenges = await api.loadChallenges();
 
       const ctr = document.createElement("div");
-
       
       this.filter = new RatingFilter(this);
       const filterInterface = this.filter.render();
@@ -429,9 +467,17 @@ class Challenge {
 
 //Collection for all filters
 class FilterCollection {
-  challengeDoesMatch(challenge) {
-
+  construtor(list) {
+    this.list;
+    this.filters = [
+      new RatingFilter(list),
+      new TypeFilter(list),
+    ];
   }
+  challengeDoesMatch(challenge) {
+    return this.filters.every(filter => filter.challengeDoesMatch(challenge));
+  }
+
 }
 
 //Filter for rating
@@ -461,9 +507,46 @@ class RatingFilter {
         this.list.update();
       })
     }
-    return current_star_level_from;
   }
   
+}
+
+
+//Filter for type
+class TypeFilter {
+  constructor(type) {
+    this.activeTypeFilter;
+    this.typet = type;
+  }
+
+  challengeDoesMatch(challenge) {
+    if (challenge.data.type == this.activeTypeFilter) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  //Filter klar, lägg in så att det körs högre upp i koden
+  render() {
+    const checkboxClass = document.querySelectorAll("input[type=checkbox]");
+    console.log(checkboxClass);
+
+    checkboxClass.forEach(function (eve) {
+      eve.addEventListener("click", function (ele) {
+        let checkboxes = document.querySelectorAll("input[type=checkbox]:checked");
+        let values = [];
+        checkboxes.forEach((checkbox) => {
+            values.push(checkbox.value);
+        })
+        console.log(values);
+
+        this.activeTypeFilter = values;
+        update();
+      })
+    })
+    return values;
+  }
 }
 
 //Initializing functions
@@ -475,3 +558,4 @@ async function init() {
   ctr.append(ul);
 }
 init();
+*/
