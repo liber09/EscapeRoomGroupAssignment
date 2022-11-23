@@ -101,3 +101,4 @@ function getRatings() {
   }
 }
 
+//event listeners
