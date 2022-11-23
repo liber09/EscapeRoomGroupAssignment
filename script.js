@@ -5,7 +5,7 @@ document.querySelector(".main-nav-toggle").addEventListener("click", () => {
 
 // -------------------- FILTER SECTION  --------------------
 // Only runs filter code on the right html file
-const host = "http://127.0.0.1:5501/";
+const host = "http://127.0.0.1:5500/";
 const hostOnline = "https://liber09.github.io/EscapeRoomGroupAssignment/";
 if (
   window.location.href == host + "challenges.html" ||
@@ -23,7 +23,7 @@ if (
 
   filterCloseButton.addEventListener("click", () => {
     filterSection.style.display = "none";
-    filterButton.style.display = "block";
+    filterButton.style.display = "flex";
     filterButton.setAttribute("aria-expanded", false);
   });
 
@@ -58,10 +58,36 @@ if (
   });
 }
 
+// Free search
+
+function freeSearch() {
+  let cards = document.querySelectorAll(".challenge-item");
+  let searchInput = document.querySelector(".searchInput");
+  searchInput = searchInput.value;
+
+  for (let i = 0; i < cards.length; i++) {
+    if (cards[i].innerText.toLowerCase().includes(searchInput.toLowerCase())) {
+      cards[i].classList.remove("is-hidden");
+    } else {
+      cards[i].classList.add("is-hidden");
+    }
+  }
+}
+
+// Event listener and search delay on input field
+let typingTimer;
+let typeInterval = 500;
+let searchInput = document.querySelector(".searchInput");
+
+searchInput.addEventListener("keyup", () => {
+  clearTimeout(typingTimer);
+  typingTimer = setTimeout(freeSearch, typeInterval);
+});
+
 // -------------------- MODAL --------------------
 
 // Trigger "book this room" to open modal
-const openModal = document.querySelectorAll(".modal-open");
+const openModal = document.querySelector(".challenge-list");
 
 // Backdrop when modal is open
 const backDrop = document.createElement("section");
@@ -96,62 +122,58 @@ const inputDate = document.createElement("input");
 const labelDate = document.createElement("label");
 const question = document.createElement("p");
 // When user clicks on "book this room", run and create function to open modal
-openModal.forEach(function (e) {
-  e.addEventListener("click", function () {
-    document.body.append(backDrop);
-    backDrop.addEventListener("click", closeModal);
+openModal.addEventListener("click", function (e) {
+  if (e.target.classList.contains("modal-open")) document.body.append(backDrop);
+  backDrop.addEventListener("click", closeModal);
 
-    // Remove modal when click on X
-    modal.appendChild(closeBtn);
-    closeBtn.addEventListener("click", function () {
-      backDrop.remove();
-    });
+  // Remove modal when click on X
+  modal.appendChild(closeBtn);
+  closeBtn.addEventListener("click", function () {
+    backDrop.remove();
+  });
 
-    // Set heading inside modal
+  // Set heading inside modal
 
-    modalHeading.innerHTML =
-      'Book room <span class="room-title">"Title of room"</span> <br>(step 1)';
-    modal.appendChild(modalHeading);
+  modalHeading.innerHTML =
+    'Book room <span class="room-title">"Title of room"</span> <br>(step 1)';
+  modal.appendChild(modalHeading);
 
-    backDrop.appendChild(modal);
-    // Question in modal
+  backDrop.appendChild(modal);
+  // Question in modal
 
-    question.style.margin = "40px";
-    question.innerText = "What date would you like to come?";
-    modal.appendChild(question);
+  question.style.margin = "40px";
+  question.innerText = "What date would you like to come?";
+  modal.appendChild(question);
 
-    // Label for input
+  // Label for input
 
-    labelDate.setAttribute("for", "date");
-    labelDate.innerText = "Date:";
-    modal.appendChild(labelDate);
+  labelDate.setAttribute("for", "date");
+  labelDate.innerText = "Date:";
+  modal.appendChild(labelDate);
 
-    // Date input
+  // Date input
 
-    inputDate.id = "date";
-    inputDate.type = "date";
-    inputDate.valueAsNumber =
-      Date.now() - new Date().getTimezoneOffset() * 60000;
-    modal.appendChild(inputDate);
+  inputDate.id = "date";
+  inputDate.type = "date";
+  inputDate.valueAsNumber = Date.now() - new Date().getTimezoneOffset() * 60000;
+  modal.appendChild(inputDate);
 
-    // Button "search available times"
-    button.innerHTML = "Search available times";
-    button.type = "submit";
-    modal.appendChild(button);
-    const selectedDate = inputDate.value;
-    button.addEventListener("click", async function () {
-      const res = await fetch(
-        `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${selectedDate}&challenge=3"`
-      );
-      const data = await res.json();
-      console.log(inputDate.value);
-      data.slots.forEach((slot) => {
-        console.log(slot);
-      });
+  // Button "search available times"
+  button.innerHTML = "Search available times";
+  button.type = "submit";
+  modal.appendChild(button);
+  const selectedDate = inputDate.value;
+  button.addEventListener("click", async function () {
+    const res = await fetch(
+      `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${selectedDate}&challenge=3"`
+    );
+    const data = await res.json();
+    console.log(inputDate.value);
+    data.slots.forEach((slot) => {
+      console.log(slot);
     });
   });
 });
-
 // -------------------- END OF MODAL JS --------------------
 
 //---------------------- CREATING MODAL2 ----------------------
