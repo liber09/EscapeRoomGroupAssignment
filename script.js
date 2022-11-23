@@ -348,6 +348,7 @@ function modalPopUp2() {
     const bookingDoneText2 = document.createElement("p");
     const bookingDoneText3 = document.createElement("p");
     const bookingDoneText4 = document.createElement("p");
+    const bookingDoneText5 = document.createElement("p");
 
     //object and array for storing input value
     const completedBooking = [];
@@ -366,6 +367,8 @@ function modalPopUp2() {
       "This room is booked for " +
       bookingInfo.participantInfo +
       " participants";
+    bookingDoneText5.innerText =
+      "And we are happy to see you on the " + inputDate.value;
 
     //return to homepage tag
     const homePageBtn = document.createElement("a");
@@ -384,6 +387,7 @@ function modalPopUp2() {
       bookingDoneText2,
       bookingDoneText3,
       bookingDoneText4,
+      bookingDoneText5,
       homePageBtn
     );
   }
