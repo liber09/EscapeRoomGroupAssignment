@@ -163,9 +163,10 @@ openModal.addEventListener("click", function (e) {
   button.innerHTML = "Search available times";
   button.type = "submit";
   modal.appendChild(button);
+  const selectedDate = inputDate.value;
   button.addEventListener("click", async function () {
     const res = await fetch(
-      `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${inputDate.value}&challenge=3"`
+      `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${selectedDate}&challenge=3"`
     );
     const data = await res.json();
     console.log(inputDate.value);
@@ -174,7 +175,6 @@ openModal.addEventListener("click", function (e) {
     });
   });
 });
-
 // -------------------- END OF MODAL JS --------------------
 
 //---------------------- CREATING MODAL2 ----------------------
@@ -281,7 +281,7 @@ function modalPopUp2() {
   });
 
   // storing user input in object an array when submit button is pressed.
-  confirmBtn.addEventListener("click", function () {
+  confirmBtn.addEventListener("click", async function () {
     event.preventDefault();
     if (input1.value === "") {
       nameLabel.innerText = errorMessages.nameError;
@@ -311,6 +311,24 @@ function modalPopUp2() {
       nameLabel.innerText == completedMessages.nameCompleted &&
       emailLabel.innerText == completedMessages.emailCompleted
     ) {
+      //POST Request
+      const bookingResult = await fetch(
+        "https://lernia-sjj-assignments.vercel.app/api/booking/reservations",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            challenge: 3,
+            name: input1.value,
+            email: input2.value,
+            date: inputDate.value,
+            time: input3.value,
+            participants: parseInt(input4.value.match(/\d+/g)),
+          }),
+        }
+      );
+      const booking = await bookingResult.json();
+      console.log(booking);
       //moving forward if inputfields are correct
       form.remove(); //removing the "form" element from modal 2
       modalPopUp3(); // replacing vid modal 3
@@ -331,14 +349,13 @@ function modalPopUp2() {
     const bookingDoneText4 = document.createElement("h2");
 
     //object and array for storing input value
-    const bookingInfo = {};
     const completedBooking = [];
+    const bookingInfo = {};
 
     bookingInfo.nameInfo = input1.value;
     bookingInfo.emailInfo = input2.value;
     bookingInfo.timeInfo = input3.value;
     bookingInfo.participantInfo = input4.value;
-
     //displaying info about the booking
     bookingDoneText1.innerText = "Your team name is: " + bookingInfo.nameInfo;
     bookingDoneText2.innerText =
