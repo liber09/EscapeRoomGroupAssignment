@@ -101,12 +101,3 @@ function getRatings() {
   }
 }
 
-//event listeners
-host = "http://127.0.0.1:5501/";
-hostOnline = "https://liber09.github.io/EscapeRoomGroupAssignment/";
-if (
-  window.location.href == host + "challenges.html" ||
-  window.location.href == hostOnline + "challenges.html"
-) {
-  getChallenges();
-}
