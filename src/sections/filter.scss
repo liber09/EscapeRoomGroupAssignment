@@ -1,24 +1,24 @@
 @import "../variables.scss";
 
-.filter{
+.filter {
   display: none;
   position: relative;
   border: solid 6px rgba(240, 240, 240, 0.9);
   width: 90%;
   height: 500px;
   margin: auto;
-  display: flex;
+
   place-items: center;
   padding: 0;
   overflow: hidden;
   box-shadow: 0 0 1em rgba(black, 0.4);
-  
-  h3{
+
+  h3 {
     color: grey;
     margin: 0 1rem;
   }
 
-  .filterCloseButton{
+  .filterCloseButton {
     position: absolute;
     font-size: 65px;
     background-color: transparent;
@@ -26,62 +26,76 @@
     right: 15px;
     top: 10px;
     margin: 0;
-    color:grey;
+    color: grey;
     cursor: pointer;
   }
 
-  .filterByType{
+  .filterByType {
     grid-column-start: 1;
-    display:flex;
+    display: flex;
     flex-direction: column;
-    
-    h4{
+
+    h4 {
       margin: 1rem;
     }
-    .filterChallengeTypes{
+    .filterChallengeTypes {
       margin: 0;
       padding: 0;
       font-size: 0.8rem;
-      
-      label{
+
+      label {
         margin: 1rem;
       }
     }
   }
-  
-  .filterByRating{
-    h4{
+
+  .filterByRating {
+    width: 200px;
+    h4 {
       margin: 1rem;
     }
   }
   .rating {
-      position: relative;
-      width: 520px; 
-      height: 25px;
-      background: transparent;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: .1em;
-      padding: 5px;
-      border-radius: 20px;
-      box-shadow: 0 0 2px #b3acac;
-      user-select: none;
-      margin: 1rem;
+    position: relative;
+    width: 520px;
+    height: 25px;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.1em;
+    padding: 5px;
+    border-radius: 20px;
+    box-shadow: 0 0 2px #b3acac;
+    user-select: none;
+    margin: 1rem;
   }
-  
-  .star_from, .star_to {
+
+  .star_from,
+  .star_to {
     font-size: 1.5em;
     cursor: pointer;
     color: #dabd18b2;
-    transition: filter linear .3s;
+    transition: filter linear 0.3s;
     background-color: transparent;
     border: none;
   }
-  
-  .star_from:hover, .star_to:hover {
+
+  .star_from:hover,
+  .star_to:hover {
     filter: drop-shadow(3px 3px 4px gold);
   }
+
+  .labelSearchInput {
+    margin: 1rem;
+    font-weight: bold;
+  }
+  .searchInput {
+    margin: 1rem;
+    font-size: 0.6em;
+    padding: 10px;
+  }
 }
-
-
+.is-hidden {
+  display: none;
+}
