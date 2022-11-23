@@ -215,8 +215,23 @@ function modalPopUp2() {
     closeBtn2
   );
 
-  //function för att få ut tid som är tillgängligt för bokning under det datumet.
+  //funktion för participants !! behövs lösas så den kopplar till challanges "id"
+  async function participants() {
+    const resParticipants = await fetch(
+      `https://lernia-sjj-assignments.vercel.app/api/challenges`
+    );
+    const dataParticipants = await resParticipants.json();
 
+    dataParticipants.challenges.forEach((participants) => {
+      const participantsOption = document.createElement("option");
+
+      participantsOption.innerText = participants.minParticipants;
+      input4.append(participantsOption);
+    });
+  }
+  participants();
+
+  //function för att få ut tid som är tillgängligt för bokning under det datumet.
   async function time() {
     const resTime = await fetch(
       `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${inputDate.value}&challenge=3"`
@@ -231,21 +246,6 @@ function modalPopUp2() {
     });
   }
   time();
-
-  //funktion för participants !! behövs lösas så den kopplar till challanges "id"
-  async function participants() {
-    const resParticipants = await fetch(
-      `https://lernia-sjj-assignments.vercel.app/api/challenges`
-    );
-    const dataParticipants = await resParticipants.json();
-    dataParticipants.challenges.forEach((participants) => {
-      const participantsOption = document.createElement("option");
-      participantsOption.innerText = participants.maxParticipants;
-      input4.append(participantsOption);
-      console.log(participants.maxParticipants);
-    });
-  }
-  participants();
 
   //closing modal on X Icon
   closeBtn2.addEventListener("click", function () {
@@ -272,12 +272,10 @@ function modalPopUp2() {
     } else if (input2.value.length <= 8) {
       emailLabel.innerText = errorMessages.emailError;
       emailLabel.style.color = "red";
-    } else if (input2.value.includes("@")) {
+    } else if (input2.value.includes("@" && ".")) {
       emailLabel.innerText = completedMessages.emailCompleted;
       emailLabel.style.color = "black";
     }
-
-    //!!!!!!!!!! mayber needs to att condition to input 3
 
     if (
       nameLabel.innerText == completedMessages.nameCompleted &&
@@ -317,7 +315,9 @@ function modalPopUp2() {
       "We have sent a confirmation mail to: " + bookingInfo.emailInfo;
     bookingDoneText3.innerText = "Your time is: " + bookingInfo.timeInfo;
     bookingDoneText4.innerText =
-      "This room is booked for " + bookingInfo.participantInfo;
+      "This room is booked for " +
+      bookingInfo.participantInfo +
+      " participants";
 
     //return to homepage tag
     const homePageBtn = document.createElement("a");
@@ -325,7 +325,7 @@ function modalPopUp2() {
     homePageBtn.classList.add("submit-booking");
     homePageBtn.innerText = "Return to homepage";
 
-    //adding the bookked object to array
+    //adding the booked object to array
     completedBooking.push(bookingInfo);
 
     //appending all element to modal 3
@@ -337,59 +337,5 @@ function modalPopUp2() {
       bookingDoneText4,
       homePageBtn
     );
-
-    /*  const finished = {
-      challenge: "Kebab", //input löses snart där
-      name: input1.value,
-      email: input2.value,
-      date: inputDate.value,
-      time: input3.value,
-      participants: input4.value,
-    };*/
-
-    /* 
-    async function doneBooking() {
-      const resDone = await fetch(
-        "https://lernia-sjj-assignments.vercel.app/api/booking/reservations",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          finished: JSON.stringify({
-            challenge: 13, //input löses snart där
-            name: input1.value,
-            email: input2.value,
-            date: inputDate.value,
-            time: input3.value,
-            participants: input4.value,
-          }),
-        }
-      );
-      const data = await resDone.json();
-    }
-
-    async function finishedBooking() {
-      const resFinalBooking = await fetch(
-        "https://lernia-sjj-assignments.vercel.app/api/booking/reservations",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            challenge: 12,
-            name: "Customer Name",
-            email: "name@example.com",
-            date: "2022-12-12",
-            time: "18:30",
-            participants: 4,
-          }),
-        }
-      );
-      const data = await resFinalBooking.json();
-      console.log(data);
-    }
-    finishedBooking(); */
   }
 }
