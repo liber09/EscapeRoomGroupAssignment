@@ -39,15 +39,11 @@ if (
       if (current_star_level_from == 1) {
         starFrom.innerHTML = "&#9734"
         current_star_level_from = 0;
-        console.log("works");
-        console.log(current_star_level_from);
       }
       else {
         current_star_level_from = i + 1;
-        console.log(current_star_level_from);
         starsFrom.forEach((starFrom, j) => {
           if (starsFrom[1].innerHTML == "&#9733") {
-            console.log("JA");
             starsFrom[0].innerHTML ="&#9734";
           }
           else {
@@ -67,8 +63,6 @@ if (
       if (current_star_level_to == 1) {
         starTo.innerHTML = "&#9734"
         current_star_level_to = 0;
-        console.log("works");
-        console.log(current_star_level_to);
       }
       else {
         current_star_level_to = i + 1;
@@ -90,7 +84,7 @@ if (
     let cards = document.querySelectorAll(".challenge-item");
      for (let i = 0; i < cards.length; i++) {
        if (cards[i].querySelector("ul.rating").ariaValueNow >= current_star_level_from && cards[i].querySelector("ul.rating").ariaValueNow <= current_star_level_to ) {
-          cards[i].classList.remove("is-hidden");   
+          cards[i].classList.remove("is-hidden");
         }
         else {
           cards[i].classList.add("is-hidden");
@@ -98,13 +92,13 @@ if (
       }  
     }
     
-   //Trigger för Rating Filter
+   //Trigger for Rating Filter
    for (let rating of ratingInput) {
      rating.addEventListener("click", () => {
        ratingFilter();
      })
    }
-  
+
   // Free search
 
   function freeSearch() {
@@ -130,6 +124,49 @@ if (
     typingTimer = setTimeout(freeSearch, typeInterval);
   });
  
+
+  //------- FILTER BY TYPE --------
+  const checkBoxCheck = document.querySelectorAll("input[type=checkbox]")
+
+  function typeFilter() {
+    let cards = document.querySelectorAll(".challenge-item");
+    
+    if (checkBoxCheck[0].checked == true && checkBoxCheck[1].checked == false){
+      for (let i = 0; i < cards.length; i++) {
+        if (cards[i].querySelector(".challenge-title").innerText.toLowerCase().includes("online")) {
+          cards[i].classList.remove("is-hidden");
+        }
+        else {
+          cards[i].classList.add("is-hidden");
+        }
+      }
+    }
+    else if (checkBoxCheck[1].checked == true && checkBoxCheck[0].checked == false){
+      console.log("Andra Test");
+      for (let i = 0; i < cards.length; i++) {
+        if (cards[i].querySelector(".challenge-title").innerText.toLowerCase().includes("onsite")) {
+          cards[i].classList.remove("is-hidden");
+        }
+        else {
+          cards[i].classList.add("is-hidden");
+        }
+      }
+    }
+    else {
+      for (let i = 0; i < cards.length; i++) {
+        cards[i].classList.remove("is-hidden");
+      }
+    }
+  } 
+
+  //Trigger for checkbox filter
+  checkBoxCheck.forEach((checkbox) => {
+    checkbox.addEventListener("click", () => {
+      typeFilter();
+    })
+  })
+
+
 }
 
 

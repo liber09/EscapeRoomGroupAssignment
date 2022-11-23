@@ -75,11 +75,11 @@ getChallenges();
 
 function getRatings() {
   let ratingsUl = document.querySelector("ul.rating");
-  console.log("ratingUl", ratingsUl);
+  //console.log("ratingUl", ratingsUl);
   let ratingChil = ratingsUl.children;
   let ratingsList = Array.from(ratingChil);
-  console.log("ratingsChil", ratingChil);
-  console.log("ratingsList", ratingsList);
+  //console.log("ratingsChil", ratingChil);
+  //console.log("ratingsList", ratingsList);
   
   let ratValue = ratingsUl.getAttribute("aria-valuenow");
 
