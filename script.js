@@ -5,7 +5,7 @@ document.querySelector(".main-nav-toggle").addEventListener("click", () => {
 
 // -------------------- FILTER SECTION  --------------------
 // Only runs filter code on the right html file
-const host = "http://127.0.0.1:5500/";
+const host = "http://127.0.0.1:5501/";
 const hostOnline = "https://liber09.github.io/EscapeRoomGroupAssignment/";
 if (
   window.location.href == host + "challenges.html" ||
@@ -14,6 +14,9 @@ if (
   const filterSection = document.querySelector(".filter");
   const filterButton = document.querySelector("#filterButton");
   const filterCloseButton = document.querySelector(".filterCloseButton");
+
+  let current_star_level_from = 0;
+  let current_star_level_to = 0;
 
   filterButton.addEventListener("click", () => {
     filterSection.style.display = "flex";
@@ -31,7 +34,7 @@ if (
   const starsTo = document.querySelectorAll(".star_to");
   starsFrom.forEach((starFrom, i) => {
     starFrom.onclick = function () {
-      let current_star_level_from = i + 1;
+      current_star_level_from = i + 1;
 
       starsFrom.forEach((starFrom, j) => {
         if (current_star_level_from >= j + 1) {
@@ -45,7 +48,7 @@ if (
 
   starsTo.forEach((starTo, i) => {
     starTo.onclick = function () {
-      let current_star_level_to = i + 1;
+      current_star_level_to = i + 1;
 
       starsTo.forEach((starTo, j) => {
         if (current_star_level_to >= j + 1) {
@@ -56,6 +59,39 @@ if (
       });
     };
   });
+
+   // Rating filter
+   let cards = document.querySelectorAll(".challenge-item");
+   let ratingInput = document.getElementsByName("rating");
+  
+   function ratingFilter() {
+     for (let i = 0; i < cards.length; i++) {
+       if (cards[i].aria-valuenow >= current_star_level_from && cards[i].aria-valuenow <= current_star_level_to) {
+         cards[i].classList.remove("is-hidden");
+       }
+       else if (current_star_level_from == 0 && current_star_level_to == 0) {
+         cards[i].classList.remove("is-hidden");
+       }
+       else {
+         cards[i].classList.add("is-hidden");
+       }
+       console.log(current_star_level_from);
+       console.log(cards);
+     }
+   }
+  
+   //Trigger för Rating Filter
+   for (let rating of ratingInput) {
+     rating.addEventListener("click", () => {
+       ratingFilter();
+     })
+   }
+  
+   // Type filter
+   function typeFilter() {
+    
+   }
+ 
 }
 
 // Free search
