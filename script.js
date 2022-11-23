@@ -5,7 +5,7 @@ document.querySelector(".main-nav-toggle").addEventListener("click", () => {
 
 // -------------------- FILTER SECTION  --------------------
 // Only runs filter code on the right html file
-const host = "http://127.0.0.1:5501/";
+const host = "http://127.0.0.1:5500/";
 const hostOnline = "https://liber09.github.io/EscapeRoomGroupAssignment/";
 if (
   window.location.href == host + "challenges.html" ||
@@ -60,66 +60,65 @@ if (
     };
   });
 
-   // Rating filter
-   let cards = document.querySelectorAll(".challenge-item");
-   let ratingInput = document.getElementsByName("rating");
-  
-   function ratingFilter() {
-     for (let i = 0; i < cards.length; i++) {
-       if (cards[i].aria-valuenow >= current_star_level_from && cards[i].aria-valuenow <= current_star_level_to) {
-         cards[i].classList.remove("is-hidden");
-       }
-       else if (current_star_level_from == 0 && current_star_level_to == 0) {
-         cards[i].classList.remove("is-hidden");
-       }
-       else {
-         cards[i].classList.add("is-hidden");
-       }
-       console.log(current_star_level_from);
-       console.log(cards);
-     }
-   }
-  
-   //Trigger för Rating Filter
-   for (let rating of ratingInput) {
-     rating.addEventListener("click", () => {
-       ratingFilter();
-     })
-   }
-  
-   // Type filter
-   function typeFilter() {
-    
-   }
- 
-}
-
-// Free search
-
-function freeSearch() {
+  // Rating filter
   let cards = document.querySelectorAll(".challenge-item");
-  let searchInput = document.querySelector(".searchInput");
-  searchInput = searchInput.value;
+  let ratingInput = document.getElementsByName("rating");
 
-  for (let i = 0; i < cards.length; i++) {
-    if (cards[i].innerText.toLowerCase().includes(searchInput.toLowerCase())) {
-      cards[i].classList.remove("is-hidden");
-    } else {
-      cards[i].classList.add("is-hidden");
+  function ratingFilter() {
+    for (let i = 0; i < cards.length; i++) {
+      if (
+        cards[i].aria - valuenow >= current_star_level_from &&
+        cards[i].aria - valuenow <= current_star_level_to
+      ) {
+        cards[i].classList.remove("is-hidden");
+      } else if (current_star_level_from == 0 && current_star_level_to == 0) {
+        cards[i].classList.remove("is-hidden");
+      } else {
+        cards[i].classList.add("is-hidden");
+      }
+      console.log(current_star_level_from);
+      console.log(cards);
     }
   }
+
+  //Trigger för Rating Filter
+  for (let rating of ratingInput) {
+    rating.addEventListener("click", () => {
+      ratingFilter();
+    });
+  }
+
+  // Type filter
+  function typeFilter() {}
+
+  // Free search
+
+  function freeSearch() {
+    let cards = document.querySelectorAll(".challenge-item");
+    let searchInput = document.querySelector(".searchInput");
+    searchInput = searchInput.value;
+
+    for (let i = 0; i < cards.length; i++) {
+      if (
+        cards[i].innerText.toLowerCase().includes(searchInput.toLowerCase())
+      ) {
+        cards[i].classList.remove("is-hidden");
+      } else {
+        cards[i].classList.add("is-hidden");
+      }
+    }
+  }
+
+  // Event listener and search delay on input field
+  let typingTimer;
+  let typeInterval = 500;
+  let searchInput = document.querySelector(".searchInput");
+
+  searchInput.addEventListener("keyup", () => {
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(freeSearch, typeInterval);
+  });
 }
-
-// Event listener and search delay on input field
-let typingTimer;
-let typeInterval = 500;
-let searchInput = document.querySelector(".searchInput");
-
-searchInput.addEventListener("keyup", () => {
-  clearTimeout(typingTimer);
-  typingTimer = setTimeout(freeSearch, typeInterval);
-});
-
 // -------------------- MODAL --------------------
 
 // Trigger "book this room" to open modal
