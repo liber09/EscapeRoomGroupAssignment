@@ -60,38 +60,34 @@ if (
     };
   });
 
-   // Rating filter
-   let cards = document.querySelectorAll(".challenge-item");
-   let ratingInput = document.getElementsByName("rating");
-  
-   function ratingFilter() {
-     for (let i = 0; i < cards.length; i++) {
-       if (cards[i].aria-valuenow >= current_star_level_from && cards[i].aria-valuenow <= current_star_level_to) {
-         cards[i].classList.remove("is-hidden");
-       }
-       else if (current_star_level_from == 0 && current_star_level_to == 0) {
-         cards[i].classList.remove("is-hidden");
-       }
-       else {
-         cards[i].classList.add("is-hidden");
-       }
-       console.log(current_star_level_from);
-       console.log(cards);
-     }
-   }
-  
-   //Trigger för Rating Filter
-   for (let rating of ratingInput) {
-     rating.addEventListener("click", () => {
-       ratingFilter();
-     })
-   }
-  
-   // Type filter
-   function typeFilter() {
-    
-   }
- 
+  // Rating filter
+  let cards = document.querySelectorAll(".challenge-item");
+  let ratingInput = document.getElementsByName("rating");
+
+  function ratingFilter() {
+    for (let i = 0; i < cards.length; i++) {
+      if (
+        cards[i].aria - valuenow >= current_star_level_from &&
+        cards[i].aria - valuenow <= current_star_level_to
+      ) {
+        cards[i].classList.remove("is-hidden");
+      } else if (current_star_level_from == 0 && current_star_level_to == 0) {
+        cards[i].classList.remove("is-hidden");
+      } else {
+        cards[i].classList.add("is-hidden");
+      }
+    }
+  }
+
+  //Trigger för Rating Filter
+  for (let rating of ratingInput) {
+    rating.addEventListener("click", () => {
+      ratingFilter();
+    });
+  }
+
+  // Type filter
+  function typeFilter() {}
 }
 
 // Free search
@@ -229,6 +225,7 @@ function modalPopUp2() {
   const form = document.createElement("form");
   form.classList.add("form-content");
   const headingModal = document.createElement("h1");
+
   headingModal.classList.add("heading-modal");
   const confirmBtn = document.createElement("button");
   confirmBtn.innerText = "Submit booking";
@@ -239,7 +236,7 @@ function modalPopUp2() {
     "submit-button"
   );
 
-  //errormessages if input is empty !!!!!! not able yet
+  //errormessages if input is empty
   const errorMessages = {
     nameError: "You must enter your team name!",
     emailError: "You must enter an valid email!",
@@ -257,7 +254,8 @@ function modalPopUp2() {
 
   modal.append(form);
   form.append(headingModal);
-  headingModal.innerText = 'Book room "Title of room" (step 2)';
+
+  headingModal.innerText = "Book room ";
 
   const nameLabel = document.createElement("p");
   nameLabel.classList.add("label");
@@ -312,9 +310,11 @@ function modalPopUp2() {
     const dataParticipants = await resParticipants.json();
 
     dataParticipants.challenges.forEach((participants) => {
-      const participantsOption = document.createElement("option");
+      const minParticipants = participants.minParticipants;
+      const maxParticipants = participants.maxParticipants;
 
-      participantsOption.innerText = participants.minParticipants;
+      const participantsOption = document.createElement("option");
+      participantsOption.innerText = minParticipants;
       input4.append(participantsOption);
     });
   }
@@ -330,8 +330,6 @@ function modalPopUp2() {
       const timeOption = document.createElement("option");
       timeOption.innerText = slotTime;
       input3.append(timeOption);
-
-      console.log(slotTime);
     });
   }
   time();
