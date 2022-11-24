@@ -29,7 +29,7 @@ if (
     filterButton.setAttribute("aria-expanded", false);
   });
 
-
+  
   //Filter by rating Input
   //Added more functionallity, being able to put stars back to 0 --Anton
   const starsFrom = document.querySelectorAll(".star_from");
@@ -166,6 +166,32 @@ if (
     })
   })
 
+
+  // -------- FILTER BY TAGS -----------
+
+  const tagsBtn = document.querySelectorAll(".filterByTags");
+
+  function tagsFilter(e) {
+    let cards = document.querySelectorAll(".challenge-item");
+    for (let i = 0; i < cards.length; i++) {
+      console.log(cards[i].querySelector(".challenge-labels").innerText);
+      if(cards[i].querySelector(".challenge-labels").innerText.toLowerCase().includes(e.target.innerText.toLowerCase())) {
+        cards[i].classList.remove("is-hidden");
+      }
+      else {
+        cards[i].classList.add("is-hidden");
+      }
+    }
+  }
+
+
+
+  //Trigger for tags filter
+  tagsBtn.forEach((tag) => {
+    tag.addEventListener("click", (e) => {
+      tagsFilter(e);
+    })
+  })
 
 }
 
