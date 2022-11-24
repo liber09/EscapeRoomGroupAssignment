@@ -230,8 +230,8 @@ openModal.addEventListener("click", function (e) {
   modalHeading.innerHTML =
     'Book room <span class="room-title">"Title of room"</span> <br>(step 1)';
   modal.appendChild(modalHeading);
-
   backDrop.appendChild(modal);
+
   // Question in modal
 
   question.style.margin = "40px";
@@ -295,6 +295,15 @@ function modalPopUp2() {
     "modal-button",
     "submit-button"
   );
+  // Close modal when clicking outside
+  function closeModal() {
+    window.onclick = function (event) {
+      if (event.target == modalSection) {
+        modalSection.remove();
+      }
+    };
+  }
+  modalSection.addEventListener("click", closeModal);
 
   //errormessages if input is empty !!!!!! not able yet
   const errorMessages = {
