@@ -29,7 +29,6 @@ if (
     filterButton.setAttribute("aria-expanded", false);
   });
 
-
   //Filter by rating Input
   //Added more functionallity, being able to put stars back to 0 --Anton
   const starsFrom = document.querySelectorAll(".star_from");
@@ -37,16 +36,14 @@ if (
   starsFrom.forEach((starFrom, i) => {
     starFrom.onclick = function () {
       if (current_star_level_from == 1) {
-        starFrom.innerHTML = "&#9734"
+        starFrom.innerHTML = "&#9734";
         current_star_level_from = 0;
-      }
-      else {
+      } else {
         current_star_level_from = i + 1;
         starsFrom.forEach((starFrom, j) => {
           if (starsFrom[1].innerHTML == "&#9733") {
-            starsFrom[0].innerHTML ="&#9734";
-          }
-          else {
+            starsFrom[0].innerHTML = "&#9734";
+          } else {
             if (current_star_level_from >= j + 1) {
               starFrom.innerHTML = "&#9733";
             } else {
@@ -61,10 +58,9 @@ if (
   starsTo.forEach((starTo, i) => {
     starTo.onclick = function () {
       if (current_star_level_to == 1) {
-        starTo.innerHTML = "&#9734"
+        starTo.innerHTML = "&#9734";
         current_star_level_to = 0;
-      }
-      else {
+      } else {
         current_star_level_to = i + 1;
         starsTo.forEach((starTo, j) => {
           if (current_star_level_to >= j + 1) {
@@ -77,7 +73,6 @@ if (
     };
   });
 
-<<<<<<< HEAD
   // Rating filter
   let cards = document.querySelectorAll(".challenge-item");
   let ratingInput = document.getElementsByName("rating");
@@ -107,104 +102,106 @@ if (
   // Type filter
   function typeFilter() {}
 }
-=======
-   //------ Rating filter -------
-   const ratingInput = document.getElementsByName("rating");
-   
-   function ratingFilter() {
-    let cards = document.querySelectorAll(".challenge-item");
-     for (let i = 0; i < cards.length; i++) {
-       if (cards[i].querySelector("ul.rating").ariaValueNow >= current_star_level_from && cards[i].querySelector("ul.rating").ariaValueNow <= current_star_level_to ) {
-          cards[i].classList.remove("is-hidden");
-        }
-        else {
-          cards[i].classList.add("is-hidden");
-        }
-      }  
+
+//------ Rating filter -------
+const ratingInput = document.getElementsByName("rating");
+
+function ratingFilter() {
+  let cards = document.querySelectorAll(".challenge-item");
+  for (let i = 0; i < cards.length; i++) {
+    if (
+      cards[i].querySelector("ul.rating").ariaValueNow >=
+        current_star_level_from &&
+      cards[i].querySelector("ul.rating").ariaValueNow <= current_star_level_to
+    ) {
+      cards[i].classList.remove("is-hidden");
+    } else {
+      cards[i].classList.add("is-hidden");
     }
-    
-   //Trigger for Rating Filter
-   for (let rating of ratingInput) {
-     rating.addEventListener("click", () => {
-       ratingFilter();
-     })
-   }
->>>>>>> main
+  }
+}
 
-  // Free search
+//Trigger for Rating Filter
+for (let rating of ratingInput) {
+  rating.addEventListener("click", () => {
+    ratingFilter();
+  });
+}
 
-  function freeSearch() {
-    let cards = document.querySelectorAll(".challenge-item");
-    let searchInput = document.querySelector(".searchInput");
-    searchInput = searchInput.value;
+// Free search
 
+function freeSearch() {
+  let cards = document.querySelectorAll(".challenge-item");
+  let searchInput = document.querySelector(".searchInput");
+  searchInput = searchInput.value;
+
+  for (let i = 0; i < cards.length; i++) {
+    if (cards[i].innerText.toLowerCase().includes(searchInput.toLowerCase())) {
+      cards[i].classList.remove("is-hidden");
+    } else {
+      cards[i].classList.add("is-hidden");
+    }
+  }
+}
+// Event listener and search delay on input field
+let typingTimer;
+let typeInterval = 500;
+let searchInput = document.querySelector(".searchInput");
+
+searchInput.addEventListener("keyup", () => {
+  clearTimeout(typingTimer);
+  typingTimer = setTimeout(freeSearch, typeInterval);
+});
+
+//------- FILTER BY TYPE --------
+const checkBoxCheck = document.querySelectorAll("input[type=checkbox]");
+
+function typeFilter() {
+  let cards = document.querySelectorAll(".challenge-item");
+
+  if (checkBoxCheck[0].checked == true && checkBoxCheck[1].checked == false) {
     for (let i = 0; i < cards.length; i++) {
-      if (cards[i].innerText.toLowerCase().includes(searchInput.toLowerCase())) {
+      if (
+        cards[i]
+          .querySelector(".challenge-title")
+          .innerText.toLowerCase()
+          .includes("online")
+      ) {
         cards[i].classList.remove("is-hidden");
       } else {
         cards[i].classList.add("is-hidden");
       }
     }
-  }
-  // Event listener and search delay on input field
-  let typingTimer;
-  let typeInterval = 500;
-  let searchInput = document.querySelector(".searchInput");
-
-  searchInput.addEventListener("keyup", () => {
-    clearTimeout(typingTimer);
-    typingTimer = setTimeout(freeSearch, typeInterval);
-  });
- 
-
-  //------- FILTER BY TYPE --------
-  const checkBoxCheck = document.querySelectorAll("input[type=checkbox]")
-
-  function typeFilter() {
-    let cards = document.querySelectorAll(".challenge-item");
-    
-    if (checkBoxCheck[0].checked == true && checkBoxCheck[1].checked == false){
-      for (let i = 0; i < cards.length; i++) {
-        if (cards[i].querySelector(".challenge-title").innerText.toLowerCase().includes("online")) {
-          cards[i].classList.remove("is-hidden");
-        }
-        else {
-          cards[i].classList.add("is-hidden");
-        }
-      }
-    }
-    else if (checkBoxCheck[1].checked == true && checkBoxCheck[0].checked == false){
-      console.log("Andra Test");
-      for (let i = 0; i < cards.length; i++) {
-        if (cards[i].querySelector(".challenge-title").innerText.toLowerCase().includes("onsite")) {
-          cards[i].classList.remove("is-hidden");
-        }
-        else {
-          cards[i].classList.add("is-hidden");
-        }
-      }
-    }
-    else {
-      for (let i = 0; i < cards.length; i++) {
+  } else if (
+    checkBoxCheck[1].checked == true &&
+    checkBoxCheck[0].checked == false
+  ) {
+    console.log("Andra Test");
+    for (let i = 0; i < cards.length; i++) {
+      if (
+        cards[i]
+          .querySelector(".challenge-title")
+          .innerText.toLowerCase()
+          .includes("onsite")
+      ) {
         cards[i].classList.remove("is-hidden");
+      } else {
+        cards[i].classList.add("is-hidden");
       }
     }
-  } 
-
-  //Trigger for checkbox filter
-  checkBoxCheck.forEach((checkbox) => {
-    checkbox.addEventListener("click", () => {
-      typeFilter();
-    })
-  })
-
-
+  } else {
+    for (let i = 0; i < cards.length; i++) {
+      cards[i].classList.remove("is-hidden");
+    }
+  }
 }
 
-
-
-
-
+//Trigger for checkbox filter
+checkBoxCheck.forEach((checkbox) => {
+  checkbox.addEventListener("click", () => {
+    typeFilter();
+  });
+});
 
 // -------------------- MODAL --------------------
 
@@ -315,7 +312,6 @@ function modalPopUp2() {
   const form = document.createElement("form");
   form.classList.add("form-content");
   const headingModal = document.createElement("h1");
-
   headingModal.classList.add("heading-modal");
   const confirmBtn = document.createElement("button");
   confirmBtn.innerText = "Submit booking";
@@ -398,15 +394,14 @@ function modalPopUp2() {
       `https://lernia-sjj-assignments.vercel.app/api/challenges`
     );
     const dataParticipants = await resParticipants.json();
+    let minParticipants = dataParticipants.challenges[1].minParticipants; // här ska rätt rätt kort läggas in.
+    const maxParticipants = dataParticipants.challenges[1].maxParticipants; // här ska rätt rätt kort läggas in.
 
-    dataParticipants.challenges.forEach((participants) => {
-      const minParticipants = participants.minParticipants;
-      const maxParticipants = participants.maxParticipants;
-
-      const participantsOption = document.createElement("option");
-      participantsOption.innerText = minParticipants;
-      input4.append(participantsOption);
-    });
+    while (minParticipants <= maxParticipants) {
+      const option = document.createElement("option");
+      option.innerText = minParticipants++;
+      input4.append(option);
+    }
   }
   participants();
 
