@@ -73,18 +73,18 @@ if (
     };
   });
 
-  // Rating filter
-  let cards = document.querySelectorAll(".challenge-item");
-  let ratingInput = document.getElementsByName("rating");
+  //------ Rating filter -------
+  const ratingInput = document.getElementsByName("rating");
 
   function ratingFilter() {
+    let cards = document.querySelectorAll(".challenge-item");
     for (let i = 0; i < cards.length; i++) {
       if (
-        cards[i].aria - valuenow >= current_star_level_from &&
-        cards[i].aria - valuenow <= current_star_level_to
+        cards[i].querySelector("ul.rating").ariaValueNow >=
+          current_star_level_from &&
+        cards[i].querySelector("ul.rating").ariaValueNow <=
+          current_star_level_to
       ) {
-        cards[i].classList.remove("is-hidden");
-      } else if (current_star_level_from == 0 && current_star_level_to == 0) {
         cards[i].classList.remove("is-hidden");
       } else {
         cards[i].classList.add("is-hidden");
@@ -92,450 +92,440 @@ if (
     }
   }
 
-  //Trigger för Rating Filter
+  //Trigger for Rating Filter
   for (let rating of ratingInput) {
     rating.addEventListener("click", () => {
       ratingFilter();
     });
   }
 
-  // Type filter
-  function typeFilter() {}
-}
+  // Free search
 
-//------ Rating filter -------
-const ratingInput = document.getElementsByName("rating");
+  function freeSearch() {
+    let cards = document.querySelectorAll(".challenge-item");
+    let searchInput = document.querySelector(".searchInput");
+    searchInput = searchInput.value;
 
-function ratingFilter() {
-  let cards = document.querySelectorAll(".challenge-item");
-  for (let i = 0; i < cards.length; i++) {
-    if (
-      cards[i].querySelector("ul.rating").ariaValueNow >=
-        current_star_level_from &&
-      cards[i].querySelector("ul.rating").ariaValueNow <= current_star_level_to
-    ) {
-      cards[i].classList.remove("is-hidden");
-    } else {
-      cards[i].classList.add("is-hidden");
-    }
-  }
-}
-
-//Trigger for Rating Filter
-for (let rating of ratingInput) {
-  rating.addEventListener("click", () => {
-    ratingFilter();
-  });
-}
-
-// Free search
-
-function freeSearch() {
-  let cards = document.querySelectorAll(".challenge-item");
-  let searchInput = document.querySelector(".searchInput");
-  searchInput = searchInput.value;
-
-  for (let i = 0; i < cards.length; i++) {
-    if (cards[i].innerText.toLowerCase().includes(searchInput.toLowerCase())) {
-      cards[i].classList.remove("is-hidden");
-    } else {
-      cards[i].classList.add("is-hidden");
-    }
-  }
-}
-// Event listener and search delay on input field
-let typingTimer;
-let typeInterval = 500;
-let searchInput = document.querySelector(".searchInput");
-
-searchInput.addEventListener("keyup", () => {
-  clearTimeout(typingTimer);
-  typingTimer = setTimeout(freeSearch, typeInterval);
-});
-
-//------- FILTER BY TYPE --------
-const checkBoxCheck = document.querySelectorAll("input[type=checkbox]");
-
-function typeFilter() {
-  let cards = document.querySelectorAll(".challenge-item");
-
-  if (checkBoxCheck[0].checked == true && checkBoxCheck[1].checked == false) {
-    for (let i = 0; i < cards.length; i++) {
-      if (
-        cards[i]
-          .querySelector(".challenge-title")
-          .innerText.toLowerCase()
-          .includes("online")
-      ) {
-        cards[i].classList.remove("is-hidden");
-      } else {
-        cards[i].classList.add("is-hidden");
+    function ratingFilter() {
+      for (let i = 0; i < cards.length; i++) {
+        if (
+          cards[i].innerText.toLowerCase().includes(searchInput.toLowerCase())
+        ) {
+          cards[i].classList.remove("is-hidden");
+        } else {
+          cards[i].classList.add("is-hidden");
+        }
       }
     }
-  } else if (
-    checkBoxCheck[1].checked == true &&
-    checkBoxCheck[0].checked == false
-  ) {
-    console.log("Andra Test");
-    for (let i = 0; i < cards.length; i++) {
-      if (
-        cards[i]
-          .querySelector(".challenge-title")
-          .innerText.toLowerCase()
-          .includes("onsite")
-      ) {
-        cards[i].classList.remove("is-hidden");
-      } else {
-        cards[i].classList.add("is-hidden");
-      }
-    }
-  } else {
-    for (let i = 0; i < cards.length; i++) {
-      cards[i].classList.remove("is-hidden");
-    }
-  }
-}
 
-//Trigger for checkbox filter
-checkBoxCheck.forEach((checkbox) => {
-  checkbox.addEventListener("click", () => {
-    typeFilter();
-  });
-});
+    // Event listener and search delay on input field
+    let typingTimer;
+    let typeInterval = 500;
 
-// -------------------- MODAL --------------------
-
-// Trigger "book this room" to open modal
-const openModal = document.querySelector(".challenge-list");
-
-// Backdrop when modal is open
-const backDrop = document.createElement("section");
-backDrop.classList.add("backdrop");
-
-// Creates the modal window
-const modal = document.createElement("div");
-modal.classList.add("modal-content");
-
-// Creates H3 element to use in modal
-const modalHeading = document.createElement("h3");
-modalHeading.classList.add("modal-heading");
-
-// Close button "X" in modal
-const closeBtn = document.createElement("small");
-closeBtn.classList.add("modal-close");
-closeBtn.innerHTML = "&times;";
-
-// Button
-const button = document.createElement("button");
-button.classList.add("button", "primary", "modal-button");
-
-// Function to close modal if click outside of modalbox
-function closeModal() {
-  window.onclick = function (event) {
-    if (event.target == backDrop) {
-      backDrop.remove();
-    }
-  };
-}
-const inputDate = document.createElement("input");
-const labelDate = document.createElement("label");
-const question = document.createElement("p");
-// When user clicks on "book this room", run and create function to open modal
-openModal.addEventListener("click", function (e) {
-  if (e.target.classList.contains("modal-open")) document.body.append(backDrop);
-  backDrop.addEventListener("click", closeModal);
-
-  // Remove modal when click on X
-  modal.appendChild(closeBtn);
-  closeBtn.addEventListener("click", function () {
-    backDrop.remove();
-  });
-
-  // Set heading inside modal
-
-  modalHeading.innerHTML =
-    'Book room <span class="room-title">"Title of room"</span> <br>(step 1)';
-  modal.appendChild(modalHeading);
-
-  backDrop.appendChild(modal);
-  // Question in modal
-
-  question.style.margin = "40px";
-  question.innerText = "What date would you like to come?";
-  modal.appendChild(question);
-
-  // Label for input
-
-  labelDate.setAttribute("for", "date");
-  labelDate.innerText = "Date:";
-  modal.appendChild(labelDate);
-
-  // Date input
-
-  inputDate.id = "date";
-  inputDate.type = "date";
-
-  inputDate.valueAsNumber = Date.now() - new Date().getTimezoneOffset() * 60000;
-
-  modal.appendChild(inputDate);
-
-  // Button "search available times"
-  button.innerHTML = "Search available times";
-  button.type = "submit";
-  modal.appendChild(button);
-
-  const today = new Date().toISOString().split("T")[0];
-  inputDate.setAttribute("min", today);
-  const selectedDate = inputDate.value;
-
-  button.addEventListener("click", async function () {
-    const res = await fetch(
-      `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${selectedDate}&challenge=3"`
-    );
-    const data = await res.json();
-    console.log(inputDate.value);
-    data.slots.forEach((slot) => {
-      console.log(slot);
+    searchInput.addEventListener("keyup", () => {
+      clearTimeout(typingTimer);
+      typingTimer = setTimeout(freeSearch, typeInterval);
     });
-  });
-});
-// -------------------- END OF MODAL JS --------------------
 
-//---------------------- CREATING MODAL2 ----------------------
+    //------- FILTER BY TYPE --------
+    const checkBoxCheck = document.querySelectorAll("input[type=checkbox]");
 
-//search avalible times button creats new modal
-button.addEventListener("click", function () {
-  backDrop.remove();
-  modalPopUp2();
-});
+    function typeFilter() {
+      let cards = document.querySelectorAll(".challenge-item");
 
-function modalPopUp2() {
-  //variables
-  const modalSection = document.createElement("section");
-  modalSection.classList.add("backdrop");
+      if (
+        checkBoxCheck[0].checked == true &&
+        checkBoxCheck[1].checked == false
+      ) {
+        for (let i = 0; i < cards.length; i++) {
+          if (
+            cards[i]
+              .querySelector(".challenge-title")
+              .innerText.toLowerCase()
+              .includes("online")
+          ) {
+            cards[i].classList.remove("is-hidden");
+          } else {
+            cards[i].classList.add("is-hidden");
+          }
+        }
+      } else if (
+        checkBoxCheck[1].checked == true &&
+        checkBoxCheck[0].checked == false
+      ) {
+        console.log("Andra Test");
+        for (let i = 0; i < cards.length; i++) {
+          if (
+            cards[i]
+              .querySelector(".challenge-title")
+              .innerText.toLowerCase()
+              .includes("onsite")
+          ) {
+            cards[i].classList.remove("is-hidden");
+          } else {
+            cards[i].classList.add("is-hidden");
+          }
+        }
+      } else {
+        for (let i = 0; i < cards.length; i++) {
+          cards[i].classList.remove("is-hidden");
+        }
+      }
+    }
+
+    //Trigger for checkbox filter
+    checkBoxCheck.forEach((checkbox) => {
+      checkbox.addEventListener("click", () => {
+        typeFilter();
+      });
+    });
+  }
+
+  // -------------------- MODAL --------------------
+
+  // Trigger "book this room" to open modal
+  const openModal = document.querySelector(".challenge-list");
+
+  // Backdrop when modal is open
+  const backDrop = document.createElement("section");
+  backDrop.classList.add("backdrop");
+
+  // Creates the modal window
   const modal = document.createElement("div");
   modal.classList.add("modal-content");
-  const form = document.createElement("form");
-  form.classList.add("form-content");
-  const headingModal = document.createElement("h1");
-  headingModal.classList.add("heading-modal");
-  const confirmBtn = document.createElement("button");
-  confirmBtn.innerText = "Submit booking";
-  confirmBtn.classList.add(
-    "button",
-    "primary",
-    "modal-button",
-    "submit-button"
-  );
 
-  //errormessages if input is empty
-  const errorMessages = {
-    nameError: "You must enter your team name!",
-    emailError: "You must enter an valid email!",
-    emptyError: "You haven't enter anything",
-    shortError: "Your team name must be at least 3 letters long",
-  };
-  const completedMessages = {
-    nameCompleted: "Your team name is valid",
-    emailCompleted: "This email is valid",
-  };
+  // Creates H2 element to use in modal
+  const modalHeading = document.createElement("h2");
+  modalHeading.classList.add("modal-heading");
 
-  //creating modal
-  document.body.append(modalSection);
-  modalSection.append(modal);
+  // Close button "X" in modal
+  const closeBtn = document.createElement("small");
+  closeBtn.classList.add("modal-close");
+  closeBtn.innerHTML = "&times;";
 
-  modal.append(form);
-  form.append(headingModal);
+  // Button
+  const button = document.createElement("button");
+  button.classList.add("button", "primary", "modal-button");
 
-  headingModal.innerText = "Book room ";
-
-  const nameLabel = document.createElement("p");
-  nameLabel.classList.add("label");
-  nameLabel.innerText = "Name?";
-  const input1 = document.createElement("input");
-  input1.classList.add("input");
-  input1.type = "text";
-
-  const emailLabel = document.createElement("p");
-  emailLabel.classList.add("label");
-  emailLabel.innerText = "Email?";
-  const input2 = document.createElement("input");
-  input2.classList.add("input");
-  input2.type = "email";
-
-  const timeLabel = document.createElement("p");
-  timeLabel.classList.add("label");
-  timeLabel.innerText = "What time would you like to come?";
-  const input3 = document.createElement("select");
-  input3.classList.add("input", "input-time");
-  input3.type = "time";
-
-  const participantsLabel = document.createElement("p");
-  participantsLabel.classList.add("label");
-  participantsLabel.innerText = "How many?";
-  const input4 = document.createElement("select");
-  input4.classList.add("input", "input-participants");
-
-  const closeBtn2 = document.createElement("small");
-  closeBtn2.classList.add("modal-close");
-  closeBtn2.innerHTML = "&times;";
-
-  //appending all created elements to modal
-  form.append(
-    nameLabel,
-    input1,
-    emailLabel,
-    input2,
-    timeLabel,
-    input3,
-    participantsLabel,
-    input4,
-    confirmBtn,
-    closeBtn2
-  );
-
-  //funktion för participants !! behövs lösas så den kopplar till challanges "id"
-  async function participants() {
-    const resParticipants = await fetch(
-      `https://lernia-sjj-assignments.vercel.app/api/challenges`
-    );
-    const dataParticipants = await resParticipants.json();
-    let minParticipants = dataParticipants.challenges[1].minParticipants; // här ska rätt rätt kort läggas in.
-    const maxParticipants = dataParticipants.challenges[1].maxParticipants; // här ska rätt rätt kort läggas in.
-
-    while (minParticipants <= maxParticipants) {
-      const option = document.createElement("option");
-      option.innerText = minParticipants++;
-      input4.append(option);
-    }
+  // Function to close modal if click outside of modalbox
+  function closeModal() {
+    window.onclick = function (event) {
+      if (event.target == backDrop) {
+        backDrop.remove();
+      }
+    };
   }
-  participants();
+  const inputDate = document.createElement("input");
+  const labelDate = document.createElement("label");
+  const question = document.createElement("p");
+  // When user clicks on "book this room", run and create function to open modal
+  openModal.addEventListener("click", function (e) {
+    if (e.target.classList.contains("modal-open"))
+      document.body.append(backDrop);
+    backDrop.addEventListener("click", closeModal);
 
-  //function för att få ut tid som är tillgängligt för bokning under det datumet.
-  async function time() {
-    const resTime = await fetch(
-      `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${inputDate.value}&challenge=3"`
-    );
-    const dataTime = await resTime.json();
-    dataTime.slots.forEach((slotTime) => {
-      const timeOption = document.createElement("option");
-      timeOption.innerText = slotTime;
-      input3.append(timeOption);
+    // Remove modal when click on X
+    modal.appendChild(closeBtn);
+    closeBtn.addEventListener("click", function () {
+      backDrop.remove();
     });
-  }
-  time();
 
-  //closing modal on X Icon
-  closeBtn2.addEventListener("click", function () {
-    modalSection.remove();
-  });
+    // Set heading inside modal
 
-  // storing user input in object an array when submit button is pressed.
-  confirmBtn.addEventListener("click", async function () {
-    event.preventDefault();
-    if (input1.value === "") {
-      nameLabel.innerText = errorMessages.nameError;
-      nameLabel.style.color = "red";
-    } else if (input1.value.length < 3) {
-      nameLabel.innerText = errorMessages.shortError;
-      nameLabel.style.color = "red";
-    } else {
-      nameLabel.innerText = completedMessages.nameCompleted;
-      nameLabel.style.color = "black";
-    }
+    modalHeading.innerHTML =
+      'Book room <span class="room-title">"Title of room"</span> <br>(step 1)';
+    modal.appendChild(modalHeading);
+    backDrop.appendChild(modal);
 
-    if (input2.value === "") {
-      emailLabel.innerText = errorMessages.emptyError;
-      emailLabel.style.color = "red";
-    } else if (input2.value.length <= 8) {
-      emailLabel.innerText = errorMessages.emailError;
-      emailLabel.style.color = "red";
-    } else if (input2.value.includes("@" && ".")) {
-      emailLabel.innerText = completedMessages.emailCompleted;
-      emailLabel.style.color = "black";
-    }
+    // Question in modal
 
-    if (
-      nameLabel.innerText == completedMessages.nameCompleted &&
-      emailLabel.innerText == completedMessages.emailCompleted
-    ) {
-      //POST Request
-      const bookingResult = await fetch(
-        "https://lernia-sjj-assignments.vercel.app/api/booking/reservations",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            challenge: 3,
-            name: input1.value,
-            email: input2.value,
-            date: inputDate.value,
-            time: input3.value,
-            participants: parseInt(input4.value.match(/\d+/g)),
-          }),
-        }
+    question.style.margin = "40px";
+    question.innerText = "What date would you like to come?";
+    modal.appendChild(question);
+
+    // Label for input
+
+    labelDate.setAttribute("for", "date");
+    labelDate.innerText = "Date:";
+    modal.appendChild(labelDate);
+
+    // Date input
+
+    inputDate.id = "date";
+    inputDate.type = "date";
+
+    inputDate.valueAsNumber =
+      Date.now() - new Date().getTimezoneOffset() * 60000;
+
+    modal.appendChild(inputDate);
+
+    // Button "search available times"
+    button.innerHTML = "Search available times";
+    button.type = "submit";
+    modal.appendChild(button);
+
+    const today = new Date().toISOString().split("T")[0];
+    inputDate.setAttribute("min", today);
+    const selectedDate = inputDate.value;
+
+    button.addEventListener("click", async function () {
+      const res = await fetch(
+        `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${selectedDate}&challenge=3"`
       );
-      const booking = await bookingResult.json();
-      console.log(booking);
-      //moving forward if inputfields are correct
-      form.remove(); //removing the "form" element from modal 2
-      modalPopUp3(); // replacing vid modal 3
-    }
+      const data = await res.json();
+      console.log(inputDate.value);
+      data.slots.forEach((slot) => {
+        console.log(slot);
+      });
+    });
+  });
+  // -------------------- END OF MODAL JS --------------------
+
+  //---------------------- CREATING MODAL2 ----------------------
+
+  //search avalible times button creats new modal
+  button.addEventListener("click", function () {
+    backDrop.remove();
+    modalPopUp2();
   });
 
-  //------------------------- Modal 3 ------------------------------
-
-  function modalPopUp3() {
-    //creating elements
-    const confirmationHeading = document.createElement("h1");
-    confirmationHeading.classList.add("heading-modal");
-    confirmationHeading.innerText = "Your booking has been confirmed";
-
-    const bookingDoneText1 = document.createElement("p");
-    const bookingDoneText2 = document.createElement("p");
-    const bookingDoneText3 = document.createElement("p");
-    const bookingDoneText4 = document.createElement("p");
-    const bookingDoneText5 = document.createElement("p");
-
-    //object and array for storing input value
-    const completedBooking = [];
-    const bookingInfo = {};
-
-    bookingInfo.nameInfo = input1.value;
-    bookingInfo.emailInfo = input2.value;
-    bookingInfo.timeInfo = input3.value;
-    bookingInfo.participantInfo = input4.value;
-    //displaying info about the booking
-    bookingDoneText1.innerText = "Your team name is: " + bookingInfo.nameInfo;
-    bookingDoneText2.innerText =
-      "We have sent a confirmation mail to: " + bookingInfo.emailInfo;
-    bookingDoneText3.innerText = "Your time is: " + bookingInfo.timeInfo;
-    bookingDoneText4.innerText =
-      "This room is booked for " +
-      bookingInfo.participantInfo +
-      " participants";
-    bookingDoneText5.innerText =
-      "And we are happy to see you on the " + inputDate.value;
-
-    //return to homepage tag
-    const homePageBtn = document.createElement("a");
-    homePageBtn.setAttribute("href", "challenges.html");
-    homePageBtn.classList.add("submit-booking");
-    homePageBtn.innerText = "Return to homepage";
-
-    //adding the bookked object to array
-
-    completedBooking.push(bookingInfo);
-
-    //appending all elements to modal 3
-    modal.append(
-      confirmationHeading,
-      bookingDoneText1,
-      bookingDoneText2,
-      bookingDoneText3,
-      bookingDoneText4,
-      bookingDoneText5,
-      homePageBtn
+  function modalPopUp2() {
+    //variables
+    const modalSection = document.createElement("section");
+    modalSection.classList.add("backdrop");
+    const modal = document.createElement("div");
+    modal.classList.add("modal-content");
+    const form = document.createElement("form");
+    form.classList.add("form-content");
+    const headingModal = document.createElement("h2");
+    headingModal.classList.add("modal-heading");
+    const confirmBtn = document.createElement("button");
+    confirmBtn.innerText = "Submit booking";
+    confirmBtn.classList.add(
+      "button",
+      "primary",
+      "modal-button",
+      "submit-button"
     );
+    // Close modal when clicking outside
+    function closeModal() {
+      window.onclick = function (event) {
+        if (event.target == modalSection) {
+          modalSection.remove();
+        }
+      };
+    }
+    modalSection.addEventListener("click", closeModal);
+
+    //errormessages if input is empty
+    const errorMessages = {
+      nameError: "You must enter your team name!",
+      emailError: "You must enter an valid email!",
+      emptyError: "You must enter an valid email!",
+      shortError: "Your team name must be at least 3 letters long",
+    };
+    const completedMessages = {
+      nameCompleted: "Your team name is valid",
+      emailCompleted: "This email is valid",
+    };
+
+    //creating modal
+    document.body.append(modalSection);
+    modalSection.append(modal);
+
+    const closeBtn2 = document.createElement("small");
+    closeBtn2.classList.add("modal-close");
+    closeBtn2.innerHTML = "&times;";
+    modal.append(closeBtn2);
+    modal.append(form);
+    form.append(headingModal);
+
+    headingModal.innerText = "Book room ";
+
+    const nameLabel = document.createElement("p");
+    nameLabel.classList.add("label");
+    nameLabel.innerText = "Name?";
+    const input1 = document.createElement("input");
+    input1.classList.add("input");
+    input1.type = "text";
+
+    const emailLabel = document.createElement("p");
+    emailLabel.classList.add("label");
+    emailLabel.innerText = "Email?";
+    const input2 = document.createElement("input");
+    input2.classList.add("input");
+    input2.type = "email";
+
+    const timeLabel = document.createElement("p");
+    timeLabel.classList.add("label");
+    timeLabel.innerText = "What time would you like to come?";
+    const input3 = document.createElement("select");
+    input3.classList.add("input", "input-time");
+    input3.type = "time";
+
+    const participantsLabel = document.createElement("p");
+    participantsLabel.classList.add("label");
+    participantsLabel.innerText = "How many?";
+    const input4 = document.createElement("select");
+    input4.classList.add("input", "input-participants");
+
+    //appending all created elements to modal
+    form.append(
+      nameLabel,
+      input1,
+      emailLabel,
+      input2,
+      timeLabel,
+      input3,
+      participantsLabel,
+      input4,
+      confirmBtn
+    );
+
+    //funktion för participants !! behövs lösas så den kopplar till challanges "id"
+    async function participants() {
+      const resParticipants = await fetch(
+        `https://lernia-sjj-assignments.vercel.app/api/challenges`
+      );
+      const dataParticipants = await resParticipants.json();
+      let minParticipants = dataParticipants.challenges[1].minParticipants; // här ska rätt rätt kort läggas in.
+      const maxParticipants = dataParticipants.challenges[1].maxParticipants; // här ska rätt rätt kort läggas in.
+
+      while (minParticipants <= maxParticipants) {
+        const option = document.createElement("option");
+        option.innerText = minParticipants++;
+        input4.append(option);
+      }
+    }
+    participants();
+
+    //function för att få ut tid som är tillgängligt för bokning under det datumet.
+    async function time() {
+      const resTime = await fetch(
+        `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${inputDate.value}&challenge=3"`
+      );
+      const dataTime = await resTime.json();
+      dataTime.slots.forEach((slotTime) => {
+        const timeOption = document.createElement("option");
+        timeOption.innerText = slotTime;
+        input3.append(timeOption);
+      });
+    }
+    time();
+
+    //closing modal on X Icon
+    closeBtn2.addEventListener("click", function () {
+      modalSection.remove();
+    });
+
+    // storing user input in object an array when submit button is pressed.
+    confirmBtn.addEventListener("click", async function () {
+      event.preventDefault();
+      if (input1.value === "") {
+        nameLabel.innerText = errorMessages.nameError;
+        nameLabel.style.color = "red";
+      } else if (input1.value.length < 3) {
+        nameLabel.innerText = errorMessages.shortError;
+        nameLabel.style.color = "red";
+      } else {
+        nameLabel.innerText = completedMessages.nameCompleted;
+        nameLabel.style.color = "black";
+      }
+
+      if (input2.value === "") {
+        emailLabel.innerText = errorMessages.emptyError;
+        emailLabel.style.color = "red";
+      } else if (input2.value.length <= 8) {
+        emailLabel.innerText = errorMessages.emailError;
+        emailLabel.style.color = "red";
+      } else if (input2.value.includes("@" && ".")) {
+        emailLabel.innerText = completedMessages.emailCompleted;
+        emailLabel.style.color = "black";
+      }
+
+      if (
+        nameLabel.innerText == completedMessages.nameCompleted &&
+        emailLabel.innerText == completedMessages.emailCompleted
+      ) {
+        //POST Request
+        const bookingResult = await fetch(
+          "https://lernia-sjj-assignments.vercel.app/api/booking/reservations",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              challenge: 3,
+              name: input1.value,
+              email: input2.value,
+              date: inputDate.value,
+              time: input3.value,
+              participants: parseInt(input4.value.match(/\d+/g)),
+            }),
+          }
+        );
+        const booking = await bookingResult.json();
+        console.log(booking);
+        //moving forward if inputfields are correct
+        form.remove(); //removing the "form" element from modal 2
+        modalPopUp3(); // replacing vid modal 3
+      }
+    });
+
+    //------------------------- Modal 3 ------------------------------
+
+    function modalPopUp3() {
+      //creating elements
+      const confirmationHeading = document.createElement("h2");
+      confirmationHeading.classList.add("modal-heading");
+      confirmationHeading.style.color = "green";
+      confirmationHeading.innerText = "Your booking has been confirmed";
+
+      const bookingDoneText1 = document.createElement("p");
+      const bookingDoneText2 = document.createElement("p");
+      const bookingDoneText3 = document.createElement("p");
+      const bookingDoneText4 = document.createElement("p");
+      const bookingDoneText5 = document.createElement("p");
+
+      //object and array for storing input value
+      const completedBooking = [];
+      const bookingInfo = {};
+
+      bookingInfo.nameInfo = input1.value;
+      bookingInfo.emailInfo = input2.value;
+      bookingInfo.timeInfo = input3.value;
+      bookingInfo.participantInfo = input4.value;
+      //displaying info about the booking
+      bookingDoneText1.innerText = "Your team name is: " + bookingInfo.nameInfo;
+      bookingDoneText2.innerText =
+        "We have sent a confirmation mail to: " + bookingInfo.emailInfo;
+      bookingDoneText3.innerText = "Your time is: " + bookingInfo.timeInfo;
+      bookingDoneText4.innerText =
+        "This room is booked for " +
+        bookingInfo.participantInfo +
+        " participants";
+      bookingDoneText5.innerText =
+        "And we are happy to see you on the " + inputDate.value;
+
+      //return to homepage tag
+      const homePageBtn = document.createElement("a");
+      homePageBtn.setAttribute("href", "challenges.html");
+      homePageBtn.classList.add("submit-booking");
+      homePageBtn.innerText = "Return to homepage";
+
+      //adding the bookked object to array
+
+      completedBooking.push(bookingInfo);
+
+      //appending all elements to modal 3
+      modal.append(
+        confirmationHeading,
+        bookingDoneText1,
+        bookingDoneText2,
+        bookingDoneText3,
+        bookingDoneText4,
+        bookingDoneText5,
+        homePageBtn
+      );
+    }
   }
 }

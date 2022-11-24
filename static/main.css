@@ -102,7 +102,7 @@ header h1 {
     width: 3em;
     height: 0.4em;
     border-radius: 0.2em;
-    background-color: #ffffff;
+    background-color: #FFFFFF;
     /* Reset button styling */
     margin: 0;
     padding: 0;
@@ -116,7 +116,7 @@ header h1 {
     width: 3em;
     height: 0.4em;
     border-radius: 0.2em;
-    background-color: #ffffff;
+    background-color: #FFFFFF;
     position: relative;
     top: 0.8em;
     transition: transform 0.5s;
@@ -127,7 +127,7 @@ header h1 {
     width: 3em;
     height: 0.4em;
     border-radius: 0.2em;
-    background-color: #ffffff;
+    background-color: #FFFFFF;
     position: relative;
     top: 1.2em;
   }
@@ -622,6 +622,7 @@ footer a:hover {
   background-color: rgba(0, 0, 0, 0.4);
 }
 .backdrop .modal-content {
+  overflow: scroll;
   z-index: 2;
   text-align: center;
   position: relative;
@@ -630,12 +631,14 @@ footer a:hover {
   background-color: white;
   width: 90%;
   max-width: 700px;
-  height: 50%;
+  height: auto;
   margin: 20vh auto;
   animation: fadeInModal 0.6s;
+  padding-bottom: 40px;
 }
 .backdrop .modal-content .modal-heading {
   margin: 1em;
+  margin-top: -20px;
 }
 .backdrop .modal-content .p-question {
   margin: 40px;
@@ -645,7 +648,14 @@ footer a:hover {
   margin-right: 10px;
 }
 .backdrop .modal-content input {
-  font-size: 20px;
+  font-size: 1.1em;
+  border-radius: 5px;
+}
+.backdrop .modal-content select {
+  font-size: 0.9em;
+  max-height: 40%;
+  padding: 4px;
+  border-radius: 5px;
 }
 .backdrop .modal-content .modal-button {
   cursor: pointer;
@@ -653,9 +663,7 @@ footer a:hover {
   font-size: 0.7em;
 }
 .backdrop .modal-content .modal-close {
-  margin-top: 0px;
   margin-left: 85%;
-  text-align: right;
   font-size: 70px;
   cursor: pointer;
 }
@@ -668,3 +676,5 @@ footer a:hover {
     opacity: 1;
   }
 }
+
+/*# sourceMappingURL=main.css.map */
