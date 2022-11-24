@@ -190,8 +190,8 @@ backDrop.classList.add("backdrop");
 const modal = document.createElement("div");
 modal.classList.add("modal-content");
 
-// Creates H3 element to use in modal
-const modalHeading = document.createElement("h3");
+// Creates H2 element to use in modal
+const modalHeading = document.createElement("h2");
 modalHeading.classList.add("modal-heading");
 
 // Close button "X" in modal
@@ -285,8 +285,8 @@ function modalPopUp2() {
   modal.classList.add("modal-content");
   const form = document.createElement("form");
   form.classList.add("form-content");
-  const headingModal = document.createElement("h1");
-  headingModal.classList.add("heading-modal");
+  const headingModal = document.createElement("h2");
+  headingModal.classList.add("modal-heading");
   const confirmBtn = document.createElement("button");
   confirmBtn.innerText = "Submit booking";
   confirmBtn.classList.add(
@@ -309,7 +309,7 @@ function modalPopUp2() {
   const errorMessages = {
     nameError: "You must enter your team name!",
     emailError: "You must enter an valid email!",
-    emptyError: "You haven't enter anything",
+    emptyError: "You must enter an valid email!",
     shortError: "Your team name must be at least 3 letters long",
   };
   const completedMessages = {
@@ -321,6 +321,10 @@ function modalPopUp2() {
   document.body.append(modalSection);
   modalSection.append(modal);
 
+  const closeBtn2 = document.createElement("small");
+  closeBtn2.classList.add("modal-close");
+  closeBtn2.innerHTML = "&times;";
+  modal.append(closeBtn2);
   modal.append(form);
   form.append(headingModal);
   headingModal.innerText = 'Book room "Title of room" (step 2)';
@@ -352,10 +356,6 @@ function modalPopUp2() {
   const input4 = document.createElement("select");
   input4.classList.add("input", "input-participants");
 
-  const closeBtn2 = document.createElement("small");
-  closeBtn2.classList.add("modal-close");
-  closeBtn2.innerHTML = "&times;";
-
   //appending all created elements to modal
   form.append(
     nameLabel,
@@ -366,8 +366,7 @@ function modalPopUp2() {
     input3,
     participantsLabel,
     input4,
-    confirmBtn,
-    closeBtn2
+    confirmBtn
   );
 
   //funktion för participants !! behövs lösas så den kopplar till challanges "id"
@@ -464,8 +463,9 @@ function modalPopUp2() {
 
   function modalPopUp3() {
     //creating elements
-    const confirmationHeading = document.createElement("h1");
-    confirmationHeading.classList.add("heading-modal");
+    const confirmationHeading = document.createElement("h2");
+    confirmationHeading.classList.add("modal-heading");
+    confirmationHeading.style.color = "green";
     confirmationHeading.innerText = "Your booking has been confirmed";
 
     const bookingDoneText1 = document.createElement("p");
