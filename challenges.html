@@ -34,9 +34,7 @@
         class="button secondary"
         id="filterButton"
         aria-controls="filterSection"
-        aria-expanded="false"
-      >
-        Filter challenges
+        aria-expanded="false">Filter challenges
       </button>
       <!-- FILTER SECTION -->
       <section class="filter" id="filterSection">
@@ -50,14 +48,32 @@
             </span>
             <span class="filterChallengeTypes">
               <label>
-                <input type="checkbox" name="filterOnsiteChallenges" value="filterOnlinesiteChallenges">Include On-Site challenges
+                <input type="checkbox" name="filterOnsiteChallenges" value="filterOnsiteChallenges">Include On-Site challenges
               </label>
             </span>
           </div>
+          <div class ="filterByRating">
+            <h4>By rating</h4>
+            <div name ="rating" class="rating">
+              <button class="star_from">&#9734;</button>
+              <button class="star_from">&#9734;</button>
+              <button class="star_from">&#9734;</button>
+              <button class="star_from">&#9734;</button>
+              <button class="star_from">&#9734;</button>
+              <p>To</p>
+              <button class="star_to">&#9734;</button>
+              <button class="star_to">&#9734;</button>
+              <button class="star_to">&#9734;</button>
+              <button class="star_to">&#9734;</button>
+              <button class="star_to">&#9734;</button>
+            </div>
+          </div>
+          <div class="filterBySearch">
+            <label for="searchInput" class="labelSearchInput">Or type to search for keyword</label>
+            <input type="search" id="searchInput" class="searchInput" placeholder="Start typing to filter">
+          </div>
         </div>
-        <div>
-          
-        </div>
+   
         <div>
           <button class="filterCloseButton" aria-label="Close filter section">&times</button>
         </div>
@@ -98,5 +114,6 @@
       </nav>
     </footer>
     <script src="./scripts/sandbox.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>

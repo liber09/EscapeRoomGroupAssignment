@@ -245,7 +245,9 @@ openModal.addEventListener("click", function (e) {
 
   inputDate.id = "date";
   inputDate.type = "date";
+
    inputDate.valueAsNumber = Date.now() - new Date().getTimezoneOffset() * 60000;  
+
   modal.appendChild(inputDate);
 
   // Button "search available times"
@@ -256,7 +258,7 @@ openModal.addEventListener("click", function (e) {
   const today = new Date().toISOString().split('T')[0]
   inputDate.setAttribute('min', today) 
   const selectedDate = inputDate.value;
- 
+
   button.addEventListener("click", async function () {
     const res = await fetch(
       `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${selectedDate}&challenge=3"`
