@@ -12,6 +12,7 @@
   background-color: rgba(0, 0, 0, 0.4);
 
   .modal-content {
+    overflow: scroll;
     z-index: 2;
     text-align: center;
     position: relative;
@@ -21,12 +22,14 @@
     background-color: white;
     width: 90%;
     max-width: 700px;
-    height: 50%;
+    height: auto;
     margin: 20vh auto;
     animation: fadeInModal 0.6s;
+    padding-bottom: 40px;
 
     .modal-heading {
       margin: 1em;
+      margin-top: -20px;
     }
 
     .p-question {
@@ -39,7 +42,15 @@
     }
 
     input {
-      font-size: 20px;
+      font-size: 1.1em;
+      border-radius: 5px;
+    }
+
+    select {
+      font-size: 0.9em;
+      max-height: 40%;
+      padding: 4px;
+      border-radius: 5px;
     }
 
     .modal-button {
@@ -49,9 +60,8 @@
     }
 
     .modal-close {
-      margin-top: 0px;
       margin-left: 85%;
-      text-align: right;
+
       font-size: 70px;
       cursor: pointer;
     }

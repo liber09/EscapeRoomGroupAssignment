@@ -1,4 +1,4 @@
-/ -------------------- MOBILE MENU --------------------
+// -------------------- MOBILE MENU --------------------
 document.querySelector(".main-nav-toggle").addEventListener("click", () => {
   document.querySelector(".main-nav").classList.toggle("open");
 });
@@ -29,7 +29,6 @@ if (
     filterButton.setAttribute("aria-expanded", false);
   });
 
-
   //Filter by rating Input
   //Added more functionallity, being able to put stars back to 0 --Anton
   const starsFrom = document.querySelectorAll(".star_from");
@@ -37,16 +36,14 @@ if (
   starsFrom.forEach((starFrom, i) => {
     starFrom.onclick = function () {
       if (current_star_level_from == 1) {
-        starFrom.innerHTML = "&#9734"
+        starFrom.innerHTML = "&#9734";
         current_star_level_from = 0;
-      }
-      else {
+      } else {
         current_star_level_from = i + 1;
         starsFrom.forEach((starFrom, j) => {
           if (starsFrom[1].innerHTML == "&#9733") {
-            starsFrom[0].innerHTML ="&#9734";
-          }
-          else {
+            starsFrom[0].innerHTML = "&#9734";
+          } else {
             if (current_star_level_from >= j + 1) {
               starFrom.innerHTML = "&#9733";
             } else {
@@ -61,10 +58,9 @@ if (
   starsTo.forEach((starTo, i) => {
     starTo.onclick = function () {
       if (current_star_level_to == 1) {
-        starTo.innerHTML = "&#9734"
+        starTo.innerHTML = "&#9734";
         current_star_level_to = 0;
-      }
-      else {
+      } else {
         current_star_level_to = i + 1;
         starsTo.forEach((starTo, j) => {
           if (current_star_level_to >= j + 1) {
@@ -77,27 +73,31 @@ if (
     };
   });
 
-   //------ Rating filter -------
-   const ratingInput = document.getElementsByName("rating");
-   
-   function ratingFilter() {
+  //------ Rating filter -------
+  const ratingInput = document.getElementsByName("rating");
+
+  function ratingFilter() {
     let cards = document.querySelectorAll(".challenge-item");
-     for (let i = 0; i < cards.length; i++) {
-       if (cards[i].querySelector("ul.rating").ariaValueNow >= current_star_level_from && cards[i].querySelector("ul.rating").ariaValueNow <= current_star_level_to ) {
-          cards[i].classList.remove("is-hidden");
-        }
-        else {
-          cards[i].classList.add("is-hidden");
-        }
-      }  
+    for (let i = 0; i < cards.length; i++) {
+      if (
+        cards[i].querySelector("ul.rating").ariaValueNow >=
+          current_star_level_from &&
+        cards[i].querySelector("ul.rating").ariaValueNow <=
+          current_star_level_to
+      ) {
+        cards[i].classList.remove("is-hidden");
+      } else {
+        cards[i].classList.add("is-hidden");
+      }
     }
-    
-   //Trigger for Rating Filter
-   for (let rating of ratingInput) {
-     rating.addEventListener("click", () => {
-       ratingFilter();
-     })
-   }
+  }
+
+  //Trigger for Rating Filter
+  for (let rating of ratingInput) {
+    rating.addEventListener("click", () => {
+      ratingFilter();
+    });
+  }
 
   // Free search
 
@@ -107,7 +107,9 @@ if (
     searchInput = searchInput.value;
 
     for (let i = 0; i < cards.length; i++) {
-      if (cards[i].innerText.toLowerCase().includes(searchInput.toLowerCase())) {
+      if (
+        cards[i].innerText.toLowerCase().includes(searchInput.toLowerCase())
+      ) {
         cards[i].classList.remove("is-hidden");
       } else {
         cards[i].classList.add("is-hidden");
@@ -123,56 +125,57 @@ if (
     clearTimeout(typingTimer);
     typingTimer = setTimeout(freeSearch, typeInterval);
   });
- 
 
   //------- FILTER BY TYPE --------
-  const checkBoxCheck = document.querySelectorAll("input[type=checkbox]")
+  const checkBoxCheck = document.querySelectorAll("input[type=checkbox]");
 
   function typeFilter() {
     let cards = document.querySelectorAll(".challenge-item");
-    
-    if (checkBoxCheck[0].checked == true && checkBoxCheck[1].checked == false){
+
+    if (checkBoxCheck[0].checked == true && checkBoxCheck[1].checked == false) {
       for (let i = 0; i < cards.length; i++) {
-        if (cards[i].querySelector(".challenge-title").innerText.toLowerCase().includes("online")) {
+        if (
+          cards[i]
+            .querySelector(".challenge-title")
+            .innerText.toLowerCase()
+            .includes("online")
+        ) {
           cards[i].classList.remove("is-hidden");
-        }
-        else {
+        } else {
           cards[i].classList.add("is-hidden");
         }
       }
-    }
-    else if (checkBoxCheck[1].checked == true && checkBoxCheck[0].checked == false){
+    } else if (
+      checkBoxCheck[1].checked == true &&
+      checkBoxCheck[0].checked == false
+    ) {
       console.log("Andra Test");
       for (let i = 0; i < cards.length; i++) {
-        if (cards[i].querySelector(".challenge-title").innerText.toLowerCase().includes("onsite")) {
+        if (
+          cards[i]
+            .querySelector(".challenge-title")
+            .innerText.toLowerCase()
+            .includes("onsite")
+        ) {
           cards[i].classList.remove("is-hidden");
-        }
-        else {
+        } else {
           cards[i].classList.add("is-hidden");
         }
       }
-    }
-    else {
+    } else {
       for (let i = 0; i < cards.length; i++) {
         cards[i].classList.remove("is-hidden");
       }
     }
-  } 
+  }
 
   //Trigger for checkbox filter
   checkBoxCheck.forEach((checkbox) => {
     checkbox.addEventListener("click", () => {
       typeFilter();
-    })
-  })
-
-
+    });
+  });
 }
-
-
-
-
-
 
 // -------------------- MODAL --------------------
 
@@ -187,8 +190,8 @@ backDrop.classList.add("backdrop");
 const modal = document.createElement("div");
 modal.classList.add("modal-content");
 
-// Creates H3 element to use in modal
-const modalHeading = document.createElement("h3");
+// Creates H2 element to use in modal
+const modalHeading = document.createElement("h2");
 modalHeading.classList.add("modal-heading");
 
 // Close button "X" in modal
@@ -227,8 +230,8 @@ openModal.addEventListener("click", function (e) {
   modalHeading.innerHTML =
     'Book room <span class="room-title">"Title of room"</span> <br>(step 1)';
   modal.appendChild(modalHeading);
-
   backDrop.appendChild(modal);
+
   // Question in modal
 
   question.style.margin = "40px";
@@ -246,7 +249,7 @@ openModal.addEventListener("click", function (e) {
   inputDate.id = "date";
   inputDate.type = "date";
 
-   inputDate.valueAsNumber = Date.now() - new Date().getTimezoneOffset() * 60000;  
+  inputDate.valueAsNumber = Date.now() - new Date().getTimezoneOffset() * 60000;
 
   modal.appendChild(inputDate);
 
@@ -255,8 +258,8 @@ openModal.addEventListener("click", function (e) {
   button.type = "submit";
   modal.appendChild(button);
 
-  const today = new Date().toISOString().split('T')[0]
-  inputDate.setAttribute('min', today) 
+  const today = new Date().toISOString().split("T")[0];
+  inputDate.setAttribute("min", today);
   const selectedDate = inputDate.value;
 
   button.addEventListener("click", async function () {
@@ -288,8 +291,8 @@ function modalPopUp2() {
   modal.classList.add("modal-content");
   const form = document.createElement("form");
   form.classList.add("form-content");
-  const headingModal = document.createElement("h1");
-  headingModal.classList.add("heading-modal");
+  const headingModal = document.createElement("h2");
+  headingModal.classList.add("modal-heading");
   const confirmBtn = document.createElement("button");
   confirmBtn.innerText = "Submit booking";
   confirmBtn.classList.add(
@@ -298,12 +301,21 @@ function modalPopUp2() {
     "modal-button",
     "submit-button"
   );
+  // Close modal when clicking outside
+  function closeModal() {
+    window.onclick = function (event) {
+      if (event.target == modalSection) {
+        modalSection.remove();
+      }
+    };
+  }
+  modalSection.addEventListener("click", closeModal);
 
   //errormessages if input is empty !!!!!! not able yet
   const errorMessages = {
     nameError: "You must enter your team name!",
     emailError: "You must enter an valid email!",
-    emptyError: "You haven't enter anything",
+    emptyError: "You must enter an valid email!",
     shortError: "Your team name must be at least 3 letters long",
   };
   const completedMessages = {
@@ -315,6 +327,10 @@ function modalPopUp2() {
   document.body.append(modalSection);
   modalSection.append(modal);
 
+  const closeBtn2 = document.createElement("small");
+  closeBtn2.classList.add("modal-close");
+  closeBtn2.innerHTML = "&times;";
+  modal.append(closeBtn2);
   modal.append(form);
   form.append(headingModal);
   headingModal.innerText = 'Book room "Title of room" (step 2)';
@@ -346,10 +362,6 @@ function modalPopUp2() {
   const input4 = document.createElement("select");
   input4.classList.add("input", "input-participants");
 
-  const closeBtn2 = document.createElement("small");
-  closeBtn2.classList.add("modal-close");
-  closeBtn2.innerHTML = "&times;";
-
   //appending all created elements to modal
   form.append(
     nameLabel,
@@ -360,8 +372,7 @@ function modalPopUp2() {
     input3,
     participantsLabel,
     input4,
-    confirmBtn,
-    closeBtn2
+    confirmBtn
   );
 
   //funktion för participants !! behövs lösas så den kopplar till challanges "id"
@@ -458,8 +469,9 @@ function modalPopUp2() {
 
   function modalPopUp3() {
     //creating elements
-    const confirmationHeading = document.createElement("h1");
-    confirmationHeading.classList.add("heading-modal");
+    const confirmationHeading = document.createElement("h2");
+    confirmationHeading.classList.add("modal-heading");
+    confirmationHeading.style.color = "green";
     confirmationHeading.innerText = "Your booking has been confirmed";
 
     const bookingDoneText1 = document.createElement("p");

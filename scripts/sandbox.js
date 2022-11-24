@@ -80,7 +80,7 @@ function getRatings() {
   let ratingsList = Array.from(ratingChil);
   //console.log("ratingsChil", ratingChil);
   //console.log("ratingsList", ratingsList);
-  
+
   let ratValue = ratingsUl.getAttribute("aria-valuenow");
 
   for (let i = 0; i < ratingsList.length; i++) {
