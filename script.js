@@ -4,7 +4,7 @@ document.querySelector(".main-nav-toggle").addEventListener("click", () => {
 });
 // -------------------- FILTER SECTION  --------------------
 // Only runs filter code on the right html file
-const host = "http://127.0.0.1:5500/";
+const host = "http://127.0.0.1:5501/";
 const hostOnline = "https://liber09.github.io/EscapeRoomGroupAssignment/";
 if (
   window.location.href == host + "challenges.html" ||
