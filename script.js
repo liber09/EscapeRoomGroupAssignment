@@ -1,4 +1,4 @@
-/ -------------------- MOBILE MENU --------------------
+// -------------------- MOBILE MENU --------------------
 document.querySelector(".main-nav-toggle").addEventListener("click", () => {
   document.querySelector(".main-nav").classList.toggle("open");
 });
@@ -275,7 +275,7 @@ openModal.addEventListener("click", function (e) {
   inputDate.id = "date";
   inputDate.type = "date";
 
-   inputDate.valueAsNumber = Date.now() - new Date().getTimezoneOffset() * 60000;  
+  inputDate.valueAsNumber = Date.now() - new Date().getTimezoneOffset() * 60000;
 
   modal.appendChild(inputDate);
 
@@ -284,8 +284,8 @@ openModal.addEventListener("click", function (e) {
   button.type = "submit";
   modal.appendChild(button);
 
-  const today = new Date().toISOString().split('T')[0]
-  inputDate.setAttribute('min', today) 
+  const today = new Date().toISOString().split("T")[0];
+  inputDate.setAttribute("min", today);
   const selectedDate = inputDate.value;
 
   button.addEventListener("click", async function () {
