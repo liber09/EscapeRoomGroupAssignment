@@ -640,7 +640,6 @@ footer a:hover {
   background-color: rgba(0, 0, 0, 0.4);
 }
 .backdrop .modal-content {
-  overflow: scroll;
   z-index: 2;
   text-align: center;
   position: relative;

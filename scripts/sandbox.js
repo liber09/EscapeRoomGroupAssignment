@@ -61,7 +61,7 @@ async function getChallenges() {
           window.location.href === "http://127.0.0.1:5501/challenges.html"
         ) {
           addChallengesToDom(challenge);
-          getRatings();
+          setStarRating();
         }
       });
     }
@@ -73,32 +73,48 @@ getChallenges();
 
 // get ratings
 
-function getRatings() {
-  let ratingsUl = document.querySelector("ul.rating");
+function setStarRating() {
+  let ratingsUl = document.querySelectorAll("ul.rating");
   //console.log("ratingUl", ratingsUl);
-  let ratingChil = ratingsUl.children;
-  let ratingsList = Array.from(ratingChil);
-  //console.log("ratingsChil", ratingChil);
-  //console.log("ratingsList", ratingsList);
+  for (let j = 0; j < ratingsUl.length; j++) {
+    //console.log("ratingUl", ratingsUl[j]);
+    let ratingChil = ratingsUl[j].children;
+    let ratingsList = Array.from(ratingChil);
+    //console.log("ratingsChil", ratingChil);
+    //console.log("ratingsList", ratingsList);
 
-  let ratValue = ratingsUl.getAttribute("aria-valuenow");
-
-  for (let i = 0; i < ratingsList.length; i++) {
-    if (ratValue === 0) {
-      let rat = ratingsList[i].classList.remove("active");
-      console.log("i", rat);
-    } else if (ratValue === 1) {
-      ratingsList[1][2][3][4].classList.remove("active");
-    } else if (ratValue === 2) {
-      ratingsList[2][3][4].classList.remove("active");
-    } else if (ratValue === 3) {
-      ratingsList[3][4].classList.remove("active");
-    } else if (ratValue === 4) {
-      ratingsList[4].classList.remove("active");
-    } else {
-      ratingsList[i];
+    let ratValue = Math.ceil(ratingsUl[j].getAttribute("aria-valuenow"));
+    //console.log(ratValue);
+    for (let i = 0; i < ratingsList.length; i++) {
+      if (ratingsList == 0) {
+        let star = ratingsList[i];
+        star.classList.remove("active");
+      } else if (ratValue == 1) {
+        if (i == 1 || i == 2 || i == 3 || i == 4){
+          let star = ratingsList[i];
+          star.classList.remove("active");
+        }
+      } else if (ratValue == 2) {
+        if (i == 2 || i == 3 || i == 4){
+          let star = ratingsList[i];
+          star.classList.remove("active");
+        }
+      } else if (ratValue == 3) {
+        if (i == 3 || i == 4){
+          let star = ratingsList[i];
+          star.classList.remove("active");
+        }
+      } else if (ratValue == 4) {
+        if (i == 4){
+          let star = ratingsList[i];
+          star.classList.remove("active");
+        }
+      } else {
+        ratingsList[i];
+      }
     }
   }
+  
 }
 
 //event listeners
