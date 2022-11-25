@@ -404,8 +404,13 @@ if (
       const resTime = await fetch(
         `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${inputDate.value}&challenge=3"`
       );
+
+      //removes duplicated time options.
       const dataTime = await resTime.json();
-      dataTime.slots.forEach((slotTime) => {
+      let timeNoDupicated = dataTime.slots;
+      let timeArr = [...new Set(timeNoDupicated)];
+      console.log(timeArr);
+      timeArr.forEach((slotTime) => {
         const timeOption = document.createElement("option");
         timeOption.innerText = slotTime;
         input3.append(timeOption);
