@@ -167,31 +167,60 @@ if (
   })
 
 
-  // -------- FILTER BY TAGS -----------
+  // -------- FILTER BY TAGS ----------- 
 
-  const tagsBtn = document.querySelectorAll(".filterByTags");
+  //--- FILTER NOT DONE, NEED CHALLENGE DATA IN JS TO COMPLETE
 
-  function tagsFilter(e) {
+
+  const tagsBtn = document.querySelectorAll(".tagsButton");
+  const filterArray = [];
+  function testFilter(e) {
     let cards = document.querySelectorAll(".challenge-item");
-    for (let i = 0; i < cards.length; i++) {
-      console.log(cards[i].querySelector(".challenge-labels").innerText);
-      if(cards[i].querySelector(".challenge-labels").innerText.toLowerCase().includes(e.target.innerText.toLowerCase())) {
-        cards[i].classList.remove("is-hidden");
-      }
-      else {
-        cards[i].classList.add("is-hidden");
+
+    
+    if (filterArray.includes(e.target.value)) {
+      for (let i = 0; i < filterArray.length; i++) {
+        if (e.target.value == filterArray[i]) {
+          filterArray.splice(i, 1);
+        }
       }
     }
+    else { 
+      filterArray.push(e.target.value);
+    }
+    for (let j = 0; j < cards.length; j++) {
+      let labelSearch = cards[j].querySelector("ul.rating").ariaLabel;
+      let filterStringify = JSON.stringify(filterArray);
+      console.log(filterStringify);
+      console.log(labelSearch);
+      //let testSearch = JSON.parse(labelSearch);
+      
+      
+      //Fungerar men inte korrekt.
+      if (labelSearch.includes(filterArray)) {
+        cards[j].classList.remove("is-hidden");
+      } else {
+        cards[j].classList.add("is-hidden");
+      }
+    }
+    // https://www.youtube.com/watch?v=Rt6z01yhUTg&ab_channel=UsefulProgrammer TITTA PÅ DENNA OM DU ÄR FAST
+    
   }
-
-
 
   //Trigger for tags filter
   tagsBtn.forEach((tag) => {
     tag.addEventListener("click", (e) => {
-      tagsFilter(e);
+      if (e.target.classList.contains("tagsButton-active")){
+        e.target.classList.remove("tagsButton-active")
+      }
+      else {
+        e.target.classList.add("tagsButton-active");
+      }
+      //tagsFilter(e);
+      testFilter(e);
+      
     })
-  })
+  });
 
 }
 

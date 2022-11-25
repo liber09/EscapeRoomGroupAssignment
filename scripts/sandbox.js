@@ -9,7 +9,7 @@ function addChallengesToDom(challenge) {
        id="challenge-${challenge.id}
          role="meter"
          class="rating"
-         aria-label="rating"
+         aria-label=${challenge.labels}
          arial-valuemin="0"
          aria-valuemax="5"
          aria-valuenow=${challenge.rating}
@@ -26,10 +26,9 @@ function addChallengesToDom(challenge) {
        <p class="challenge-description">
         ${challenge.description}
        </p>
-       <span class="challenge-labels" hidden>${challenge.labels}</span>
        <button class="button primary modal-open">Book this room</button>
      </li>
-     
+
      `;
 }
 // get alll challenges
@@ -42,7 +41,7 @@ async function getChallenges() {
     if (res.ok) {
       let data = await res.json();
       let ratingsArray = [];
-
+      
       for (let ratingEl of data.challenges) {
         ratingsArray.push(ratingEl.rating);
       }
