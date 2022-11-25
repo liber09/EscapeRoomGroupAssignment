@@ -84,17 +84,29 @@ function getRatings() {
   let ratValue = ratingsUl.getAttribute("aria-valuenow");
 
   for (let i = 0; i < ratingsList.length; i++) {
-    if (ratValue === 0) {
-      let rat = ratingsList[i].classList.remove("active");
-      console.log("i", rat);
-    } else if (ratValue === 1) {
-      ratingsList[1][2][3][4].classList.remove("active");
-    } else if (ratValue === 2) {
-      ratingsList[2][3][4].classList.remove("active");
-    } else if (ratValue === 3) {
-      ratingsList[3][4].classList.remove("active");
-    } else if (ratValue === 4) {
-      ratingsList[4].classList.remove("active");
+    if (ratingsList == 0) {
+      let star = ratingsList[i];
+      star.classList.remove("active");
+    } else if (ratValue == 1) {
+      if (i == 1 || i == 2 || i == 3 || i == 4){
+        let star = ratingsList[i];
+        star.classList.remove("active");
+      }
+    } else if (ratValue == 2) {
+      if (i == 2 || i == 3 || i == 4){
+        let star = ratingsList[i];
+        star.classList.remove("active");
+      }
+    } else if (ratValue == 3) {
+      if (i == 3 || i == 4){
+        let star = ratingsList[i];
+        star.classList.remove("active");
+      }
+    } else if (ratValue == 4) {
+      if (i == 4){
+        let star = ratingsList[i];
+        star.classList.remove("active");
+      }
     } else {
       ratingsList[i];
     }
