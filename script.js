@@ -106,75 +106,77 @@ if (
     let searchInput = document.querySelector(".searchInput");
     searchInput = searchInput.value;
 
-    function ratingFilter() {
+    
+    for (let i = 0; i < cards.length; i++) {
+      if (
+        cards[i].innerText.toLowerCase().includes(searchInput.toLowerCase())
+      ) {
+        cards[i].classList.remove("is-hidden");
+      } else {
+        cards[i].classList.add("is-hidden");
+      }
+    }
+  }  
+    
+
+    // Event listener and search delay on input field
+  let typingTimer;
+  let typeInterval = 500;
+    
+  searchInput.addEventListener("keyup", () => {
+    console.log("test");
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(freeSearch, typeInterval);
+  });
+
+   //------- FILTER BY TYPE --------
+  const checkBoxCheck = document.querySelectorAll("input[type=checkbox]");
+
+  function typeFilter() {
+    let cards = document.querySelectorAll(".challenge-item");
+
+    if (
+      checkBoxCheck[0].checked == true &&
+      checkBoxCheck[1].checked == false
+    ) {
       for (let i = 0; i < cards.length; i++) {
         if (
-          cards[i].innerText.toLowerCase().includes(searchInput.toLowerCase())
+          cards[i]
+            .querySelector(".challenge-title")
+            .innerText.toLowerCase()
+            .includes("online")
         ) {
           cards[i].classList.remove("is-hidden");
         } else {
           cards[i].classList.add("is-hidden");
         }
       }
-    }
-
-    // Event listener and search delay on input field
-    let typingTimer;
-    let typeInterval = 500;
-
-    searchInput.addEventListener("keyup", () => {
-      clearTimeout(typingTimer);
-      typingTimer = setTimeout(freeSearch, typeInterval);
-    });
-
-    //------- FILTER BY TYPE --------
-    const checkBoxCheck = document.querySelectorAll("input[type=checkbox]");
-
-    function typeFilter() {
-      let cards = document.querySelectorAll(".challenge-item");
-
-      if (
-        checkBoxCheck[0].checked == true &&
-        checkBoxCheck[1].checked == false
-      ) {
-        for (let i = 0; i < cards.length; i++) {
-          if (
-            cards[i]
-              .querySelector(".challenge-title")
-              .innerText.toLowerCase()
-              .includes("online")
-          ) {
-            cards[i].classList.remove("is-hidden");
-          } else {
-            cards[i].classList.add("is-hidden");
-          }
-        }
-      } else if (
-        checkBoxCheck[1].checked == true &&
-        checkBoxCheck[0].checked == false
-      ) {
-        console.log("Andra Test");
-        for (let i = 0; i < cards.length; i++) {
-          if (
-            cards[i]
-              .querySelector(".challenge-title")
-              .innerText.toLowerCase()
-              .includes("onsite")
-          ) {
-            cards[i].classList.remove("is-hidden");
-          } else {
-            cards[i].classList.add("is-hidden");
-          }
-        }
-      } else {
-        for (let i = 0; i < cards.length; i++) {
+    } else if (
+      checkBoxCheck[1].checked == true &&
+      checkBoxCheck[0].checked == false
+    ) {
+      console.log("Andra Test");
+      for (let i = 0; i < cards.length; i++) {
+        if (
+          cards[i]
+            .querySelector(".challenge-title")
+            .innerText.toLowerCase()
+            .includes("onsite")
+        ) {
           cards[i].classList.remove("is-hidden");
+        } else {
+          cards[i].classList.add("is-hidden");
         }
       }
+    } else {
+      for (let i = 0; i < cards.length; i++) {
+        cards[i].classList.remove("is-hidden");
+      }
     }
-
+  }
   //Trigger for checkbox filter
   checkBoxCheck.forEach((checkbox) => {
+    
     checkbox.addEventListener("click", () => {
       typeFilter();
     })
@@ -186,9 +188,11 @@ if (
   //--- FILTER NOT DONE, NEED CHALLENGE DATA IN JS TO COMPLETE
 
 
+  const tagsDiv = document.querySelectorAll(".filterByTags");
   const tagsBtn = document.querySelectorAll(".tagsButton");
   const filterArray = [];
   function testFilter(e) {
+    
     let cards = document.querySelectorAll(".challenge-item");
 
     
@@ -223,7 +227,9 @@ if (
 
   //Trigger for tags filter
   tagsBtn.forEach((tag) => {
+    console.log("test");
     tag.addEventListener("click", (e) => {
+      
       if (e.target.classList.contains("tagsButton-active")){
         e.target.classList.remove("tagsButton-active")
       }
@@ -236,14 +242,14 @@ if (
     })
   });
 
-}
 
 
 
 
 
 
-// -------------------- MODAL --------------------
+
+  // -------------------- MODAL --------------------
 
   // Trigger "book this room" to open modal
   const openModal = document.querySelector(".challenge-list");
