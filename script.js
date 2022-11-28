@@ -28,13 +28,13 @@ if (
     filterButton.style.display = "flex";
     filterButton.setAttribute("aria-expanded", false);
   });
+  
 
-  //Filter by rating Input
-  //Added more functionallity, being able to put stars back to 0 --Anton
+  //------- FILTER BY RATING INPUT ----------
   const starsFrom = document.querySelectorAll(".star_from");
   const starsTo = document.querySelectorAll(".star_to");
   starsFrom.forEach((starFrom, i) => {
-    starFrom.onclick = function () {
+    starFrom.onclick = function (e) {
       if (current_star_level_from == 1) {
         starFrom.innerHTML = "&#9734";
         current_star_level_from = 0;
@@ -73,158 +73,200 @@ if (
     };
   });
 
-  //------ Rating filter -------
+  //--------- FILTER BY RATING ----------
   const ratingInput = document.getElementsByName("rating");
 
-  function ratingFilter() {
-    let cards = document.querySelectorAll(".challenge-item");
-    for (let i = 0; i < cards.length; i++) {
-      if (
-        cards[i].querySelector("ul.rating").ariaValueNow >=
-          current_star_level_from &&
-        cards[i].querySelector("ul.rating").ariaValueNow <=
-          current_star_level_to
-      ) {
-        cards[i].classList.remove("is-hidden");
-      } else {
-        cards[i].classList.add("is-hidden");
+  class RatingFilter {
+    constructor(list) {
+    }
+    challengeMatch(card) {
+      let cards = document.querySelectorAll(".challenge-item");
+      for (let i = 0; i < cards.length; i++) {
+        if (
+          card.querySelector("ul.rating").ariaValueNow >=
+            current_star_level_from &&
+          card.querySelector("ul.rating").ariaValueNow <=
+            current_star_level_to
+        ) {
+          return true;
+        } else {
+          return false;
+        }
       }
+      
     }
   }
 
-  //Trigger for Rating Filter
+  //----------- FILTER BY RATING TRIGGER ---------
   for (let rating of ratingInput) {
     rating.addEventListener("click", () => {
-      ratingFilter();
+      this.filter = new FilterCollection(this);
+      render();
     });
   }
 
-  // Free search
+  //----------- FILTER BY SEARCH ------------
+  class SearchFilter {
+    constructor(list) {
+    }
 
-  function freeSearch() {
-    let cards = document.querySelectorAll(".challenge-item");
-    let searchInput = document.querySelector(".searchInput");
-    searchInput = searchInput.value;
-
+    challengeMatch(card) {
+      let cards = document.querySelectorAll(".challenge-item");
+      let searchInput = document.querySelector(".searchInput");
+      searchInput = searchInput.value;
+    
     for (let i = 0; i < cards.length; i++) {
       if (
-        cards[i].innerText.toLowerCase().includes(searchInput.toLowerCase())
+        card.innerText.toLowerCase().includes(searchInput.toLowerCase())
       ) {
-        cards[i].classList.remove("is-hidden");
+        return true;
       } else {
+        return false;
+      }
+    }
+    }
+  }
+
+  //--------- FILTER BY SERACH TRIGGER ----------
+    
+  searchInput.addEventListener("keyup", () => {
+    this.filter = new FilterCollection(this);
+    render();
+  });
+
+  
+  //--------- FILTER BY TYPE -----------
+  const checkBoxCheck = document.querySelectorAll("input[type=checkbox]");
+
+  class TypeFilter {
+    constructor(list) {
+    }
+    challengeMatch(card) {
+      let cards = document.querySelectorAll(".challenge-item");
+    
+      if (
+        checkBoxCheck[0].checked == true &&
+        checkBoxCheck[1].checked == false
+      ) {
+        for (let i = 0; i < cards.length; i++) {
+          if (
+            card
+              .querySelector(".challenge-title")
+              .innerText.toLowerCase()
+              .includes("online")
+          ) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      } else if (
+        checkBoxCheck[1].checked == true &&
+        checkBoxCheck[0].checked == false
+      ) {
+        for (let i = 0; i < cards.length; i++) {
+          if (
+            card
+              .querySelector(".challenge-title")
+              .innerText.toLowerCase()
+              .includes("onsite")
+          ) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      } else if (checkBoxCheck[0].checked == true && checkBoxCheck[1].checked == true) {
+        return true;
+      }
+      else {
+        for (let j = 0; j < cards.length; j++) {
+          return false;
+        }
+      }
+    }
+  }
+  
+  //----------- FILTER BY TYPE TRIGGER ---------
+  checkBoxCheck.forEach((checkbox) => {
+    checkbox.addEventListener("click", () => {
+      this.filter = new FilterCollection(this);
+      render();
+    })
+  })
+
+  // -------- FILTER BY LABELS ----------- 
+  const tagsBtn = document.querySelectorAll(".tagsButton");
+  const filterArray = [];
+ 
+  class LabelFilter {
+    constructor(list) {
+    }
+    challengeMatch(card) {
+      let cards = document.querySelectorAll(".challenge-item");
+
+      for (let i = 0; i < cards.length; i++) {
+        let labelSearch = card.querySelector("ul.rating").ariaLabel;
+        if (filterArray.every((element => labelSearch.includes(element)))){
+          return true;
+        }
+        else {
+          return false;
+        }
+      }
+    }
+  }
+
+  //------- FILTER BY LABELS TRIGGER---------
+  //------- LABEL ARRAY HANDLING -----------
+  tagsBtn.forEach((tag) => {
+    tag.addEventListener("click", (e) => {
+      if (e.target.classList.contains("tagsButton-active")) {
+        for (let i = 0; i < filterArray.length; i++) {
+          if (e.target.value == filterArray[i]) {
+            filterArray.splice(i, 1);
+          }
+        }
+        e.target.classList.remove("tagsButton-active");
+      } else {
+        filterArray.push(e.target.value);
+        e.target.classList.add("tagsButton-active");
+      }
+      this.filter = new FilterCollection(this);
+      render();
+    })
+  });
+
+  //---------- FILTER COLLECTION ----------------
+  class FilterCollection {
+    constructor(list) {
+      this.list;
+      this.filters = [
+        new TypeFilter(list),
+        new RatingFilter(list),
+        new SearchFilter(list),
+        new LabelFilter(list),
+      ]
+    }
+    
+    challengeMatch(card) {
+      return this.filters.every(filter => filter.challengeMatch(card));
+    }
+  }
+
+  //------ FUNCTION TO SHOW FILTER RESULTS ------
+  function render() {
+    let cards = document.querySelectorAll(".challenge-item");
+    
+    for (let i = 0; i < cards.length; i++) {
+      if (this.filter.challengeMatch(cards[i])){
+        cards[i].classList.remove("is-hidden");
+      }
+      else {
         cards[i].classList.add("is-hidden");
       }
     }
   }
-
-  // Event listener and search delay on input field
-  let typingTimer;
-  let typeInterval = 500;
-
-  searchInput.addEventListener("keyup", () => {
-    console.log("test");
-    clearTimeout(typingTimer);
-    typingTimer = setTimeout(freeSearch, typeInterval);
-  });
-
-  //------- FILTER BY TYPE --------
-  const checkBoxCheck = document.querySelectorAll("input[type=checkbox]");
-
-  function typeFilter() {
-    let cards = document.querySelectorAll(".challenge-item");
-
-    if (checkBoxCheck[0].checked == true && checkBoxCheck[1].checked == false) {
-      for (let i = 0; i < cards.length; i++) {
-        if (
-          cards[i]
-            .querySelector(".challenge-title")
-            .innerText.toLowerCase()
-            .includes("online")
-        ) {
-          cards[i].classList.remove("is-hidden");
-        } else {
-          cards[i].classList.add("is-hidden");
-        }
-      }
-    } else if (
-      checkBoxCheck[1].checked == true &&
-      checkBoxCheck[0].checked == false
-    ) {
-      console.log("Andra Test");
-      for (let i = 0; i < cards.length; i++) {
-        if (
-          cards[i]
-            .querySelector(".challenge-title")
-            .innerText.toLowerCase()
-            .includes("onsite")
-        ) {
-          cards[i].classList.remove("is-hidden");
-        } else {
-          cards[i].classList.add("is-hidden");
-        }
-      }
-    } else {
-      for (let i = 0; i < cards.length; i++) {
-        cards[i].classList.remove("is-hidden");
-      }
-    }
-  }
-  //Trigger for checkbox filter
-  checkBoxCheck.forEach((checkbox) => {
-    checkbox.addEventListener("click", () => {
-      typeFilter();
-    });
-  });
-
-  // -------- FILTER BY TAGS -----------
-
-  //--- FILTER NOT DONE, NEED CHALLENGE DATA IN JS TO COMPLETE
-
-  const tagsDiv = document.querySelectorAll(".filterByTags");
-  const tagsBtn = document.querySelectorAll(".tagsButton");
-  const filterArray = [];
-  function testFilter(e) {
-    let cards = document.querySelectorAll(".challenge-item");
-
-    if (filterArray.includes(e.target.value)) {
-      for (let i = 0; i < filterArray.length; i++) {
-        if (e.target.value == filterArray[i]) {
-          filterArray.splice(i, 1);
-        }
-      }
-    } else {
-      filterArray.push(e.target.value);
-    }
-    for (let j = 0; j < cards.length; j++) {
-      let labelSearch = cards[j].querySelector("ul.rating").ariaLabel;
-      let filterStringify = JSON.stringify(filterArray);
-      console.log(filterStringify);
-      console.log(labelSearch);
-      //let testSearch = JSON.parse(labelSearch);
-
-      //Fungerar men inte korrekt.
-      if (labelSearch.includes(filterArray)) {
-        cards[j].classList.remove("is-hidden");
-      } else {
-        cards[j].classList.add("is-hidden");
-      }
-    }
-    // https://www.youtube.com/watch?v=Rt6z01yhUTg&ab_channel=UsefulProgrammer TITTA PÅ DENNA OM DU ÄR FAST
-  }
-
-  //Trigger for tags filter
-  tagsBtn.forEach((tag) => {
-    console.log("test");
-    tag.addEventListener("click", (e) => {
-      if (e.target.classList.contains("tagsButton-active")) {
-        e.target.classList.remove("tagsButton-active");
-      } else {
-        e.target.classList.add("tagsButton-active");
-      }
-      //tagsFilter(e);
-      testFilter(e);
-    });
-  });
 
   // -------------------- MODAL --------------------
 
