@@ -1,35 +1,67 @@
 let list = document.querySelector(".challenge-list");
 
 function addChallengesToDom(challenge) {
-  list.innerHTML += `
-     <li class="challenge-item">
-       <img class="challenge-image" alt="Hacker" src=${challenge.image} />
-       <h3 class="challenge-title">${challenge.title} (${challenge.type})</h3>
-       <ul
-       id="challenge-${challenge.id}
-         role="meter"
-         class="rating"
-         aria-label="rating"
-         arial-valuemin="0"
-         aria-valuemax="5"
-         aria-valuenow=${challenge.rating}
-         aria-valuetext= " ${challenge.rating} out of 5"
-         
-       >
-         <li class="rating-star active"></li>
-         <li class="rating-star active"></li>
-         <li class="rating-star active"></li>
-         <li class="rating-star active"></li>
-         <li class="rating-star"></li>
-       </ul>
-       <small class="challenge-meta">${challenge.minParticipants}- ${challenge.maxParticipants} participants</small>
-       <p class="challenge-description">
-        ${challenge.description}
-       </p>
-       <button class="button primary modal-open">Book this room</button>
-     </li>
-     
-     `;
+  if (challenge.type === "onsite") {
+    list.innerHTML += `
+    <li class="challenge-item"> 
+      <img class="challenge-image" alt="Hacker" src=${challenge.image} />
+      <h3 class="challenge-title">${challenge.title} (${challenge.type})</h3>
+      <ul
+      id="challenge-${challenge.id}
+        role="meter"
+        class="rating"
+        aria-label=${challenge.labels}
+        arial-valuemin="0"
+        aria-valuemax="5"
+        aria-valuenow=${challenge.rating}
+        aria-valuetext= " ${challenge.rating} out of 5"
+        
+      >
+        <li class="rating-star active"></li>
+        <li class="rating-star active"></li>
+        <li class="rating-star active"></li>
+        <li class="rating-star active"></li>
+        <li class="rating-star"></li>
+      </ul>
+      <small class="challenge-meta">${challenge.minParticipants}- ${challenge.maxParticipants} participants</small>
+      <p class="challenge-description">
+       ${challenge.description}
+      </p>
+      <button class="button primary modal-open">Book this room</button>
+    </li>
+
+    `;
+  } else {
+    list.innerHTML += `
+    <li class="challenge-item"> 
+      <img class="challenge-image" alt="Hacker" src=${challenge.image} />
+      <h3 class="challenge-title">${challenge.title} (${challenge.type})</h3>
+      <ul
+      id="challenge-${challenge.id}
+        role="meter"
+        class="rating"
+        aria-label=${challenge.labels}
+        arial-valuemin="0"
+        aria-valuemax="5"
+        aria-valuenow=${challenge.rating}
+        aria-valuetext= " ${challenge.rating} out of 5"
+        
+      >
+        <li class="rating-star active"></li>
+        <li class="rating-star active"></li>
+        <li class="rating-star active"></li>
+        <li class="rating-star active"></li>
+        <li class="rating-star"></li>
+      </ul>
+      <small class="challenge-meta">${challenge.minParticipants}- ${challenge.maxParticipants} participants</small>
+      <p class="challenge-description">
+       ${challenge.description}
+      </p>
+      <button class="button third online-modal">Take challenge online</button>
+    </li>
+
+    `;
+  }
 }
 // get alll challenges
 
@@ -90,22 +122,22 @@ function setStarRating() {
         let star = ratingsList[i];
         star.classList.remove("active");
       } else if (ratValue == 1) {
-        if (i == 1 || i == 2 || i == 3 || i == 4){
+        if (i == 1 || i == 2 || i == 3 || i == 4) {
           let star = ratingsList[i];
           star.classList.remove("active");
         }
       } else if (ratValue == 2) {
-        if (i == 2 || i == 3 || i == 4){
+        if (i == 2 || i == 3 || i == 4) {
           let star = ratingsList[i];
           star.classList.remove("active");
         }
       } else if (ratValue == 3) {
-        if (i == 3 || i == 4){
+        if (i == 3 || i == 4) {
           let star = ratingsList[i];
           star.classList.remove("active");
         }
       } else if (ratValue == 4) {
-        if (i == 4){
+        if (i == 4) {
           let star = ratingsList[i];
           star.classList.remove("active");
         }
@@ -114,7 +146,6 @@ function setStarRating() {
       }
     }
   }
-  
 }
 
 //event listeners

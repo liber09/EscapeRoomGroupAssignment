@@ -28,13 +28,13 @@ if (
     filterButton.style.display = "flex";
     filterButton.setAttribute("aria-expanded", false);
   });
+  
 
-  //Filter by rating Input
-  //Added more functionallity, being able to put stars back to 0 --Anton
+  //------- FILTER BY RATING INPUT ----------
   const starsFrom = document.querySelectorAll(".star_from");
   const starsTo = document.querySelectorAll(".star_to");
   starsFrom.forEach((starFrom, i) => {
-    starFrom.onclick = function () {
+    starFrom.onclick = function (e) {
       if (current_star_level_from == 1) {
         starFrom.innerHTML = "&#9734";
         current_star_level_from = 0;
@@ -73,112 +73,199 @@ if (
     };
   });
 
-  //------ Rating filter -------
+  //--------- FILTER BY RATING ----------
   const ratingInput = document.getElementsByName("rating");
 
-  function ratingFilter() {
-    let cards = document.querySelectorAll(".challenge-item");
-    for (let i = 0; i < cards.length; i++) {
-      if (
-        cards[i].querySelector("ul.rating").ariaValueNow >=
-          current_star_level_from &&
-        cards[i].querySelector("ul.rating").ariaValueNow <=
-          current_star_level_to
-      ) {
-        cards[i].classList.remove("is-hidden");
-      } else {
-        cards[i].classList.add("is-hidden");
-      }
+  class RatingFilter {
+    constructor(list) {
     }
-  }
-
-  //Trigger for Rating Filter
-  for (let rating of ratingInput) {
-    rating.addEventListener("click", () => {
-      ratingFilter();
-    });
-  }
-
-  // Free search
-
-  function freeSearch() {
-    let cards = document.querySelectorAll(".challenge-item");
-    let searchInput = document.querySelector(".searchInput");
-    searchInput = searchInput.value;
-
-    function ratingFilter() {
+    challengeMatch(card) {
+      let cards = document.querySelectorAll(".challenge-item");
       for (let i = 0; i < cards.length; i++) {
         if (
-          cards[i].innerText.toLowerCase().includes(searchInput.toLowerCase())
+          card.querySelector("ul.rating").ariaValueNow >=
+            current_star_level_from &&
+          card.querySelector("ul.rating").ariaValueNow <=
+            current_star_level_to
         ) {
-          cards[i].classList.remove("is-hidden");
+          return true;
         } else {
-          cards[i].classList.add("is-hidden");
+          return false;
         }
       }
+      
+    }
+  }
+
+  //----------- FILTER BY RATING TRIGGER ---------
+  for (let rating of ratingInput) {
+    rating.addEventListener("click", () => {
+      this.filter = new FilterCollection(this);
+      render();
+    });
+  }
+
+  //----------- FILTER BY SEARCH ------------
+  class SearchFilter {
+    constructor(list) {
     }
 
-    // Event listener and search delay on input field
-    let typingTimer;
-    let typeInterval = 500;
-
-    searchInput.addEventListener("keyup", () => {
-      clearTimeout(typingTimer);
-      typingTimer = setTimeout(freeSearch, typeInterval);
-    });
-
-    //------- FILTER BY TYPE --------
-    const checkBoxCheck = document.querySelectorAll("input[type=checkbox]");
-
-    function typeFilter() {
+    challengeMatch(card) {
       let cards = document.querySelectorAll(".challenge-item");
+      let searchInput = document.querySelector(".searchInput");
+      searchInput = searchInput.value;
+    
+    for (let i = 0; i < cards.length; i++) {
+      if (
+        card.innerText.toLowerCase().includes(searchInput.toLowerCase())
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    }
+  }
 
+  //--------- FILTER BY SERACH TRIGGER ----------
+    
+  searchInput.addEventListener("keyup", () => {
+    this.filter = new FilterCollection(this);
+    render();
+  });
+
+  
+  //--------- FILTER BY TYPE -----------
+  const checkBoxCheck = document.querySelectorAll("input[type=checkbox]");
+
+  class TypeFilter {
+    constructor(list) {
+    }
+    challengeMatch(card) {
+      let cards = document.querySelectorAll(".challenge-item");
+    
       if (
         checkBoxCheck[0].checked == true &&
         checkBoxCheck[1].checked == false
       ) {
         for (let i = 0; i < cards.length; i++) {
           if (
-            cards[i]
+            card
               .querySelector(".challenge-title")
               .innerText.toLowerCase()
               .includes("online")
           ) {
-            cards[i].classList.remove("is-hidden");
+            return true;
           } else {
-            cards[i].classList.add("is-hidden");
+            return false;
           }
         }
       } else if (
         checkBoxCheck[1].checked == true &&
         checkBoxCheck[0].checked == false
       ) {
-        console.log("Andra Test");
         for (let i = 0; i < cards.length; i++) {
           if (
-            cards[i]
+            card
               .querySelector(".challenge-title")
               .innerText.toLowerCase()
               .includes("onsite")
           ) {
-            cards[i].classList.remove("is-hidden");
+            return true;
           } else {
-            cards[i].classList.add("is-hidden");
+            return false;
           }
         }
-      } else {
-        for (let i = 0; i < cards.length; i++) {
-          cards[i].classList.remove("is-hidden");
+      } else if (checkBoxCheck[0].checked == true && checkBoxCheck[1].checked == true) {
+        return true;
+      }
+      else {
+        for (let j = 0; j < cards.length; j++) {
+          return false;
         }
       }
     }
+  }
+  
+  //----------- FILTER BY TYPE TRIGGER ---------
+  checkBoxCheck.forEach((checkbox) => {
+    checkbox.addEventListener("click", () => {
+      this.filter = new FilterCollection(this);
+      render();
+    })
+  })
 
-    //Trigger for checkbox filter
-    checkBoxCheck.forEach((checkbox) => {
-      checkbox.addEventListener("click", () => {
-        typeFilter();
-      });
-    });
+  // -------- FILTER BY LABELS ----------- 
+  const tagsBtn = document.querySelectorAll(".tagsButton");
+  const filterArray = [];
+ 
+  class LabelFilter {
+    constructor(list) {
+    }
+    challengeMatch(card) {
+      let cards = document.querySelectorAll(".challenge-item");
+
+      for (let i = 0; i < cards.length; i++) {
+        let labelSearch = card.querySelector("ul.rating").ariaLabel;
+        if (filterArray.every((element => labelSearch.includes(element)))){
+          return true;
+        }
+        else {
+          return false;
+        }
+      }
+    }
+  }
+
+  //------- FILTER BY LABELS TRIGGER---------
+  //------- LABEL ARRAY HANDLING -----------
+  tagsBtn.forEach((tag) => {
+    tag.addEventListener("click", (e) => {
+      if (e.target.classList.contains("tagsButton-active")) {
+        for (let i = 0; i < filterArray.length; i++) {
+          if (e.target.value == filterArray[i]) {
+            filterArray.splice(i, 1);
+          }
+        }
+        e.target.classList.remove("tagsButton-active");
+      } else {
+        filterArray.push(e.target.value);
+        e.target.classList.add("tagsButton-active");
+      }
+      this.filter = new FilterCollection(this);
+      render();
+    })
+  });
+
+  //---------- FILTER COLLECTION ----------------
+  class FilterCollection {
+    constructor(list) {
+      this.list;
+      this.filters = [
+        new TypeFilter(list),
+        new RatingFilter(list),
+        new SearchFilter(list),
+        new LabelFilter(list),
+      ]
+    }
+    
+    challengeMatch(card) {
+      return this.filters.every(filter => filter.challengeMatch(card));
+    }
+  }
+
+  //------ FUNCTION TO SHOW FILTER RESULTS ------
+  function render() {
+    let cards = document.querySelectorAll(".challenge-item");
+    
+    for (let i = 0; i < cards.length; i++) {
+      if (this.filter.challengeMatch(cards[i])){
+        cards[i].classList.remove("is-hidden");
+      }
+      else {
+        cards[i].classList.add("is-hidden");
+      }
+    }
   }
 
   // -------------------- MODAL --------------------
@@ -220,9 +307,12 @@ if (
   const question = document.createElement("p");
   // When user clicks on "book this room", run and create function to open modal
   openModal.addEventListener("click", function (e) {
-    if (e.target.classList.contains("modal-open"))
+    if (e.target.classList.contains("modal-open")) {
       document.body.append(backDrop);
-    backDrop.addEventListener("click", closeModal);
+      backDrop.addEventListener("click", closeModal);
+    } else if (e.target.classList.contains("online-modal")) {
+      alert("This service is not avalible at this moment");
+    }
 
     // Remove modal when click on X
     modal.appendChild(closeBtn);
@@ -404,8 +494,13 @@ if (
       const resTime = await fetch(
         `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${inputDate.value}&challenge=3"`
       );
+
+      //removes duplicated time options.
       const dataTime = await resTime.json();
-      dataTime.slots.forEach((slotTime) => {
+      let timeNoDupicated = dataTime.slots;
+      let timeArr = [...new Set(timeNoDupicated)];
+      console.log(timeArr);
+      timeArr.forEach((slotTime) => {
         const timeOption = document.createElement("option");
         timeOption.innerText = slotTime;
         input3.append(timeOption);
@@ -484,7 +579,6 @@ if (
       const bookingDoneText2 = document.createElement("p");
       const bookingDoneText3 = document.createElement("p");
       const bookingDoneText4 = document.createElement("p");
-      const bookingDoneText5 = document.createElement("p");
 
       //object and array for storing input value
       const completedBooking = [];
@@ -498,13 +592,16 @@ if (
       bookingDoneText1.innerText = "Your team name is: " + bookingInfo.nameInfo;
       bookingDoneText2.innerText =
         "We have sent a confirmation mail to: " + bookingInfo.emailInfo;
-      bookingDoneText3.innerText = "Your time is: " + bookingInfo.timeInfo;
-      bookingDoneText4.innerText =
+
+      bookingDoneText3.innerText =
         "This room is booked for " +
         bookingInfo.participantInfo +
         " participants";
-      bookingDoneText5.innerText =
-        "And we are happy to see you on the " + inputDate.value;
+      bookingDoneText4.innerText =
+        "And we are happy to see you on the " +
+        inputDate.value +
+        " at " +
+        input3.value;
 
       //return to homepage tag
       const homePageBtn = document.createElement("a");
@@ -512,7 +609,7 @@ if (
       homePageBtn.classList.add("submit-booking");
       homePageBtn.innerText = "Return to homepage";
 
-      //adding the bookked object to array
+      //adding the booked object to array
 
       completedBooking.push(bookingInfo);
 
@@ -523,7 +620,6 @@ if (
         bookingDoneText2,
         bookingDoneText3,
         bookingDoneText4,
-        bookingDoneText5,
         homePageBtn
       );
     }
