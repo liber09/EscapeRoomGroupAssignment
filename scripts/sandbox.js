@@ -41,7 +41,7 @@ async function getChallenges() {
     if (res.ok) {
       let data = await res.json();
       let ratingsArray = [];
-      
+
       for (let ratingEl of data.challenges) {
         ratingsArray.push(ratingEl.rating);
       }
