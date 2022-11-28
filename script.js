@@ -15,7 +15,7 @@ if (
   const filterCloseButton = document.querySelector(".filterCloseButton");
 
   let current_star_level_from = 0;
-  let current_star_level_to = 0;
+  let current_star_level_to = 5;
 
   filterButton.addEventListener("click", () => {
     filterSection.style.display = "flex";
@@ -137,6 +137,8 @@ if (
   
   //--------- FILTER BY TYPE -----------
   const checkBoxCheck = document.querySelectorAll("input[type=checkbox]");
+  checkBoxCheck[0].checked = true;
+  checkBoxCheck[1].checked = true;
 
   class TypeFilter {
     constructor(list) {
