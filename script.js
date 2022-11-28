@@ -469,12 +469,8 @@ if (
 
     //funktion för participants !! behövs lösas så den kopplar till challanges "id"
     async function participants() {
-      const resParticipants = await fetch(
-        `https://lernia-sjj-assignments.vercel.app/api/challenges`
-      );
-      const dataParticipants = await resParticipants.json();
-      let minParticipants = dataParticipants.challenges[1].minParticipants; // här ska rätt rätt kort läggas in.
-      const maxParticipants = dataParticipants.challenges[1].maxParticipants; // här ska rätt rätt kort läggas in.
+      let minParticipants = allChallenges[cardId].minParticipants;
+      let maxParticipants = allChallenges[cardId].maxParticipants;
 
       while (minParticipants <= maxParticipants) {
         const option = document.createElement("option");
@@ -485,9 +481,10 @@ if (
     participants();
 
     //function för att få ut tid som är tillgängligt för bokning under det datumet.
+
     async function time() {
       const resTime = await fetch(
-        `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${inputDate.value}&challenge=3`
+        `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${inputDate.value}&challenge=${cardId}`
       );
       const dataTime = await resTime.json();
       dataTime.slots.forEach((slotTime) => {
