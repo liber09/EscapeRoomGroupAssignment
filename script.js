@@ -28,7 +28,6 @@ if (
     filterButton.style.display = "flex";
     filterButton.setAttribute("aria-expanded", false);
   });
-  
 
   //------- FILTER BY RATING INPUT ----------
   const starsFrom = document.querySelectorAll(".star_from");
@@ -77,23 +76,20 @@ if (
   const ratingInput = document.getElementsByName("rating");
 
   class RatingFilter {
-    constructor(list) {
-    }
+    constructor(list) {}
     challengeMatch(card) {
       let cards = document.querySelectorAll(".challenge-item");
       for (let i = 0; i < cards.length; i++) {
         if (
           card.querySelector("ul.rating").ariaValueNow >=
             current_star_level_from &&
-          card.querySelector("ul.rating").ariaValueNow <=
-            current_star_level_to
+          card.querySelector("ul.rating").ariaValueNow <= current_star_level_to
         ) {
           return true;
         } else {
           return false;
         }
       }
-      
     }
   }
 
@@ -107,43 +103,38 @@ if (
 
   //----------- FILTER BY SEARCH ------------
   class SearchFilter {
-    constructor(list) {
-    }
+    constructor(list) {}
 
     challengeMatch(card) {
       let cards = document.querySelectorAll(".challenge-item");
       let searchInput = document.querySelector(".searchInput");
       searchInput = searchInput.value;
-    
-    for (let i = 0; i < cards.length; i++) {
-      if (
-        card.innerText.toLowerCase().includes(searchInput.toLowerCase())
-      ) {
-        return true;
-      } else {
-        return false;
+
+      for (let i = 0; i < cards.length; i++) {
+        if (card.innerText.toLowerCase().includes(searchInput.toLowerCase())) {
+          return true;
+        } else {
+          return false;
+        }
       }
-    }
     }
   }
 
   //--------- FILTER BY SERACH TRIGGER ----------
-    
+
   searchInput.addEventListener("keyup", () => {
     this.filter = new FilterCollection(this);
     render();
   });
 
-  
   //--------- FILTER BY TYPE -----------
   const checkBoxCheck = document.querySelectorAll("input[type=checkbox]");
 
   class TypeFilter {
-    constructor(list) {
-    }
+    constructor(list) {}
     challengeMatch(card) {
       let cards = document.querySelectorAll(".challenge-item");
-    
+
       if (
         checkBoxCheck[0].checked == true &&
         checkBoxCheck[1].checked == false
@@ -176,41 +167,41 @@ if (
             return false;
           }
         }
-      } else if (checkBoxCheck[0].checked == true && checkBoxCheck[1].checked == true) {
+      } else if (
+        checkBoxCheck[0].checked == true &&
+        checkBoxCheck[1].checked == true
+      ) {
         return true;
-      }
-      else {
+      } else {
         for (let j = 0; j < cards.length; j++) {
           return false;
         }
       }
     }
   }
-  
+
   //----------- FILTER BY TYPE TRIGGER ---------
   checkBoxCheck.forEach((checkbox) => {
     checkbox.addEventListener("click", () => {
       this.filter = new FilterCollection(this);
       render();
-    })
-  })
+    });
+  });
 
-  // -------- FILTER BY LABELS ----------- 
+  // -------- FILTER BY LABELS -----------
   const tagsBtn = document.querySelectorAll(".tagsButton");
   const filterArray = [];
- 
+
   class LabelFilter {
-    constructor(list) {
-    }
+    constructor(list) {}
     challengeMatch(card) {
       let cards = document.querySelectorAll(".challenge-item");
 
       for (let i = 0; i < cards.length; i++) {
         let labelSearch = card.querySelector("ul.rating").ariaLabel;
-        if (filterArray.every((element => labelSearch.includes(element)))){
+        if (filterArray.every((element) => labelSearch.includes(element))) {
           return true;
-        }
-        else {
+        } else {
           return false;
         }
       }
@@ -234,7 +225,7 @@ if (
       }
       this.filter = new FilterCollection(this);
       render();
-    })
+    });
   });
 
   //---------- FILTER COLLECTION ----------------
@@ -246,23 +237,22 @@ if (
         new RatingFilter(list),
         new SearchFilter(list),
         new LabelFilter(list),
-      ]
+      ];
     }
-    
+
     challengeMatch(card) {
-      return this.filters.every(filter => filter.challengeMatch(card));
+      return this.filters.every((filter) => filter.challengeMatch(card));
     }
   }
 
   //------ FUNCTION TO SHOW FILTER RESULTS ------
   function render() {
     let cards = document.querySelectorAll(".challenge-item");
-    
+
     for (let i = 0; i < cards.length; i++) {
-      if (this.filter.challengeMatch(cards[i])){
+      if (this.filter.challengeMatch(cards[i])) {
         cards[i].classList.remove("is-hidden");
-      }
-      else {
+      } else {
         cards[i].classList.add("is-hidden");
       }
     }
@@ -305,72 +295,75 @@ if (
   const inputDate = document.createElement("input");
   const labelDate = document.createElement("label");
   const question = document.createElement("p");
+  let cardId;
   // When user clicks on "book this room", run and create function to open modal
   openModal.addEventListener("click", function (e) {
-    if (e.target.classList.contains("modal-open")) {
+    if (e.target.classList.contains("online-modal")) {
+      alert("This service is not avalible at this moment");
+    } else if (e.target.classList.contains("modal-open")) {
+      console.log(e.target.parentNode.id);
+      cardId = e.target.parentNode.id;
+      cardId--;
       document.body.append(backDrop);
       backDrop.addEventListener("click", closeModal);
-    } else if (e.target.classList.contains("online-modal")) {
-      alert("This service is not avalible at this moment");
-    }
 
-    // Remove modal when click on X
-    modal.appendChild(closeBtn);
-    closeBtn.addEventListener("click", function () {
-      backDrop.remove();
-    });
-
-    // Set heading inside modal
-
-    modalHeading.innerHTML =
-      'Book room <span class="room-title">"Title of room"</span> <br>(step 1)';
-    modal.appendChild(modalHeading);
-    backDrop.appendChild(modal);
-
-    // Question in modal
-
-    question.style.margin = "40px";
-    question.innerText = "What date would you like to come?";
-    modal.appendChild(question);
-
-    // Label for input
-
-    labelDate.setAttribute("for", "date");
-    labelDate.innerText = "Date:";
-    modal.appendChild(labelDate);
-
-    // Date input
-
-    inputDate.id = "date";
-    inputDate.type = "date";
-
-    inputDate.valueAsNumber =
-      Date.now() - new Date().getTimezoneOffset() * 60000;
-
-    modal.appendChild(inputDate);
-
-    // Button "search available times"
-    button.innerHTML = "Search available times";
-    button.type = "submit";
-    modal.appendChild(button);
-
-    const today = new Date().toISOString().split("T")[0];
-    inputDate.setAttribute("min", today);
-    const selectedDate = inputDate.value;
-
-    button.addEventListener("click", async function () {
-      const res = await fetch(
-        `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${selectedDate}&challenge=3"`
-      );
-      const data = await res.json();
-      console.log(inputDate.value);
-      data.slots.forEach((slot) => {
-        console.log(slot);
+      // Remove modal when click on X
+      modal.appendChild(closeBtn);
+      closeBtn.addEventListener("click", function () {
+        backDrop.remove();
       });
-    });
+
+      // Set heading inside modal
+      let challengeTitle = allChallenges[cardId].title;
+      modalHeading.innerHTML = `Book room <span class="room-title">"${challengeTitle}"</span> <br>(step 1)`;
+
+      modal.appendChild(modalHeading);
+      backDrop.appendChild(modal);
+      //let titlemodal = data.challenges[$cardId].title;
+      //console.log(`${titlemodal} ${cardId}`);
+
+      // Question in modal
+
+      question.style.margin = "40px";
+      question.innerText = "What date would you like to come?";
+      modal.appendChild(question);
+
+      // Label for input
+
+      labelDate.setAttribute("for", "date");
+      labelDate.innerText = "Date:";
+      modal.appendChild(labelDate);
+
+      // Date input
+
+      inputDate.id = "date";
+      inputDate.type = "date";
+
+      inputDate.valueAsNumber =
+        Date.now() - new Date().getTimezoneOffset() * 60000;
+
+      modal.appendChild(inputDate);
+
+      // Button "search available times"
+      button.innerHTML = "Search available times";
+      button.type = "submit";
+      modal.appendChild(button);
+
+      const today = new Date().toISOString().split("T")[0];
+      inputDate.setAttribute("min", today);
+
+      button.addEventListener("click", async function () {
+        const res = await fetch(
+          `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${inputDate.value}?challenge=${allChallenges.id}`
+        );
+        const data = await res.json();
+
+        //console.log(inputDate.value);
+        //console.log(data);
+      });
+    }
   });
   // -------------------- END OF MODAL JS --------------------
-
   //---------------------- CREATING MODAL2 ----------------------
 
   //search avalible times button creats new modal
@@ -389,6 +382,10 @@ if (
     form.classList.add("form-content");
     const headingModal = document.createElement("h2");
     headingModal.classList.add("modal-heading");
+    let challengeTitle = allChallenges[cardId].title;
+
+    headingModal.innerHTML = `Book room <span class="room-title">"${challengeTitle}"</span> <br>(step 2)`;
+
     const confirmBtn = document.createElement("button");
     confirmBtn.innerText = "Submit booking";
     confirmBtn.classList.add(
@@ -429,8 +426,6 @@ if (
     modal.append(closeBtn2);
     modal.append(form);
     form.append(headingModal);
-
-    headingModal.innerText = "Book room ";
 
     const nameLabel = document.createElement("p");
     nameLabel.classList.add("label");
@@ -474,12 +469,8 @@ if (
 
     //funktion för participants !! behövs lösas så den kopplar till challanges "id"
     async function participants() {
-      const resParticipants = await fetch(
-        `https://lernia-sjj-assignments.vercel.app/api/challenges`
-      );
-      const dataParticipants = await resParticipants.json();
-      let minParticipants = dataParticipants.challenges[1].minParticipants; // här ska rätt rätt kort läggas in.
-      const maxParticipants = dataParticipants.challenges[1].maxParticipants; // här ska rätt rätt kort läggas in.
+      let minParticipants = allChallenges[cardId].minParticipants;
+      let maxParticipants = allChallenges[cardId].maxParticipants;
 
       while (minParticipants <= maxParticipants) {
         const option = document.createElement("option");
@@ -490,17 +481,13 @@ if (
     participants();
 
     //function för att få ut tid som är tillgängligt för bokning under det datumet.
+
     async function time() {
       const resTime = await fetch(
-        `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${inputDate.value}&challenge=3"`
+        `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${inputDate.value}&challenge=${cardId}`
       );
-
-      //removes duplicated time options.
       const dataTime = await resTime.json();
-      let timeNoDupicated = dataTime.slots;
-      let timeArr = [...new Set(timeNoDupicated)];
-      console.log(timeArr);
-      timeArr.forEach((slotTime) => {
+      dataTime.slots.forEach((slotTime) => {
         const timeOption = document.createElement("option");
         timeOption.innerText = slotTime;
         input3.append(timeOption);

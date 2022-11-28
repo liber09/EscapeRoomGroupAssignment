@@ -1,13 +1,14 @@
 let list = document.querySelector(".challenge-list");
 
+let allChallenges;
+
 function addChallengesToDom(challenge) {
   if (challenge.type === "onsite") {
     list.innerHTML += `
-    <li class="challenge-item"> 
+    <li class="challenge-item" id="${challenge.id}"> 
       <img class="challenge-image" alt="Hacker" src=${challenge.image} />
       <h3 class="challenge-title">${challenge.title} (${challenge.type})</h3>
       <ul
-      id="challenge-${challenge.id}
         role="meter"
         class="rating"
         aria-label=${challenge.labels}
@@ -73,6 +74,7 @@ async function getChallenges() {
     if (res.ok) {
       let data = await res.json();
       let ratingsArray = [];
+      allChallenges = data.challenges;
 
       for (let ratingEl of data.challenges) {
         ratingsArray.push(ratingEl.rating);
