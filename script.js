@@ -255,16 +255,30 @@ if (
   }
 
   //------ FUNCTION TO SHOW FILTER RESULTS ------
+  let cardsDiv = document.querySelector(".challenges")
+  const noMatch = document.createElement("p");
+  cardsDiv.append(noMatch);
+  noMatch.innerText = "No matching challenges";
+  noMatch.classList.add("no-match");
+
   function render() {
     let cards = document.querySelectorAll(".challenge-item");
+    let hiddenCount = 0;
     
     for (let i = 0; i < cards.length; i++) {
       if (this.filter.challengeMatch(cards[i])){
         cards[i].classList.remove("is-hidden");
       }
-      else {
+      else{
         cards[i].classList.add("is-hidden");
+        hiddenCount++;
       }
+    }
+    if (hiddenCount == 30){
+      noMatch.style.display = "block";
+    }
+    else {
+      noMatch.style.display = "none";
     }
   }
 
