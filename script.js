@@ -106,7 +106,6 @@ if (
     let searchInput = document.querySelector(".searchInput");
     searchInput = searchInput.value;
 
-    
     for (let i = 0; i < cards.length; i++) {
       if (
         cards[i].innerText.toLowerCase().includes(searchInput.toLowerCase())
@@ -116,29 +115,25 @@ if (
         cards[i].classList.add("is-hidden");
       }
     }
-  }  
-    
+  }
 
-    // Event listener and search delay on input field
+  // Event listener and search delay on input field
   let typingTimer;
   let typeInterval = 500;
-    
+
   searchInput.addEventListener("keyup", () => {
     console.log("test");
     clearTimeout(typingTimer);
     typingTimer = setTimeout(freeSearch, typeInterval);
   });
 
-   //------- FILTER BY TYPE --------
+  //------- FILTER BY TYPE --------
   const checkBoxCheck = document.querySelectorAll("input[type=checkbox]");
 
   function typeFilter() {
     let cards = document.querySelectorAll(".challenge-item");
 
-    if (
-      checkBoxCheck[0].checked == true &&
-      checkBoxCheck[1].checked == false
-    ) {
+    if (checkBoxCheck[0].checked == true && checkBoxCheck[1].checked == false) {
       for (let i = 0; i < cards.length; i++) {
         if (
           cards[i]
@@ -176,34 +171,28 @@ if (
   }
   //Trigger for checkbox filter
   checkBoxCheck.forEach((checkbox) => {
-    
     checkbox.addEventListener("click", () => {
       typeFilter();
-    })
-  })
+    });
+  });
 
-
-  // -------- FILTER BY TAGS ----------- 
+  // -------- FILTER BY TAGS -----------
 
   //--- FILTER NOT DONE, NEED CHALLENGE DATA IN JS TO COMPLETE
-
 
   const tagsDiv = document.querySelectorAll(".filterByTags");
   const tagsBtn = document.querySelectorAll(".tagsButton");
   const filterArray = [];
   function testFilter(e) {
-    
     let cards = document.querySelectorAll(".challenge-item");
 
-    
     if (filterArray.includes(e.target.value)) {
       for (let i = 0; i < filterArray.length; i++) {
         if (e.target.value == filterArray[i]) {
           filterArray.splice(i, 1);
         }
       }
-    }
-    else { 
+    } else {
       filterArray.push(e.target.value);
     }
     for (let j = 0; j < cards.length; j++) {
@@ -212,8 +201,7 @@ if (
       console.log(filterStringify);
       console.log(labelSearch);
       //let testSearch = JSON.parse(labelSearch);
-      
-      
+
       //Fungerar men inte korrekt.
       if (labelSearch.includes(filterArray)) {
         cards[j].classList.remove("is-hidden");
@@ -222,32 +210,21 @@ if (
       }
     }
     // https://www.youtube.com/watch?v=Rt6z01yhUTg&ab_channel=UsefulProgrammer TITTA PÅ DENNA OM DU ÄR FAST
-    
   }
 
   //Trigger for tags filter
   tagsBtn.forEach((tag) => {
     console.log("test");
     tag.addEventListener("click", (e) => {
-      
-      if (e.target.classList.contains("tagsButton-active")){
-        e.target.classList.remove("tagsButton-active")
-      }
-      else {
+      if (e.target.classList.contains("tagsButton-active")) {
+        e.target.classList.remove("tagsButton-active");
+      } else {
         e.target.classList.add("tagsButton-active");
       }
       //tagsFilter(e);
       testFilter(e);
-      
-    })
+    });
   });
-
-
-
-
-
-
-
 
   // -------------------- MODAL --------------------
 
@@ -288,9 +265,12 @@ if (
   const question = document.createElement("p");
   // When user clicks on "book this room", run and create function to open modal
   openModal.addEventListener("click", function (e) {
-    if (e.target.classList.contains("modal-open"))
+    if (e.target.classList.contains("modal-open")) {
       document.body.append(backDrop);
-    backDrop.addEventListener("click", closeModal);
+      backDrop.addEventListener("click", closeModal);
+    } else if (e.target.classList.contains("online-modal")) {
+      alert("This service is not avalible at this moment");
+    }
 
     // Remove modal when click on X
     modal.appendChild(closeBtn);
