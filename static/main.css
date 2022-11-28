@@ -470,6 +470,24 @@ header h1 {
   font-size: 0.6em;
   padding: 10px;
 }
+.filter .filterByTags {
+  position: relative;
+  display: flex;
+}
+.filter .filterByTags .tagsButton {
+  color: black;
+  background-color: rgba(128, 128, 128, 0.3);
+  padding: 1em;
+  margin: 0.2em;
+  border-color: rgba(0, 0, 0, 0.3);
+  border-radius: 30px;
+}
+.filter .filterByTags .tagsButton:hover {
+  background-color: rgba(218, 189, 24, 0.6980392157);
+}
+.filter .filterByTags .tagsButton-active {
+  background-color: rgba(218, 189, 24, 0.6980392157);
+}
 
 .is-hidden {
   display: none;
