@@ -82,12 +82,9 @@ async function getChallenges() {
 
       data.challenges.map((challenge) => {
         if (window.location.href === "http://127.0.0.1:5501/index.html") {
-          if (
-            challenge.rating === maxRating &&
-            challenge.maxParticipants >= 7
-          ) {
+          if (challenge.rating === maxRating) {
             addChallengesToDom(challenge);
-            getRatings();
+            setStarRating();
           }
         } else if (
           window.location.href === "http://127.0.0.1:5501/challenges.html"
