@@ -218,13 +218,13 @@ if (
   const inputDate = document.createElement("input");
   const labelDate = document.createElement("label");
   const question = document.createElement("p");
-
+  let cardId;
   // When user clicks on "book this room", run and create function to open modal
 
   openModal.addEventListener("click", function (e) {
     if (e.target.classList.contains("modal-open")) {
       console.log(e.target.parentNode.id);
-      let cardId = e.target.parentNode.id;
+      cardId = e.target.parentNode.id;
       cardId--;
       document.body.append(backDrop);
       backDrop.addEventListener("click", closeModal);
@@ -276,11 +276,12 @@ if (
 
       button.addEventListener("click", async function () {
         const res = await fetch(
-          `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${inputDate.value}?challenge=${cardId}`
+          `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${inputDate.value}?challenge=${allChallenges.id}`
         );
         const data = await res.json();
-        console.log(inputDate.value);
-        console.log(data);
+
+        //console.log(inputDate.value);
+        //console.log(data);
       });
     }
   });
@@ -305,7 +306,8 @@ if (
     form.classList.add("form-content");
     const headingModal = document.createElement("h2");
     headingModal.classList.add("modal-heading");
-    let challengeTitle = allChallenges[1].title;
+    let challengeTitle = allChallenges[cardId].title;
+
     headingModal.innerHTML = `Book room <span class="room-title">"${challengeTitle}"</span> <br>(step 2)`;
 
     const confirmBtn = document.createElement("button");
