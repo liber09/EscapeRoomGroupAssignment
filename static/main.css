@@ -102,7 +102,7 @@ header h1 {
     width: 3em;
     height: 0.4em;
     border-radius: 0.2em;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     /* Reset button styling */
     margin: 0;
     padding: 0;
@@ -116,7 +116,7 @@ header h1 {
     width: 3em;
     height: 0.4em;
     border-radius: 0.2em;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     position: relative;
     top: 0.8em;
     transition: transform 0.5s;
@@ -127,7 +127,7 @@ header h1 {
     width: 3em;
     height: 0.4em;
     border-radius: 0.2em;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     position: relative;
     top: 1.2em;
   }
@@ -676,5 +676,3 @@ footer a:hover {
     opacity: 1;
   }
 }
-
-/*# sourceMappingURL=main.css.map */

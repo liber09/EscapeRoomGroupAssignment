@@ -489,7 +489,6 @@ if (
       const bookingDoneText2 = document.createElement("p");
       const bookingDoneText3 = document.createElement("p");
       const bookingDoneText4 = document.createElement("p");
-      const bookingDoneText5 = document.createElement("p");
 
       //object and array for storing input value
       const completedBooking = [];
@@ -503,13 +502,16 @@ if (
       bookingDoneText1.innerText = "Your team name is: " + bookingInfo.nameInfo;
       bookingDoneText2.innerText =
         "We have sent a confirmation mail to: " + bookingInfo.emailInfo;
-      bookingDoneText3.innerText = "Your time is: " + bookingInfo.timeInfo;
-      bookingDoneText4.innerText =
+
+      bookingDoneText3.innerText =
         "This room is booked for " +
         bookingInfo.participantInfo +
         " participants";
-      bookingDoneText5.innerText =
-        "And we are happy to see you on the " + inputDate.value;
+      bookingDoneText4.innerText =
+        "And we are happy to see you on the " +
+        inputDate.value +
+        " at " +
+        input3.value;
 
       //return to homepage tag
       const homePageBtn = document.createElement("a");
@@ -517,7 +519,7 @@ if (
       homePageBtn.classList.add("submit-booking");
       homePageBtn.innerText = "Return to homepage";
 
-      //adding the bookked object to array
+      //adding the booked object to array
 
       completedBooking.push(bookingInfo);
 
@@ -528,7 +530,6 @@ if (
         bookingDoneText2,
         bookingDoneText3,
         bookingDoneText4,
-        bookingDoneText5,
         homePageBtn
       );
     }

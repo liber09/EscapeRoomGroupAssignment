@@ -90,22 +90,22 @@ function setStarRating() {
         let star = ratingsList[i];
         star.classList.remove("active");
       } else if (ratValue == 1) {
-        if (i == 1 || i == 2 || i == 3 || i == 4){
+        if (i == 1 || i == 2 || i == 3 || i == 4) {
           let star = ratingsList[i];
           star.classList.remove("active");
         }
       } else if (ratValue == 2) {
-        if (i == 2 || i == 3 || i == 4){
+        if (i == 2 || i == 3 || i == 4) {
           let star = ratingsList[i];
           star.classList.remove("active");
         }
       } else if (ratValue == 3) {
-        if (i == 3 || i == 4){
+        if (i == 3 || i == 4) {
           let star = ratingsList[i];
           star.classList.remove("active");
         }
       } else if (ratValue == 4) {
-        if (i == 4){
+        if (i == 4) {
           let star = ratingsList[i];
           star.classList.remove("active");
         }
@@ -114,7 +114,6 @@ function setStarRating() {
       }
     }
   }
-  
 }
 
 //event listeners
