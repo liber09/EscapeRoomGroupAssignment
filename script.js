@@ -218,67 +218,73 @@ if (
   const inputDate = document.createElement("input");
   const labelDate = document.createElement("label");
   const question = document.createElement("p");
+
   // When user clicks on "book this room", run and create function to open modal
+
   openModal.addEventListener("click", function (e) {
-    if (e.target.classList.contains("modal-open"))
+    if (e.target.classList.contains("modal-open")) {
+      console.log(e.target.parentNode.id);
+      let cardId = e.target.parentNode.id;
+      cardId--;
       document.body.append(backDrop);
-    backDrop.addEventListener("click", closeModal);
+      backDrop.addEventListener("click", closeModal);
 
-    // Remove modal when click on X
-    modal.appendChild(closeBtn);
-    closeBtn.addEventListener("click", function () {
-      backDrop.remove();
-    });
-
-    // Set heading inside modal
-
-    modalHeading.innerHTML =
-      'Book room <span class="room-title">"Title of room"</span> <br>(step 1)';
-    modal.appendChild(modalHeading);
-    backDrop.appendChild(modal);
-
-    // Question in modal
-
-    question.style.margin = "40px";
-    question.innerText = "What date would you like to come?";
-    modal.appendChild(question);
-
-    // Label for input
-
-    labelDate.setAttribute("for", "date");
-    labelDate.innerText = "Date:";
-    modal.appendChild(labelDate);
-
-    // Date input
-
-    inputDate.id = "date";
-    inputDate.type = "date";
-
-    inputDate.valueAsNumber =
-      Date.now() - new Date().getTimezoneOffset() * 60000;
-
-    modal.appendChild(inputDate);
-
-    // Button "search available times"
-    button.innerHTML = "Search available times";
-    button.type = "submit";
-    modal.appendChild(button);
-
-    const today = new Date().toISOString().split("T")[0];
-    inputDate.setAttribute("min", today);
-    const selectedDate = inputDate.value;
-
-    button.addEventListener("click", async function () {
-      const res = await fetch(
-        `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${selectedDate}&challenge=3"`
-      );
-      const data = await res.json();
-      console.log(inputDate.value);
-      data.slots.forEach((slot) => {
-        console.log(slot);
+      // Remove modal when click on X
+      modal.appendChild(closeBtn);
+      closeBtn.addEventListener("click", function () {
+        backDrop.remove();
       });
-    });
+
+      // Set heading inside modal
+      let challengeTitle = allChallenges[cardId].title;
+      modalHeading.innerHTML = `Book room <span class="room-title">"${challengeTitle}"</span> <br>(step 1)`;
+
+      modal.appendChild(modalHeading);
+      backDrop.appendChild(modal);
+      //let titlemodal = data.challenges[$cardId].title;
+      //console.log(`${titlemodal} ${cardId}`);
+
+      // Question in modal
+
+      question.style.margin = "40px";
+      question.innerText = "What date would you like to come?";
+      modal.appendChild(question);
+
+      // Label for input
+
+      labelDate.setAttribute("for", "date");
+      labelDate.innerText = "Date:";
+      modal.appendChild(labelDate);
+
+      // Date input
+
+      inputDate.id = "date";
+      inputDate.type = "date";
+
+      inputDate.valueAsNumber =
+        Date.now() - new Date().getTimezoneOffset() * 60000;
+
+      modal.appendChild(inputDate);
+
+      // Button "search available times"
+      button.innerHTML = "Search available times";
+      button.type = "submit";
+      modal.appendChild(button);
+
+      const today = new Date().toISOString().split("T")[0];
+      inputDate.setAttribute("min", today);
+
+      button.addEventListener("click", async function () {
+        const res = await fetch(
+          `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${inputDate.value}?challenge=${cardId}`
+        );
+        const data = await res.json();
+        console.log(inputDate.value);
+        console.log(data);
+      });
+    }
   });
+
   // -------------------- END OF MODAL JS --------------------
 
   //---------------------- CREATING MODAL2 ----------------------
@@ -299,6 +305,9 @@ if (
     form.classList.add("form-content");
     const headingModal = document.createElement("h2");
     headingModal.classList.add("modal-heading");
+    let challengeTitle = allChallenges[1].title;
+    headingModal.innerHTML = `Book room <span class="room-title">"${challengeTitle}"</span> <br>(step 2)`;
+
     const confirmBtn = document.createElement("button");
     confirmBtn.innerText = "Submit booking";
     confirmBtn.classList.add(
@@ -339,8 +348,6 @@ if (
     modal.append(closeBtn2);
     modal.append(form);
     form.append(headingModal);
-
-    headingModal.innerText = "Book room ";
 
     const nameLabel = document.createElement("p");
     nameLabel.classList.add("label");
@@ -402,7 +409,7 @@ if (
     //function för att få ut tid som är tillgängligt för bokning under det datumet.
     async function time() {
       const resTime = await fetch(
-        `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${inputDate.value}&challenge=3"`
+        `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${inputDate.value}&challenge=3`
       );
       const dataTime = await resTime.json();
       dataTime.slots.forEach((slotTime) => {

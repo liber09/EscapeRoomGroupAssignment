@@ -1,12 +1,13 @@
 let list = document.querySelector(".challenge-list");
 
+let allChallenges;
+
 function addChallengesToDom(challenge) {
   list.innerHTML += `
-     <li class="challenge-item">
+     <li class="challenge-item" id="${challenge.id}">
        <img class="challenge-image" alt="Hacker" src=${challenge.image} />
        <h3 class="challenge-title">${challenge.title} (${challenge.type})</h3>
        <ul
-       id="challenge-${challenge.id}
          role="meter"
          class="rating"
          aria-label="rating"
@@ -41,6 +42,7 @@ async function getChallenges() {
     if (res.ok) {
       let data = await res.json();
       let ratingsArray = [];
+      allChallenges = data.challenges;
 
       for (let ratingEl of data.challenges) {
         ratingsArray.push(ratingEl.rating);
@@ -90,22 +92,22 @@ function setStarRating() {
         let star = ratingsList[i];
         star.classList.remove("active");
       } else if (ratValue == 1) {
-        if (i == 1 || i == 2 || i == 3 || i == 4){
+        if (i == 1 || i == 2 || i == 3 || i == 4) {
           let star = ratingsList[i];
           star.classList.remove("active");
         }
       } else if (ratValue == 2) {
-        if (i == 2 || i == 3 || i == 4){
+        if (i == 2 || i == 3 || i == 4) {
           let star = ratingsList[i];
           star.classList.remove("active");
         }
       } else if (ratValue == 3) {
-        if (i == 3 || i == 4){
+        if (i == 3 || i == 4) {
           let star = ratingsList[i];
           star.classList.remove("active");
         }
       } else if (ratValue == 4) {
-        if (i == 4){
+        if (i == 4) {
           let star = ratingsList[i];
           star.classList.remove("active");
         }
@@ -114,7 +116,6 @@ function setStarRating() {
       }
     }
   }
-  
 }
 
 //event listeners
