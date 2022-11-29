@@ -29,7 +29,9 @@ function addChallengesToDom(challenge) {
        ${challenge.description}
       </p>
       <button class="button primary modal-open">Book this room</button>
-      <h2 class="challenge-type" hidden>${challenge.type}</p>
+      <p class="challenge-type" hidden>${challenge.type}</p>
+      <p class="challenge-meta-min" hidden>${challenge.minParticipants}</p>
+      <p class="challenge-meta-max" hidden>${challenge.maxParticipants}</p>
     </li>
 
     `;
@@ -60,7 +62,9 @@ function addChallengesToDom(challenge) {
        ${challenge.description}
       </p>
       <button class="button third online-modal">Take challenge online</button>
-      <h2 class="challenge-type" hidden>${challenge.type}</p>
+      <p class="challenge-type" hidden>${challenge.type}</p>
+      <p class="challenge-meta-min" hidden>${challenge.minParticipants}</p>
+      <p class="challenge-meta-max" hidden>${challenge.maxParticipants}</p>
     </li>
 
     `;
