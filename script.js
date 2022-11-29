@@ -313,6 +313,7 @@ if (
   const question = document.createElement("p");
 
   let cardId;
+  let cardTitle;
   // When user clicks on "book this room", run and create function to open modal
   openModal.addEventListener("click", function (e) {
     if (e.target.classList.contains("online-modal")) {
@@ -320,7 +321,6 @@ if (
     } else if (e.target.classList.contains("modal-open")) {
       console.log(e.target.parentNode.id);
       cardId = e.target.parentNode.id;
-      cardId--;
       document.body.append(backDrop);
       backDrop.addEventListener("click", closeModal);
 
@@ -331,8 +331,8 @@ if (
       });
 
       // Set heading inside modal
-      let challengeTitle = allChallenges[cardId].title;
-      modalHeading.innerHTML = `Book room <span class="room-title">"${challengeTitle}"</span> <br>(step 1)`;
+      cardTitle = e.target.parentNode.querySelector(".challenge-title").innerText;
+      modalHeading.innerHTML = `Book room <span class="room-title">"${cardTitle}"</span> <br>(step 1)`;
 
       modal.appendChild(modalHeading);
       backDrop.appendChild(modal);
@@ -399,9 +399,8 @@ if (
     form.classList.add("form-content");
     const headingModal = document.createElement("h2");
     headingModal.classList.add("modal-heading");
-    let challengeTitle = allChallenges[cardId].title;
 
-    headingModal.innerHTML = `Book room <span class="room-title">"${challengeTitle}"</span> <br>(step 2)`;
+    headingModal.innerHTML = `Book room <span class="room-title">"${cardTitle}"</span> <br>(step 2)`;
 
     const confirmBtn = document.createElement("button");
     confirmBtn.innerText = "Submit booking";
