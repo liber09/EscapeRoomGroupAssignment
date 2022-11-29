@@ -75,16 +75,24 @@ async function getChallenges() {
       let data = await res.json();
       allChallenges = data.challenges;
 
-      //sort challenges by rating from high to low
-      data.challenges.sort((a,b) => (a.rating > b.rating) ? -1 : 1)
+     //sort challenges by rating from high to low
+      data.challenges.sort((a, b) => (a.rating > b.rating ? -1 : 1));
       let counter = 0; //How many challenges on first page (should be 3)
       data.challenges.map((challenge) => {
-        if (window.location.href === "http://127.0.0.1:5501/" && counter <3) {
+        const host = "http://127.0.0.1:5501/";
+        const hostOnline =
+          "https://liber09.github.io/EscapeRoomGroupAssignment/";
+
+        if (
+          (window.location.href === host + "index.html" && counter < 3) ||
+          (window.location.href === hostOnline + "index.html" && counter < 3)
+        ) {
           counter++; //count challenges on first page
           addChallengesToDom(challenge);
           setStarRating();
         } else if (
-          window.location.href === "http://127.0.0.1:5501/challenges.html"
+          window.location.href === host + "challenges.html" ||
+          window.location.href === hostOnline + "challenges.html"
         ) {
           addChallengesToDom(challenge);
           setStarRating();

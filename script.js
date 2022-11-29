@@ -18,14 +18,14 @@ if (
   let current_star_level_to = 0;
 
   filterButton.addEventListener("click", () => {
-    filterSection.style.display = "flex";
+    filterSection.style.display = "block";
     filterButton.style.display = "none";
     filterButton.setAttribute("aria-expanded", true);
   });
 
   filterCloseButton.addEventListener("click", () => {
     filterSection.style.display = "none";
-    filterButton.style.display = "flex";
+    filterButton.style.display = "block";
     filterButton.setAttribute("aria-expanded", false);
   });
 
@@ -295,6 +295,7 @@ if (
   const inputDate = document.createElement("input");
   const labelDate = document.createElement("label");
   const question = document.createElement("p");
+
   let cardId;
   // When user clicks on "book this room", run and create function to open modal
   openModal.addEventListener("click", function (e) {
