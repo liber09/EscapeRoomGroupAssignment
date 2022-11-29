@@ -29,15 +29,17 @@ function addChallengesToDom(challenge) {
        ${challenge.description}
       </p>
       <button class="button primary modal-open">Book this room</button>
+      <h2 class="challenge-type" hidden>${challenge.type}</p>
     </li>
 
     `;
   } else {
     list.innerHTML += `
-    <li class="challenge-item" id="${challenge.id}"> 
+    <li class="challenge-item"> 
       <img class="challenge-image" alt="Hacker" src=${challenge.image} />
       <h3 class="challenge-title">${challenge.title} (${challenge.type})</h3>
       <ul
+      id="challenge-${challenge.id}
         role="meter"
         class="rating"
         aria-label=${challenge.labels}
@@ -58,6 +60,7 @@ function addChallengesToDom(challenge) {
        ${challenge.description}
       </p>
       <button class="button third online-modal">Take challenge online</button>
+      <h2 class="challenge-type" hidden>${challenge.type}</p>
     </li>
 
     `;
@@ -74,16 +77,24 @@ async function getChallenges() {
       let data = await res.json();
       allChallenges = data.challenges;
 
-      //sort challenges by rating from high to low
-      data.challenges.sort((a,b) => (a.rating > b.rating) ? -1 : 1)
+     //sort challenges by rating from high to low
+      data.challenges.sort((a, b) => (a.rating > b.rating ? -1 : 1));
       let counter = 0; //How many challenges on first page (should be 3)
       data.challenges.map((challenge) => {
-        if (window.location.href === "http://127.0.0.1:5501/" && counter <3) {
+        const host = "http://127.0.0.1:5501/";
+        const hostOnline =
+          "https://liber09.github.io/EscapeRoomGroupAssignment/";
+
+        if (
+          (window.location.href === host + "index.html" && counter < 3) ||
+          (window.location.href === hostOnline + "index.html" && counter < 3)
+        ) {
           counter++; //count challenges on first page
           addChallengesToDom(challenge);
           setStarRating();
         } else if (
-          window.location.href === "http://127.0.0.1:5501/challenges.html"
+          window.location.href === host + "challenges.html" ||
+          window.location.href === hostOnline + "challenges.html"
         ) {
           addChallengesToDom(challenge);
           setStarRating();

@@ -13,6 +13,9 @@
   padding: 0;
   overflow: hidden;
   box-shadow: 0 0 1em rgba(black, 0.4);
+  @media (max-width: $bp-medium) {
+    height: 600px;
+  }
 
   h3 {
     color: grey;
@@ -55,6 +58,7 @@
     h4 {
       margin: 1rem;
     }
+    
   }
   .rating {
     position: relative;
@@ -70,6 +74,42 @@
     box-shadow: 0 0 2px #b3acac;
     user-select: none;
     margin: 1rem;
+    @media (max-width: $bp-medium) {
+      display: grid;
+      grid-template-columns: repeat(5, 70px);
+      grid-auto-rows: 40px;
+      width: 350px;
+      margin-left: 2rem;
+      margin-top: 0;
+      padding: 1px;
+      box-shadow: none;
+      height: 100px;
+
+      .star_from_div {
+        display: flex;
+        grid-column: 1;
+        grid-row: 1;
+        width: 300px;
+        margin: 0 auto;
+      }
+
+      .star_to_div {
+        display: flex;
+        width: 300px;
+        margin: 0 auto;
+        grid-column: 1;
+        grid-row: 3;
+      }
+
+      p {
+        margin: 0 auto;
+        grid-column: 1;
+        grid-row: 2;
+        margin-left: 4.3rem;
+      }
+      
+    }
+    
   }
 
   .star_from,
@@ -90,11 +130,20 @@
   .labelSearchInput {
     margin: 1rem;
     font-weight: bold;
+    @media (max-width: $bp-medium) {
+      position: relative;
+      top: 1rem;
+    }
   }
   .searchInput {
     margin: 1rem;
     font-size: 0.6em;
     padding: 10px;
+    width: 300px;
+    @media (max-width: $bp-medium) {
+      position: relative;
+      top: 0.4rem;
+    }
   }
 
   .filterByTags {
@@ -116,8 +165,20 @@
     .tagsButton-active {
       background-color: #dabd18b2;
     }
+    @media (max-width: $bp-medium) {
+      max-width: 500px;
+      flex-wrap: wrap;
+
+    }
   }
 }
 .is-hidden {
   display: none;
 }
+
+.no-match{
+  display: none;
+  font-size: 50px;
+  text-align: center;
+}
+
