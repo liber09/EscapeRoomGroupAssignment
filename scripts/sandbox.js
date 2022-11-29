@@ -75,7 +75,7 @@ async function getChallenges() {
       let data = await res.json();
       allChallenges = data.challenges;
 
-      //sort challenges by rating from high to low
+     //sort challenges by rating from high to low
       data.challenges.sort((a, b) => (a.rating > b.rating ? -1 : 1));
       let counter = 0; //How many challenges on first page (should be 3)
       data.challenges.map((challenge) => {
