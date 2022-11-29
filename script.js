@@ -15,7 +15,7 @@ if (
   const filterCloseButton = document.querySelector(".filterCloseButton");
 
   let current_star_level_from = 0;
-  let current_star_level_to = 0;
+  let current_star_level_to = 5;
 
   filterButton.addEventListener("click", () => {
     filterSection.style.display = "block";
@@ -129,12 +129,13 @@ if (
 
   //--------- FILTER BY TYPE -----------
   const checkBoxCheck = document.querySelectorAll("input[type=checkbox]");
+  checkBoxCheck[0].checked = true;
+  checkBoxCheck[1].checked = true;
 
   class TypeFilter {
     constructor(list) {}
     challengeMatch(card) {
       let cards = document.querySelectorAll(".challenge-item");
-
       if (
         checkBoxCheck[0].checked == true &&
         checkBoxCheck[1].checked == false
@@ -142,7 +143,7 @@ if (
         for (let i = 0; i < cards.length; i++) {
           if (
             card
-              .querySelector(".challenge-title")
+              .querySelector(".challenge-type")
               .innerText.toLowerCase()
               .includes("online")
           ) {
@@ -158,7 +159,7 @@ if (
         for (let i = 0; i < cards.length; i++) {
           if (
             card
-              .querySelector(".challenge-title")
+              .querySelector(".challenge-type")
               .innerText.toLowerCase()
               .includes("onsite")
           ) {
@@ -246,15 +247,30 @@ if (
   }
 
   //------ FUNCTION TO SHOW FILTER RESULTS ------
+  let cardsDiv = document.querySelector(".challenges")
+  const noMatch = document.createElement("p");
+  cardsDiv.append(noMatch);
+  noMatch.innerText = "No matching challenges";
+  noMatch.classList.add("no-match");
+
   function render() {
     let cards = document.querySelectorAll(".challenge-item");
-
+    let hiddenCount = 0;
+    
     for (let i = 0; i < cards.length; i++) {
       if (this.filter.challengeMatch(cards[i])) {
         cards[i].classList.remove("is-hidden");
-      } else {
-        cards[i].classList.add("is-hidden");
       }
+      else{
+        cards[i].classList.add("is-hidden");
+        hiddenCount++;
+      }
+    }
+    if (hiddenCount == 30){
+      noMatch.style.display = "block";
+    }
+    else {
+      noMatch.style.display = "none";
     }
   }
 
@@ -297,6 +313,7 @@ if (
   const question = document.createElement("p");
 
   let cardId;
+  let cardTitle;
   // When user clicks on "book this room", run and create function to open modal
   openModal.addEventListener("click", function (e) {
     if (e.target.classList.contains("online-modal")) {
@@ -304,7 +321,6 @@ if (
     } else if (e.target.classList.contains("modal-open")) {
       console.log(e.target.parentNode.id);
       cardId = e.target.parentNode.id;
-      cardId--;
       document.body.append(backDrop);
       backDrop.addEventListener("click", closeModal);
 
@@ -315,8 +331,8 @@ if (
       });
 
       // Set heading inside modal
-      let challengeTitle = allChallenges[cardId].title;
-      modalHeading.innerHTML = `Book room <span class="room-title">"${challengeTitle}"</span> <br>(step 1)`;
+      cardTitle = e.target.parentNode.querySelector(".challenge-title").innerText;
+      modalHeading.innerHTML = `Book room <span class="room-title">"${cardTitle}"</span> <br>(step 1)`;
 
       modal.appendChild(modalHeading);
       backDrop.appendChild(modal);
@@ -383,9 +399,8 @@ if (
     form.classList.add("form-content");
     const headingModal = document.createElement("h2");
     headingModal.classList.add("modal-heading");
-    let challengeTitle = allChallenges[cardId].title;
 
-    headingModal.innerHTML = `Book room <span class="room-title">"${challengeTitle}"</span> <br>(step 2)`;
+    headingModal.innerHTML = `Book room <span class="room-title">"${cardTitle}"</span> <br>(step 2)`;
 
     const confirmBtn = document.createElement("button");
     confirmBtn.innerText = "Submit booking";

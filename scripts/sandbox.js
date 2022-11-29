@@ -29,6 +29,7 @@ function addChallengesToDom(challenge) {
        ${challenge.description}
       </p>
       <button class="button primary modal-open">Book this room</button>
+      <h2 class="challenge-type" hidden>${challenge.type}</p>
     </li>
 
     `;
@@ -59,6 +60,7 @@ function addChallengesToDom(challenge) {
        ${challenge.description}
       </p>
       <button class="button third online-modal">Take challenge online</button>
+      <h2 class="challenge-type" hidden>${challenge.type}</p>
     </li>
 
     `;
