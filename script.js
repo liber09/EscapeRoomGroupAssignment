@@ -136,7 +136,6 @@ if (
     constructor(list) {}
     challengeMatch(card) {
       let cards = document.querySelectorAll(".challenge-item");
-
       if (
         checkBoxCheck[0].checked == true &&
         checkBoxCheck[1].checked == false
@@ -144,7 +143,7 @@ if (
         for (let i = 0; i < cards.length; i++) {
           if (
             card
-              .querySelector(".challenge-title")
+              .querySelector(".challenge-type")
               .innerText.toLowerCase()
               .includes("online")
           ) {
@@ -160,7 +159,7 @@ if (
         for (let i = 0; i < cards.length; i++) {
           if (
             card
-              .querySelector(".challenge-title")
+              .querySelector(".challenge-type")
               .innerText.toLowerCase()
               .includes("onsite")
           ) {
