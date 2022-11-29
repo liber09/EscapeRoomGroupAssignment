@@ -73,24 +73,16 @@ async function getChallenges() {
     );
     if (res.ok) {
       let data = await res.json();
-      let ratingsArray = [];
       allChallenges = data.challenges;
 
-      for (let ratingEl of data.challenges) {
-        ratingsArray.push(ratingEl.rating);
-      }
-
-      let maxRating = Math.max(...ratingsArray);
-
+      //sort challenges by rating from high to low
+      data.challenges.sort((a,b) => (a.rating > b.rating) ? -1 : 1)
+      let counter = 0; //How many challenges on first page (should be 3)
       data.challenges.map((challenge) => {
-        if (window.location.href === "http://127.0.0.1:5501/index.html") {
-          if (
-            challenge.rating === maxRating &&
-            challenge.maxParticipants >= 7
-          ) {
-            addChallengesToDom(challenge);
-            getRatings();
-          }
+        if (window.location.href === "http://127.0.0.1:5501/" && counter <3) {
+          counter++; //count challenges on first page
+          addChallengesToDom(challenge);
+          setStarRating();
         } else if (
           window.location.href === "http://127.0.0.1:5501/challenges.html"
         ) {
