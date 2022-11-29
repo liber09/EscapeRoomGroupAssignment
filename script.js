@@ -537,7 +537,7 @@ if (
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              challenge: 3,
+              challenge: allChallenges[cardId].id,
               name: input1.value,
               email: input2.value,
               date: inputDate.value,
