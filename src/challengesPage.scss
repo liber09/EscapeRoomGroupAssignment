@@ -9,6 +9,9 @@
     }
   }
 }
+.challenge-list {
+  min-width: 360px;
+}
 
 .challengesMain {
   h2 {
@@ -31,4 +34,14 @@
    the content is not filling the screen */
 .challengesFooter {
   margin-top: auto;
+}
+
+@media screen and (min-width: $bp-large) {
+  .challengesBody {
+    .challenge-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      min-width: 360px;
+    }
+  }
 }

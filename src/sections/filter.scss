@@ -5,6 +5,7 @@
   position: relative;
   border: solid 6px rgba(240, 240, 240, 0.9);
   width: 90%;
+  max-width: 1300px;
   height: 500px;
   margin: auto;
 
@@ -99,7 +100,7 @@
   .filterByTags {
     position: relative;
     display: flex;
-    
+
     .tagsButton {
       color: black;
       background-color: rgba(128, 128, 128, 0.3);
@@ -107,7 +108,6 @@
       margin: 0.2em;
       border-color: rgba($color: #000000, $alpha: 0.3);
       border-radius: 30px;
-
     }
 
     .tagsButton:hover {
@@ -121,4 +121,3 @@
 .is-hidden {
   display: none;
 }
- 

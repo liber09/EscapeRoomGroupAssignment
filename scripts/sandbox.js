@@ -34,11 +34,10 @@ function addChallengesToDom(challenge) {
     `;
   } else {
     list.innerHTML += `
-    <li class="challenge-item"> 
+    <li class="challenge-item" id="${challenge.id}"> 
       <img class="challenge-image" alt="Hacker" src=${challenge.image} />
       <h3 class="challenge-title">${challenge.title} (${challenge.type})</h3>
       <ul
-      id="challenge-${challenge.id}
         role="meter"
         class="rating"
         aria-label=${challenge.labels}
