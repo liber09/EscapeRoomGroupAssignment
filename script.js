@@ -492,12 +492,15 @@ if (
     async function participants() {
       let minParticipants = cardParti.parentNode.querySelector(".challenge-meta-min").innerText;
       let maxParticipants = cardParti.parentNode.querySelector(".challenge-meta-max").innerText;
-
-      //Switched the while loop to a for loop
-      for (let i = 0; i < maxParticipants-1; i++) {
-        console.log("test");
+      
+      // Converting to integer so while loop works
+      let minNumber = parseInt(minParticipants)
+      let maxNumber = parseInt(maxParticipants)
+    
+      while (minNumber <= maxNumber) {
         const option = document.createElement("option");
         option.innerText = minParticipants++;
+        minNumber++
         input4.append(option);
       }
     }
