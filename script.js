@@ -312,6 +312,9 @@ if (
   const labelDate = document.createElement("label");
   const question = document.createElement("p");
 
+
+  // Variables for participants, id and title in modal window
+  let cardParti;
   let cardId;
   let cardTitle;
   // When user clicks on "book this room", run and create function to open modal
@@ -321,6 +324,7 @@ if (
     } else if (e.target.classList.contains("modal-open")) {
       console.log(e.target.parentNode.id);
       cardId = e.target.parentNode.id;
+      cardParti = e.target;
       document.body.append(backDrop);
       backDrop.addEventListener("click", closeModal);
 
@@ -483,14 +487,20 @@ if (
       confirmBtn
     );
 
-    //funktion för participants !! behövs lösas så den kopplar till challanges "id"
+    //Funktion for participants
+    //Imports data from HTML attributes
     async function participants() {
-      let minParticipants = allChallenges[cardId].minParticipants;
-      let maxParticipants = allChallenges[cardId].maxParticipants;
-
-      while (minParticipants <= maxParticipants) {
+      let minParticipants = cardParti.parentNode.querySelector(".challenge-meta-min").innerText;
+      let maxParticipants = cardParti.parentNode.querySelector(".challenge-meta-max").innerText;
+      
+      // Converting to integer so while loop works
+      let minNumber = parseInt(minParticipants)
+      let maxNumber = parseInt(maxParticipants)
+    
+      while (minNumber <= maxNumber) {
         const option = document.createElement("option");
         option.innerText = minParticipants++;
+        minNumber++
         input4.append(option);
       }
     }
