@@ -247,7 +247,7 @@ if (
   }
 
   //------ FUNCTION TO SHOW FILTER RESULTS ------
-  let cardsDiv = document.querySelector(".challenges")
+  let cardsDiv = document.querySelector(".challenges");
   const noMatch = document.createElement("p");
   cardsDiv.append(noMatch);
   noMatch.innerText = "No matching challenges";
@@ -256,20 +256,18 @@ if (
   function render() {
     let cards = document.querySelectorAll(".challenge-item");
     let hiddenCount = 0;
-    
+
     for (let i = 0; i < cards.length; i++) {
       if (this.filter.challengeMatch(cards[i])) {
         cards[i].classList.remove("is-hidden");
-      }
-      else{
+      } else {
         cards[i].classList.add("is-hidden");
         hiddenCount++;
       }
     }
-    if (hiddenCount == 30){
+    if (hiddenCount == 30) {
       noMatch.style.display = "block";
-    }
-    else {
+    } else {
       noMatch.style.display = "none";
     }
   }
@@ -331,7 +329,8 @@ if (
       });
 
       // Set heading inside modal
-      cardTitle = e.target.parentNode.querySelector(".challenge-title").innerText;
+      cardTitle =
+        e.target.parentNode.querySelector(".challenge-title").innerText;
       modalHeading.innerHTML = `Book room <span class="room-title">"${cardTitle}"</span> <br>(step 1)`;
 
       modal.appendChild(modalHeading);
@@ -485,8 +484,9 @@ if (
 
     //funktion för participants !! behövs lösas så den kopplar till challanges "id"
     async function participants() {
-      let minParticipants = allChallenges[cardId].minParticipants;
-      let maxParticipants = allChallenges[cardId].maxParticipants;
+      let minParticipants = allChallenges[cardId].id.minParticipants;
+      let maxParticipants = allChallenges[cardId].id.maxParticipants;
+      console.log(minParticipants, maxParticipants);
 
       while (minParticipants <= maxParticipants) {
         const option = document.createElement("option");
