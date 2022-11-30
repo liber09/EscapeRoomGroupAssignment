@@ -518,9 +518,11 @@ function modalPopUp2() {
     if (input1.value === "") {
       nameLabel.innerText = errorMessages.nameError;
       nameLabel.style.color = "red";
+      nameLabel.classList.add("errorMessage");
     } else if (input1.value.length < 3) {
       nameLabel.innerText = errorMessages.shortError;
       nameLabel.style.color = "red";
+      nameLabel.classList.add("errorMessage");
     } else {
       nameLabel.innerText = completedMessages.nameCompleted;
       nameLabel.style.color = "black";
@@ -529,9 +531,11 @@ function modalPopUp2() {
     if (input2.value === "") {
       emailLabel.innerText = errorMessages.emptyError;
       emailLabel.style.color = "red";
+      emailLabel.classList.add("errorMessage");
     } else if (input2.value.length <= 8) {
       emailLabel.innerText = errorMessages.emailError;
       emailLabel.style.color = "red";
+      emailLabel.classList.add("errorMessage");
     } else if (input2.value.includes("@" && ".")) {
       emailLabel.innerText = completedMessages.emailCompleted;
       emailLabel.style.color = "black";
