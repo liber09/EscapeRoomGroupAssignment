@@ -8,7 +8,7 @@ body {
 }
 @media (min-width: 1000px) {
   html,
-  body {
+body {
     font-size: 24px;
   }
 }
@@ -41,10 +41,6 @@ li {
 .button.secondary {
   background-color: #8acfe5;
   color: #011827;
-}
-.button.third {
-  background-color: #8acfe5;
-  color: white;
 }
 
 .rating {
@@ -393,12 +389,18 @@ header h1 {
   position: relative;
   border: solid 6px rgba(240, 240, 240, 0.9);
   width: 90%;
+  max-width: 1300px;
   height: 500px;
   margin: auto;
   place-items: center;
   padding: 0;
   overflow: hidden;
   box-shadow: 0 0 1em rgba(0, 0, 0, 0.4);
+}
+@media (max-width: 600px) {
+  .filter {
+    height: 600px;
+  }
 }
 .filter h3 {
   color: grey;
@@ -452,6 +454,39 @@ header h1 {
   user-select: none;
   margin: 1rem;
 }
+@media (max-width: 600px) {
+  .filter .rating {
+    display: grid;
+    grid-template-columns: repeat(5, 70px);
+    grid-auto-rows: 40px;
+    width: 350px;
+    margin-left: 2rem;
+    margin-top: 0;
+    padding: 1px;
+    box-shadow: none;
+    height: 100px;
+  }
+  .filter .rating .star_from_div {
+    display: flex;
+    grid-column: 1;
+    grid-row: 1;
+    width: 300px;
+    margin: 0 auto;
+  }
+  .filter .rating .star_to_div {
+    display: flex;
+    width: 300px;
+    margin: 0 auto;
+    grid-column: 1;
+    grid-row: 3;
+  }
+  .filter .rating p {
+    margin: 0 auto;
+    grid-column: 1;
+    grid-row: 2;
+    margin-left: 4.3rem;
+  }
+}
 .filter .star_from,
 .filter .star_to {
   font-size: 1.5em;
@@ -469,10 +504,23 @@ header h1 {
   margin: 1rem;
   font-weight: bold;
 }
+@media (max-width: 600px) {
+  .filter .labelSearchInput {
+    position: relative;
+    top: 1rem;
+  }
+}
 .filter .searchInput {
   margin: 1rem;
   font-size: 0.6em;
   padding: 10px;
+  width: 300px;
+}
+@media (max-width: 600px) {
+  .filter .searchInput {
+    position: relative;
+    top: 0.4rem;
+  }
 }
 .filter .filterByTags {
   position: relative;
@@ -492,9 +540,21 @@ header h1 {
 .filter .filterByTags .tagsButton-active {
   background-color: rgba(218, 189, 24, 0.6980392157);
 }
+@media (max-width: 600px) {
+  .filter .filterByTags {
+    max-width: 500px;
+    flex-wrap: wrap;
+  }
+}
 
 .is-hidden {
   display: none;
+}
+
+.no-match {
+  display: none;
+  font-size: 50px;
+  text-align: center;
 }
 
 .story {
@@ -610,6 +670,10 @@ footer a:hover {
   color: white;
 }
 
+.challenge-list {
+  min-width: 360px;
+}
+
 .challengesMain h2 {
   font-size: 2em;
   text-align: center;
@@ -630,6 +694,13 @@ footer a:hover {
   margin-top: auto;
 }
 
+@media screen and (min-width: 1000px) {
+  .challengesBody .challenge-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    min-width: 360px;
+  }
+}
 .modal-open {
   cursor: pointer;
 }
@@ -644,7 +715,7 @@ footer a:hover {
   background-color: rgba(0, 0, 0, 0.4);
 }
 .backdrop .modal-content {
-  overflow: scroll;
+  overflow: hidden;
   z-index: 2;
   text-align: center;
   position: relative;
