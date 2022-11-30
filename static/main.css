@@ -8,7 +8,7 @@ body {
 }
 @media (min-width: 1000px) {
   html,
-body {
+  body {
     font-size: 24px;
   }
 }
@@ -41,6 +41,10 @@ li {
 .button.secondary {
   background-color: #8acfe5;
   color: #011827;
+}
+.button.third {
+  background-color: #8acfe5;
+  color: white;
 }
 
 .rating {
