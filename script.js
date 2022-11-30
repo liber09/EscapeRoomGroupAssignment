@@ -610,6 +610,7 @@ function modalPopUp2() {
     homePageBtn.innerText = "Return to homepage";
 
     //adding the booked object to array
+
     completedBooking.push(bookingInfo);
 
     //appending all elements to modal 3
