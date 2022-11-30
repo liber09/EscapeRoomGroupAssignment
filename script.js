@@ -296,10 +296,11 @@ if (
   const labelDate = document.createElement("label");
   const question = document.createElement("p");
   let cardId;
+
   // When user clicks on "book this room", run and create function to open modal
   openModal.addEventListener("click", function (e) {
     if (e.target.classList.contains("online-modal")) {
-      alert("This service is not avalible at this moment");
+      alert("This challenge is not avalible at this moment");
     } else if (e.target.classList.contains("modal-open")) {
       console.log(e.target.parentNode.id);
       cardId = e.target.parentNode.id;
@@ -575,6 +576,7 @@ if (
       bookingInfo.emailInfo = input2.value;
       bookingInfo.timeInfo = input3.value;
       bookingInfo.participantInfo = input4.value;
+
       //displaying info about the booking
       bookingDoneText1.innerText = "Your team name is: " + bookingInfo.nameInfo;
       bookingDoneText2.innerText =
@@ -597,7 +599,6 @@ if (
       homePageBtn.innerText = "Return to homepage";
 
       //adding the booked object to array
-
       completedBooking.push(bookingInfo);
 
       //appending all elements to modal 3
