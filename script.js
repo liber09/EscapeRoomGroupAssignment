@@ -247,7 +247,7 @@ if (
   }
 
   //------ FUNCTION TO SHOW FILTER RESULTS ------
-  let cardsDiv = document.querySelector(".challenges")
+  let cardsDiv = document.querySelector(".challenges");
   const noMatch = document.createElement("p");
   cardsDiv.append(noMatch);
   noMatch.innerText = "No matching challenges";
@@ -256,385 +256,385 @@ if (
   function render() {
     let cards = document.querySelectorAll(".challenge-item");
     let hiddenCount = 0;
-    
+
     for (let i = 0; i < cards.length; i++) {
       if (this.filter.challengeMatch(cards[i])) {
         cards[i].classList.remove("is-hidden");
-      }
-      else{
+      } else {
         cards[i].classList.add("is-hidden");
         hiddenCount++;
       }
     }
-    if (hiddenCount == 30){
+    if (hiddenCount == 30) {
       noMatch.style.display = "block";
-    }
-    else {
+    } else {
       noMatch.style.display = "none";
     }
   }
+}
+// -------------------- MODAL --------------------
 
-  // -------------------- MODAL --------------------
+// Trigger "book this room" to open modal
+const openModal = document.querySelector(".challenge-list");
 
-  // Trigger "book this room" to open modal
-  const openModal = document.querySelector(".challenge-list");
+// Backdrop when modal is open
+const backDrop = document.createElement("section");
+backDrop.classList.add("backdrop");
 
-  // Backdrop when modal is open
-  const backDrop = document.createElement("section");
-  backDrop.classList.add("backdrop");
+// Creates the modal window
+const modal = document.createElement("div");
+modal.classList.add("modal-content");
 
-  // Creates the modal window
+// Creates H2 element to use in modal
+const modalHeading = document.createElement("h2");
+modalHeading.classList.add("modal-heading");
+
+// Close button "X" in modal
+const closeBtn = document.createElement("small");
+closeBtn.classList.add("modal-close");
+closeBtn.innerHTML = "&times;";
+
+// Button
+const button = document.createElement("button");
+button.classList.add("button", "primary", "modal-button");
+
+// Function to close modal if click outside of modalbox
+function closeModal() {
+  window.onclick = function (event) {
+    if (event.target == backDrop) {
+      backDrop.remove();
+    }
+  };
+}
+const inputDate = document.createElement("input");
+const labelDate = document.createElement("label");
+const question = document.createElement("p");
+
+// Variables for participants, id and title in modal window
+let cardParti;
+let cardId;
+let cardTitle;
+// When user clicks on "book this room", run and create function to open modal
+openModal.addEventListener("click", function (e) {
+  if (e.target.classList.contains("online-modal")) {
+    alert("This service is not avalible at this moment");
+  } else if (e.target.classList.contains("modal-open")) {
+    console.log(e.target.parentNode.id);
+    cardId = e.target.parentNode.id;
+    cardParti = e.target;
+    document.body.append(backDrop);
+    backDrop.addEventListener("click", closeModal);
+
+    // Remove modal when click on X
+    modal.appendChild(closeBtn);
+    closeBtn.addEventListener("click", function () {
+      backDrop.remove();
+    });
+
+    // Set heading inside modal
+    cardTitle = e.target.parentNode.querySelector(".challenge-title").innerText;
+    modalHeading.innerHTML = `Book room <span class="room-title">"${cardTitle}"</span> <br>(step 1)`;
+
+    modal.appendChild(modalHeading);
+    backDrop.appendChild(modal);
+    //let titlemodal = data.challenges[$cardId].title;
+    //console.log(`${titlemodal} ${cardId}`);
+
+    // Question in modal
+
+    question.style.margin = "40px";
+    question.innerText = "What date would you like to come?";
+    modal.appendChild(question);
+
+    // Label for input
+
+    labelDate.setAttribute("for", "date");
+    labelDate.innerText = "Date:";
+    modal.appendChild(labelDate);
+
+    // Date input
+
+    inputDate.id = "date";
+    inputDate.type = "date";
+
+    inputDate.valueAsNumber =
+      Date.now() - new Date().getTimezoneOffset() * 60000;
+
+    modal.appendChild(inputDate);
+
+    // Button "search available times"
+    button.innerHTML = "Search available times";
+    button.type = "submit";
+    modal.appendChild(button);
+
+    const today = new Date().toISOString().split("T")[0];
+    inputDate.setAttribute("min", today);
+
+    button.addEventListener("click", async function () {
+      const res = await fetch(
+        `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${inputDate.value}?challenge=${allChallenges.id}`
+      );
+      const data = await res.json();
+
+      //console.log(inputDate.value);
+      //console.log(data);
+    });
+  }
+});
+// -------------------- END OF MODAL JS --------------------
+//---------------------- CREATING MODAL2 ----------------------
+
+//search avalible times button creats new modal
+button.addEventListener("click", function () {
+  backDrop.remove();
+  modalPopUp2();
+});
+
+function modalPopUp2() {
+  //variables
+  const modalSection = document.createElement("section");
+  modalSection.classList.add("backdrop");
   const modal = document.createElement("div");
   modal.classList.add("modal-content");
+  const form = document.createElement("form");
+  form.classList.add("form-content");
+  const headingModal = document.createElement("h2");
+  headingModal.classList.add("modal-heading");
 
-  // Creates H2 element to use in modal
-  const modalHeading = document.createElement("h2");
-  modalHeading.classList.add("modal-heading");
+  headingModal.innerHTML = `Book room <span class="room-title">"${cardTitle}"</span> <br>(step 2)`;
 
-  // Close button "X" in modal
-  const closeBtn = document.createElement("small");
-  closeBtn.classList.add("modal-close");
-  closeBtn.innerHTML = "&times;";
-
-  // Button
-  const button = document.createElement("button");
-  button.classList.add("button", "primary", "modal-button");
-
-  // Function to close modal if click outside of modalbox
+  const confirmBtn = document.createElement("button");
+  confirmBtn.innerText = "Submit booking";
+  confirmBtn.classList.add(
+    "button",
+    "primary",
+    "modal-button",
+    "submit-button"
+  );
+  // Close modal when clicking outside
   function closeModal() {
     window.onclick = function (event) {
-      if (event.target == backDrop) {
-        backDrop.remove();
+      if (event.target == modalSection) {
+        modalSection.remove();
       }
     };
   }
-  const inputDate = document.createElement("input");
-  const labelDate = document.createElement("label");
-  const question = document.createElement("p");
+  modalSection.addEventListener("click", closeModal);
 
+  //errormessages if input is empty
+  const errorMessages = {
+    nameError: "You must enter your team name!",
+    emailError: "You must enter an valid email!",
+    emptyError: "You must enter an valid email!",
+    shortError: "Your team name must be at least 3 letters long",
+  };
+  const completedMessages = {
+    nameCompleted: "Your team name is valid",
+    emailCompleted: "This email is valid",
+  };
 
-  // Variables for participants, id and title in modal window
-  let cardParti;
-  let cardId;
-  let cardTitle;
-  // When user clicks on "book this room", run and create function to open modal
-  openModal.addEventListener("click", function (e) {
-    if (e.target.classList.contains("online-modal")) {
-      alert("This service is not avalible at this moment");
-    } else if (e.target.classList.contains("modal-open")) {
-      console.log(e.target.parentNode.id);
-      cardId = e.target.parentNode.id;
-      cardParti = e.target;
-      document.body.append(backDrop);
-      backDrop.addEventListener("click", closeModal);
+  //creating modal
+  document.body.append(modalSection);
+  modalSection.append(modal);
 
-      // Remove modal when click on X
-      modal.appendChild(closeBtn);
-      closeBtn.addEventListener("click", function () {
-        backDrop.remove();
-      });
+  const closeBtn2 = document.createElement("small");
+  closeBtn2.classList.add("modal-close");
+  closeBtn2.innerHTML = "&times;";
+  modal.append(closeBtn2);
+  modal.append(form);
+  form.append(headingModal);
 
-      // Set heading inside modal
-      cardTitle = e.target.parentNode.querySelector(".challenge-title").innerText;
-      modalHeading.innerHTML = `Book room <span class="room-title">"${cardTitle}"</span> <br>(step 1)`;
+  const nameLabel = document.createElement("p");
+  nameLabel.classList.add("label");
+  nameLabel.innerText = "Name?";
+  const input1 = document.createElement("input");
+  input1.classList.add("input");
+  input1.type = "text";
 
-      modal.appendChild(modalHeading);
-      backDrop.appendChild(modal);
-      //let titlemodal = data.challenges[$cardId].title;
-      //console.log(`${titlemodal} ${cardId}`);
+  const emailLabel = document.createElement("p");
+  emailLabel.classList.add("label");
+  emailLabel.innerText = "Email?";
+  const input2 = document.createElement("input");
+  input2.classList.add("input");
+  input2.type = "email";
 
-      // Question in modal
+  const timeLabel = document.createElement("p");
+  timeLabel.classList.add("label");
+  timeLabel.innerText = "What time would you like to come?";
+  const input3 = document.createElement("select");
+  input3.classList.add("input", "input-time");
+  input3.type = "time";
 
-      question.style.margin = "40px";
-      question.innerText = "What date would you like to come?";
-      modal.appendChild(question);
+  const participantsLabel = document.createElement("p");
+  participantsLabel.classList.add("label");
+  participantsLabel.innerText = "How many?";
+  const input4 = document.createElement("select");
+  input4.classList.add("input", "input-participants");
 
-      // Label for input
+  //appending all created elements to modal
+  form.append(
+    nameLabel,
+    input1,
+    emailLabel,
+    input2,
+    timeLabel,
+    input3,
+    participantsLabel,
+    input4,
+    confirmBtn
+  );
 
-      labelDate.setAttribute("for", "date");
-      labelDate.innerText = "Date:";
-      modal.appendChild(labelDate);
+  //Funktion for participants
+  //Imports data from HTML attributes
+  async function participants() {
+    let minParticipants = cardParti.parentNode.querySelector(
+      ".challenge-meta-min"
+    ).innerText;
+    let maxParticipants = cardParti.parentNode.querySelector(
+      ".challenge-meta-max"
+    ).innerText;
 
-      // Date input
+    // Converting to integer so while loop works
+    let minNumber = parseInt(minParticipants);
+    let maxNumber = parseInt(maxParticipants);
 
-      inputDate.id = "date";
-      inputDate.type = "date";
-
-      inputDate.valueAsNumber =
-        Date.now() - new Date().getTimezoneOffset() * 60000;
-
-      modal.appendChild(inputDate);
-
-      // Button "search available times"
-      button.innerHTML = "Search available times";
-      button.type = "submit";
-      modal.appendChild(button);
-
-      const today = new Date().toISOString().split("T")[0];
-      inputDate.setAttribute("min", today);
-
-      button.addEventListener("click", async function () {
-        const res = await fetch(
-          `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${inputDate.value}?challenge=${allChallenges.id}`
-        );
-        const data = await res.json();
-
-        //console.log(inputDate.value);
-        //console.log(data);
-      });
+    while (minNumber <= maxNumber) {
+      const option = document.createElement("option");
+      option.innerText = minParticipants++;
+      minNumber++;
+      input4.append(option);
     }
-  });
-  // -------------------- END OF MODAL JS --------------------
-  //---------------------- CREATING MODAL2 ----------------------
+  }
+  participants();
 
-  //search avalible times button creats new modal
-  button.addEventListener("click", function () {
-    backDrop.remove();
-    modalPopUp2();
-  });
+  //function för att få ut tid som är tillgängligt för bokning under det datumet.
 
-  function modalPopUp2() {
-    //variables
-    const modalSection = document.createElement("section");
-    modalSection.classList.add("backdrop");
-    const modal = document.createElement("div");
-    modal.classList.add("modal-content");
-    const form = document.createElement("form");
-    form.classList.add("form-content");
-    const headingModal = document.createElement("h2");
-    headingModal.classList.add("modal-heading");
-
-    headingModal.innerHTML = `Book room <span class="room-title">"${cardTitle}"</span> <br>(step 2)`;
-
-    const confirmBtn = document.createElement("button");
-    confirmBtn.innerText = "Submit booking";
-    confirmBtn.classList.add(
-      "button",
-      "primary",
-      "modal-button",
-      "submit-button"
+  async function time() {
+    const resTime = await fetch(
+      `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${inputDate.value}&challenge=${cardId}`
     );
-    // Close modal when clicking outside
-    function closeModal() {
-      window.onclick = function (event) {
-        if (event.target == modalSection) {
-          modalSection.remove();
+    const dataTime = await resTime.json();
+    dataTime.slots.forEach((slotTime) => {
+      const timeOption = document.createElement("option");
+      timeOption.innerText = slotTime;
+      input3.append(timeOption);
+    });
+  }
+  time();
+
+  //closing modal on X Icon
+  closeBtn2.addEventListener("click", function () {
+    modalSection.remove();
+  });
+
+  // storing user input in object an array when submit button is pressed.
+  confirmBtn.addEventListener("click", async function () {
+    event.preventDefault();
+    if (input1.value === "") {
+      nameLabel.innerText = errorMessages.nameError;
+      nameLabel.style.color = "red";
+    } else if (input1.value.length < 3) {
+      nameLabel.innerText = errorMessages.shortError;
+      nameLabel.style.color = "red";
+    } else {
+      nameLabel.innerText = completedMessages.nameCompleted;
+      nameLabel.style.color = "black";
+    }
+
+    if (input2.value === "") {
+      emailLabel.innerText = errorMessages.emptyError;
+      emailLabel.style.color = "red";
+    } else if (input2.value.length <= 8) {
+      emailLabel.innerText = errorMessages.emailError;
+      emailLabel.style.color = "red";
+    } else if (input2.value.includes("@" && ".")) {
+      emailLabel.innerText = completedMessages.emailCompleted;
+      emailLabel.style.color = "black";
+    }
+
+    if (
+      nameLabel.innerText == completedMessages.nameCompleted &&
+      emailLabel.innerText == completedMessages.emailCompleted
+    ) {
+      //POST Request
+      const bookingResult = await fetch(
+        "https://lernia-sjj-assignments.vercel.app/api/booking/reservations",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            challenge: allChallenges[cardId].id,
+            name: input1.value,
+            email: input2.value,
+            date: inputDate.value,
+            time: input3.value,
+            participants: parseInt(input4.value.match(/\d+/g)),
+          }),
         }
-      };
+      );
+      const booking = await bookingResult.json();
+      console.log(booking);
+      //moving forward if inputfields are correct
+      form.remove(); //removing the "form" element from modal 2
+      modalPopUp3(); // replacing vid modal 3
     }
-    modalSection.addEventListener("click", closeModal);
+  });
 
-    //errormessages if input is empty
-    const errorMessages = {
-      nameError: "You must enter your team name!",
-      emailError: "You must enter an valid email!",
-      emptyError: "You must enter an valid email!",
-      shortError: "Your team name must be at least 3 letters long",
-    };
-    const completedMessages = {
-      nameCompleted: "Your team name is valid",
-      emailCompleted: "This email is valid",
-    };
+  //------------------------- Modal 3 ------------------------------
 
-    //creating modal
-    document.body.append(modalSection);
-    modalSection.append(modal);
+  function modalPopUp3() {
+    //creating elements
+    const confirmationHeading = document.createElement("h2");
+    confirmationHeading.classList.add("modal-heading");
+    confirmationHeading.style.color = "green";
+    confirmationHeading.innerText = "Your booking has been confirmed";
 
-    const closeBtn2 = document.createElement("small");
-    closeBtn2.classList.add("modal-close");
-    closeBtn2.innerHTML = "&times;";
-    modal.append(closeBtn2);
-    modal.append(form);
-    form.append(headingModal);
+    const bookingDoneText1 = document.createElement("p");
+    const bookingDoneText2 = document.createElement("p");
+    const bookingDoneText3 = document.createElement("p");
+    const bookingDoneText4 = document.createElement("p");
 
-    const nameLabel = document.createElement("p");
-    nameLabel.classList.add("label");
-    nameLabel.innerText = "Name?";
-    const input1 = document.createElement("input");
-    input1.classList.add("input");
-    input1.type = "text";
+    //object and array for storing input value
+    const completedBooking = [];
+    const bookingInfo = {};
 
-    const emailLabel = document.createElement("p");
-    emailLabel.classList.add("label");
-    emailLabel.innerText = "Email?";
-    const input2 = document.createElement("input");
-    input2.classList.add("input");
-    input2.type = "email";
+    bookingInfo.nameInfo = input1.value;
+    bookingInfo.emailInfo = input2.value;
+    bookingInfo.timeInfo = input3.value;
+    bookingInfo.participantInfo = input4.value;
+    //displaying info about the booking
+    bookingDoneText1.innerText = "Your team name is: " + bookingInfo.nameInfo;
+    bookingDoneText2.innerText =
+      "We have sent a confirmation mail to: " + bookingInfo.emailInfo;
 
-    const timeLabel = document.createElement("p");
-    timeLabel.classList.add("label");
-    timeLabel.innerText = "What time would you like to come?";
-    const input3 = document.createElement("select");
-    input3.classList.add("input", "input-time");
-    input3.type = "time";
+    bookingDoneText3.innerText =
+      "This room is booked for " +
+      bookingInfo.participantInfo +
+      " participants";
+    bookingDoneText4.innerText =
+      "And we are happy to see you on the " +
+      inputDate.value +
+      " at " +
+      input3.value;
 
-    const participantsLabel = document.createElement("p");
-    participantsLabel.classList.add("label");
-    participantsLabel.innerText = "How many?";
-    const input4 = document.createElement("select");
-    input4.classList.add("input", "input-participants");
+    //return to homepage tag
+    const homePageBtn = document.createElement("a");
+    homePageBtn.setAttribute("href", "challenges.html");
+    homePageBtn.classList.add("submit-booking");
+    homePageBtn.innerText = "Return to homepage";
 
-    //appending all created elements to modal
-    form.append(
-      nameLabel,
-      input1,
-      emailLabel,
-      input2,
-      timeLabel,
-      input3,
-      participantsLabel,
-      input4,
-      confirmBtn
+    //adding the booked object to array
+
+    completedBooking.push(bookingInfo);
+
+    //appending all elements to modal 3
+    modal.append(
+      confirmationHeading,
+      bookingDoneText1,
+      bookingDoneText2,
+      bookingDoneText3,
+      bookingDoneText4,
+      homePageBtn
     );
-
-    //Funktion for participants
-    //Imports data from HTML attributes
-    async function participants() {
-      let minParticipants = cardParti.parentNode.querySelector(".challenge-meta-min").innerText;
-      let maxParticipants = cardParti.parentNode.querySelector(".challenge-meta-max").innerText;
-      
-      // Converting to integer so while loop works
-      let minNumber = parseInt(minParticipants)
-      let maxNumber = parseInt(maxParticipants)
-    
-      while (minNumber <= maxNumber) {
-        const option = document.createElement("option");
-        option.innerText = minParticipants++;
-        minNumber++
-        input4.append(option);
-      }
-    }
-    participants();
-
-    //function för att få ut tid som är tillgängligt för bokning under det datumet.
-
-    async function time() {
-      const resTime = await fetch(
-        `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${inputDate.value}&challenge=${cardId}`
-      );
-      const dataTime = await resTime.json();
-      dataTime.slots.forEach((slotTime) => {
-        const timeOption = document.createElement("option");
-        timeOption.innerText = slotTime;
-        input3.append(timeOption);
-      });
-    }
-    time();
-
-    //closing modal on X Icon
-    closeBtn2.addEventListener("click", function () {
-      modalSection.remove();
-    });
-
-    // storing user input in object an array when submit button is pressed.
-    confirmBtn.addEventListener("click", async function () {
-      event.preventDefault();
-      if (input1.value === "") {
-        nameLabel.innerText = errorMessages.nameError;
-        nameLabel.style.color = "red";
-      } else if (input1.value.length < 3) {
-        nameLabel.innerText = errorMessages.shortError;
-        nameLabel.style.color = "red";
-      } else {
-        nameLabel.innerText = completedMessages.nameCompleted;
-        nameLabel.style.color = "black";
-      }
-
-      if (input2.value === "") {
-        emailLabel.innerText = errorMessages.emptyError;
-        emailLabel.style.color = "red";
-      } else if (input2.value.length <= 8) {
-        emailLabel.innerText = errorMessages.emailError;
-        emailLabel.style.color = "red";
-      } else if (input2.value.includes("@" && ".")) {
-        emailLabel.innerText = completedMessages.emailCompleted;
-        emailLabel.style.color = "black";
-      }
-
-      if (
-        nameLabel.innerText == completedMessages.nameCompleted &&
-        emailLabel.innerText == completedMessages.emailCompleted
-      ) {
-        //POST Request
-        const bookingResult = await fetch(
-          "https://lernia-sjj-assignments.vercel.app/api/booking/reservations",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              challenge: allChallenges[cardId].id,
-              name: input1.value,
-              email: input2.value,
-              date: inputDate.value,
-              time: input3.value,
-              participants: parseInt(input4.value.match(/\d+/g)),
-            }),
-          }
-        );
-        const booking = await bookingResult.json();
-        console.log(booking);
-        //moving forward if inputfields are correct
-        form.remove(); //removing the "form" element from modal 2
-        modalPopUp3(); // replacing vid modal 3
-      }
-    });
-
-    //------------------------- Modal 3 ------------------------------
-
-    function modalPopUp3() {
-      //creating elements
-      const confirmationHeading = document.createElement("h2");
-      confirmationHeading.classList.add("modal-heading");
-      confirmationHeading.style.color = "green";
-      confirmationHeading.innerText = "Your booking has been confirmed";
-
-      const bookingDoneText1 = document.createElement("p");
-      const bookingDoneText2 = document.createElement("p");
-      const bookingDoneText3 = document.createElement("p");
-      const bookingDoneText4 = document.createElement("p");
-
-      //object and array for storing input value
-      const completedBooking = [];
-      const bookingInfo = {};
-
-      bookingInfo.nameInfo = input1.value;
-      bookingInfo.emailInfo = input2.value;
-      bookingInfo.timeInfo = input3.value;
-      bookingInfo.participantInfo = input4.value;
-      //displaying info about the booking
-      bookingDoneText1.innerText = "Your team name is: " + bookingInfo.nameInfo;
-      bookingDoneText2.innerText =
-        "We have sent a confirmation mail to: " + bookingInfo.emailInfo;
-
-      bookingDoneText3.innerText =
-        "This room is booked for " +
-        bookingInfo.participantInfo +
-        " participants";
-      bookingDoneText4.innerText =
-        "And we are happy to see you on the " +
-        inputDate.value +
-        " at " +
-        input3.value;
-
-      //return to homepage tag
-      const homePageBtn = document.createElement("a");
-      homePageBtn.setAttribute("href", "challenges.html");
-      homePageBtn.classList.add("submit-booking");
-      homePageBtn.innerText = "Return to homepage";
-
-      //adding the booked object to array
-
-      completedBooking.push(bookingInfo);
-
-      //appending all elements to modal 3
-      modal.append(
-        confirmationHeading,
-        bookingDoneText1,
-        bookingDoneText2,
-        bookingDoneText3,
-        bookingDoneText4,
-        homePageBtn
-      );
-    }
   }
 }
