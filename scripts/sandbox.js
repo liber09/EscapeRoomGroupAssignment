@@ -90,8 +90,9 @@ async function getChallenges() {
           "https://liber09.github.io/EscapeRoomGroupAssignment/";
 
         if (
-          (window.location.href === host + "index.html" && counter < 3) ||
-          (window.location.href === hostOnline + "index.html" && counter < 3)
+          (window.location.href !== host + "challenges.html" && counter < 3) ||
+          (window.location.href !== hostOnline + "challenges.html" &&
+            counter < 3)
         ) {
           counter++; //count challenges on first page
           addChallengesToDom(challenge);
