@@ -499,7 +499,12 @@ function modalPopUp2() {
       `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${inputDate.value}&challenge=${cardId}`
     );
     const dataTime = await resTime.json();
-    dataTime.slots.forEach((slotTime) => {
+
+    //dont show duplicated time slots
+    let timeNoDupicated = dataTime.slots;
+    let timeArr = [...new Set(timeNoDupicated)];
+    console.log(timeArr);
+    timeArr.forEach((slotTime) => {
       const timeOption = document.createElement("option");
       timeOption.innerText = slotTime;
       input3.append(timeOption);
