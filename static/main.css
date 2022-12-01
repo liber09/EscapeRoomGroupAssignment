@@ -62,6 +62,9 @@ li {
 .rating .rating-star.active {
   background-image: url(star-active.png);
 }
+.rating .rating-star.half {
+  background-image: url(star-half.png);
+}
 
 header {
   background-color: #011827;

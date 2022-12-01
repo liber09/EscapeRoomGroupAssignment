@@ -42,8 +42,12 @@ li {
     background-size: contain;
     background-repeat: no-repeat;
 
-    &.active {
-      background-image: url(star-active.png);
-    }
+      &.active {
+        background-image: url(star-active.png);
+      }
+
+      &.half{
+        background-image: url(star-half.png);
+      }
   }
 }

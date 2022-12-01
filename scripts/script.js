@@ -17,12 +17,13 @@ if (
   let current_star_level_from = 0;
   let current_star_level_to = 5;
 
+  //Open the filter section
   filterButton.addEventListener("click", () => {
     filterSection.style.display = "block";
     filterButton.style.display = "none";
     filterButton.setAttribute("aria-expanded", true);
   });
-
+  //Close the filter section
   filterCloseButton.addEventListener("click", () => {
     filterSection.style.display = "none";
     filterButton.style.display = "block";
@@ -581,6 +582,7 @@ function modalPopUp2() {
           }),
         }
       );
+      //response from API
       const booking = await bookingResult.json();
       console.log(booking);
       //moving forward if inputfields are correct
