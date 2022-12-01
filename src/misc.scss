@@ -15,6 +15,10 @@ li {
   border-width: 0;
   font-size: 1.1rem;
 
+  &:active {
+    transform: scale(1.03);
+  }
+
   &.primary {
     background-color: $c-brightred;
     color: white;
@@ -34,6 +38,13 @@ li {
   display: flex;
   gap: 0.6em;
 
+  .star_from_div {
+    display: flex;
+  }
+  .star_to_div {
+    display: flex;
+  }
+
   .rating-star {
     list-style-type: none;
     width: 23px;
@@ -42,12 +53,12 @@ li {
     background-size: contain;
     background-repeat: no-repeat;
 
-      &.active {
-        background-image: url(star-active.png);
-      }
+    &.active {
+      background-image: url(star-active.png);
+    }
 
-      &.half{
-        background-image: url(star-half.png);
-      }
+    &.half {
+      background-image: url(star-half.png);
+    }
   }
 }
