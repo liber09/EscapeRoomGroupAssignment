@@ -370,16 +370,6 @@ openModal.addEventListener("click", function (e) {
 
     const today = new Date().toISOString().split("T")[0];
     inputDate.setAttribute("min", today);
-
-    button.addEventListener("click", async function () {
-      const res = await fetch(
-        `https://lernia-sjj-assignments.vercel.app/api/booking/available-times?date=${inputDate.value}?challenge=${allChallenges.id}`
-      );
-      const data = await res.json();
-
-      //console.log(inputDate.value);
-      //console.log(data);
-    });
   }
 });
 // -------------------- END OF MODAL JS --------------------
