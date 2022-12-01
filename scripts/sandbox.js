@@ -70,8 +70,8 @@ function addChallengesToDom(challenge) {
     `;
   }
 }
-// get alll challenges
 
+// get all challenges
 async function getChallenges() {
   try {
     let res = await fetch(
@@ -89,6 +89,7 @@ async function getChallenges() {
         const hostOnline =
           "https://liber09.github.io/EscapeRoomGroupAssignment/";
 
+          //----We are on index page
         if (
           (window.location.href === host + "index.html" && counter < 3) ||
           (window.location.href === hostOnline + "index.html" && counter < 3)
@@ -96,6 +97,7 @@ async function getChallenges() {
           counter++; //count challenges on first page
           addChallengesToDom(challenge);
           setStarRating();
+        //----We are on challenges page
         } else if (
           window.location.href === host + "challenges.html" ||
           window.location.href === hostOnline + "challenges.html"
@@ -111,8 +113,7 @@ async function getChallenges() {
 }
 getChallenges();
 
-// get ratings
-
+//Set the rating stars on the challange cards
 function setStarRating() {
   let ratingsUl = document.querySelectorAll("ul.rating");
   for (let j = 0; j < ratingsUl.length; j++) {
