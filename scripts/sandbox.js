@@ -22,7 +22,7 @@ function addChallengesToDom(challenge) {
         <li class="rating-star active"></li>
         <li class="rating-star active"></li>
         <li class="rating-star active"></li>
-        <li class="rating-star"></li>
+        <li class="rating-star active"></li>
       </ul>
       <small class="challenge-meta">${challenge.minParticipants}- ${challenge.maxParticipants} participants</small>
       <p class="challenge-description">
@@ -55,7 +55,7 @@ function addChallengesToDom(challenge) {
         <li class="rating-star active"></li>
         <li class="rating-star active"></li>
         <li class="rating-star active"></li>
-        <li class="rating-star"></li>
+        <li class="rating-star active"></li>
       </ul>
       <small class="challenge-meta">${challenge.minParticipants}- ${challenge.maxParticipants} participants</small>
       <p class="challenge-description">
@@ -70,8 +70,8 @@ function addChallengesToDom(challenge) {
     `;
   }
 }
-// get alll challenges
 
+// get all challenges
 async function getChallenges() {
   try {
     let res = await fetch(
@@ -89,6 +89,7 @@ async function getChallenges() {
         const hostOnline =
           "https://liber09.github.io/EscapeRoomGroupAssignment/";
 
+          //----We are on index page
         if (
           (window.location.href !== host + "challenges.html" && counter < 3) ||
           (window.location.href !== hostOnline + "challenges.html" &&
@@ -97,6 +98,7 @@ async function getChallenges() {
           counter++; //count challenges on first page
           addChallengesToDom(challenge);
           setStarRating();
+        //----We are on challenges page
         } else if (
           window.location.href === host + "challenges.html" ||
           window.location.href === hostOnline + "challenges.html"
@@ -112,49 +114,71 @@ async function getChallenges() {
 }
 getChallenges();
 
-// get ratings
-
+//Set the rating stars on the challange cards
 function setStarRating() {
   let ratingsUl = document.querySelectorAll("ul.rating");
-  //console.log("ratingUl", ratingsUl);
   for (let j = 0; j < ratingsUl.length; j++) {
-    //console.log("ratingUl", ratingsUl[j]);
     let ratingChil = ratingsUl[j].children;
     let ratingsList = Array.from(ratingChil);
-    //console.log("ratingsChil", ratingChil);
-    //console.log("ratingsList", ratingsList);
 
-    let ratValue = Math.ceil(ratingsUl[j].getAttribute("aria-valuenow"));
-    //console.log(ratValue);
+    //the int part of rating value
+    let ratingValueInt = Math.floor(ratingsUl[j].getAttribute("aria-valuenow"));
+    //the decimal part of rating value
+    let ratingValueDecimal = (ratingsUl[j].getAttribute("aria-valuenow")%1).toFixed(1);
+
     for (let i = 0; i < ratingsList.length; i++) {
-      if (ratingsList == 0) {
+      //0-star rated challenge
+      if (ratingValueInt == 0) {
         let star = ratingsList[i];
         star.classList.remove("active");
-      } else if (ratValue == 1) {
+        //0.5 star rated challenge
+        if(i == 0 && ratingValueDecimal != 0){
+          star.classList.add("half");
+        }
+        //1 star rated challenge
+      } else if (ratingValueInt == 1) {
         if (i == 1 || i == 2 || i == 3 || i == 4) {
           let star = ratingsList[i];
           star.classList.remove("active");
+          //1.5 star rated challenge
+          if(i == 1 && ratingValueDecimal != 0){
+            star.classList.add("half");
+          }
         }
-      } else if (ratValue == 2) {
+        //2 star rated challenge
+      } else if (ratingValueInt == 2) {
         if (i == 2 || i == 3 || i == 4) {
           let star = ratingsList[i];
           star.classList.remove("active");
+          //2.5 star rated challenge
+          if(i == 2 && ratingValueDecimal != 0){
+            star.classList.add("half");
+          }
         }
-      } else if (ratValue == 3) {
+        //3 star rated challenge
+      } else if (ratingValueInt == 3) {
         if (i == 3 || i == 4) {
           let star = ratingsList[i];
           star.classList.remove("active");
+          //3.5 star rated challenge
+          if(i == 3 && ratingValueDecimal != 0){
+            star.classList.add("half");
+          }
         }
-      } else if (ratValue == 4) {
+        //4 star rated challenge
+      } else if (ratingValueInt == 4) {
         if (i == 4) {
           let star = ratingsList[i];
           star.classList.remove("active");
+          //4.5 star rated challenge
+          if (ratingValueDecimal != 0){
+            star.classList.add("half");
+          }
         }
+        //5 star rated challenge
       } else {
         ratingsList[i];
       }
     }
   }
 }
-
-//event listeners
