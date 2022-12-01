@@ -81,7 +81,7 @@ async function getChallenges() {
       let data = await res.json();
       allChallenges = data.challenges;
 
-     //sort challenges by rating from high to low
+      //sort challenges by rating from high to low
       data.challenges.sort((a, b) => (a.rating > b.rating ? -1 : 1));
       let counter = 0; //How many challenges on first page (should be 3)
       data.challenges.map((challenge) => {
@@ -91,8 +91,9 @@ async function getChallenges() {
 
           //----We are on index page
         if (
-          (window.location.href === host + "index.html" && counter < 3) ||
-          (window.location.href === hostOnline + "index.html" && counter < 3)
+          (window.location.href !== host + "challenges.html" && counter < 3) ||
+          (window.location.href !== hostOnline + "challenges.html" &&
+            counter < 3)
         ) {
           counter++; //count challenges on first page
           addChallengesToDom(challenge);

@@ -42,6 +42,10 @@ li {
   background-color: #8acfe5;
   color: #011827;
 }
+.button.third {
+  background-color: #8acfe5;
+  color: white;
+}
 
 .rating {
   display: flex;
@@ -763,12 +767,25 @@ footer a:hover {
   font-size: 70px;
   cursor: pointer;
 }
+.backdrop .modal-content .errorMessage {
+  animation: blinkWrongMessage;
+  animation-duration: 0.4s;
+  animation-timing-function: ease-in;
+}
 
 @keyframes fadeInModal {
   0% {
     opacity: 0;
   }
   100% {
+    opacity: 1;
+  }
+}
+@keyframes blinkWrongMessage {
+  25%, 75% {
+    opacity: 0;
+  }
+  50%, 100% {
     opacity: 1;
   }
 }
