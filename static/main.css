@@ -34,6 +34,9 @@ li {
   border-width: 0;
   font-size: 1.1rem;
 }
+.button:active {
+  transform: scale(1.03);
+}
 .button.primary {
   background-color: #e3170a;
   color: white;
@@ -50,6 +53,12 @@ li {
 .rating {
   display: flex;
   gap: 0.6em;
+}
+.rating .star_from_div {
+  display: flex;
+}
+.rating .star_to_div {
+  display: flex;
 }
 .rating .rating-star {
   list-style-type: none;
