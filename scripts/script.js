@@ -381,6 +381,10 @@ button.addEventListener("click", function () {
   modalPopUp2();
 });
 
+//object and array for storing input value
+const completedBooking = [];
+const bookingInfo = {};
+
 function modalPopUp2() {
   //variables
   const modalSection = document.createElement("section");
@@ -509,7 +513,7 @@ function modalPopUp2() {
     //dont show duplicated time slots
     let timeNoDupicated = dataTime.slots;
     let timeArr = [...new Set(timeNoDupicated)];
-    console.log(timeArr);
+
     timeArr.forEach((slotTime) => {
       const timeOption = document.createElement("option");
       timeOption.innerText = slotTime;
@@ -595,12 +599,10 @@ function modalPopUp2() {
     const bookingDoneText3 = document.createElement("p");
     const bookingDoneText4 = document.createElement("p");
 
-    //object and array for storing input value
-    const completedBooking = [];
-    const bookingInfo = {};
-
+    bookingInfo.id = allChallenges[cardId].id;
     bookingInfo.nameInfo = input1.value;
     bookingInfo.emailInfo = input2.value;
+    bookingInfo.date = inputDate.value;
     bookingInfo.timeInfo = input3.value;
     bookingInfo.participantInfo = input4.value;
     //displaying info about the booking
