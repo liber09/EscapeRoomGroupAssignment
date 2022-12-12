@@ -460,10 +460,22 @@ function modalPopUp2() {
   input3.classList.add("input", "input-time");
   input3.type = "time";
 
+  // variables to get min/max participants
+  let minParticipants = cardParti.parentNode.querySelector(
+    ".challenge-meta-min"
+  ).innerText;
+  let maxParticipants = cardParti.parentNode.querySelector(
+    ".challenge-meta-max"
+  ).innerText;
+
   const participantsLabel = document.createElement("p");
   participantsLabel.classList.add("label");
   participantsLabel.innerText = "How many?";
-  const input4 = document.createElement("select");
+  const input4 = document.createElement("input");
+  input4.setAttribute("type", "number");
+  input4.setAttribute("min", minParticipants);
+  input4.setAttribute("max", maxParticipants);
+  input4.setAttribute("placeholder", minParticipants);
   input4.classList.add("input", "input-participants");
 
   //appending all created elements to modal
@@ -478,29 +490,6 @@ function modalPopUp2() {
     input4,
     confirmBtn
   );
-
-  //Funktion for participants
-  //Imports data from HTML attributes
-  async function participants() {
-    let minParticipants = cardParti.parentNode.querySelector(
-      ".challenge-meta-min"
-    ).innerText;
-    let maxParticipants = cardParti.parentNode.querySelector(
-      ".challenge-meta-max"
-    ).innerText;
-
-    // Converting to integer so while loop works
-    let minNumber = parseInt(minParticipants);
-    let maxNumber = parseInt(maxParticipants);
-
-    while (minNumber <= maxNumber) {
-      const option = document.createElement("option");
-      option.innerText = minParticipants++;
-      minNumber++;
-      input4.append(option);
-    }
-  }
-  participants();
 
   //function för att få ut tid som är tillgängligt för bokning under det datumet.
 
