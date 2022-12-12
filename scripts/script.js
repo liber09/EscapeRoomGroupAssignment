@@ -453,6 +453,13 @@ function modalPopUp2() {
   input2.classList.add("input");
   input2.type = "email";
 
+  const numberLabel = document.createElement("p");
+  numberLabel.classList.add("label");
+  numberLabel.innerText = "Enter your phone number";
+  const inputNumber = document.createElement("input");
+  inputNumber.classList.add("input");
+  inputNumber.type = "tel";
+
   const timeLabel = document.createElement("p");
   timeLabel.classList.add("label");
   timeLabel.innerText = "What time would you like to come?";
@@ -485,6 +492,8 @@ function modalPopUp2() {
     input1,
     emailLabel,
     input2,
+    numberLabel,
+    inputNumber,
     timeLabel,
     input3,
     participantsLabel,
@@ -560,6 +569,7 @@ function modalPopUp2() {
             challenge: allChallenges[cardId].id,
             name: input1.value,
             email: input2.value,
+            phone: inputNumber.value,
             date: inputDate.value,
             time: input3.value,
             participants: parseInt(input4.value.match(/\d+/g)),
