@@ -533,6 +533,8 @@ function modalPopUp2() {
   // storing user input in object an array when submit button is pressed.
   confirmBtn.addEventListener("click", async function () {
     event.preventDefault();
+
+    //conditions to inputfields
     if (input1.value === "") {
       nameLabel.innerText = errorMessages.nameError;
       nameLabel.style.color = "red";
