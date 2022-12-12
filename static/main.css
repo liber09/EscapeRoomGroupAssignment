@@ -8,7 +8,7 @@ body {
 }
 @media (min-width: 1000px) {
   html,
-body {
+  body {
     font-size: 24px;
   }
 }
@@ -43,7 +43,7 @@ li {
 }
 .button.secondary {
   background-color: #8acfe5;
-  color: #011827;
+  color: #021928;
 }
 .button.third {
   background-color: #8acfe5;
@@ -76,7 +76,7 @@ li {
 }
 
 header {
-  background-color: #011827;
+  background-color: #021928;
   color: white;
   padding: 1em;
 }
@@ -179,7 +179,7 @@ header h1 {
   }
   .main-nav.open .main-menu {
     z-index: 1;
-    background-color: #011827;
+    background-color: #021928;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -191,20 +191,8 @@ header h1 {
     right: 1em;
     bottom: 1em;
     z-index: 1000;
-    -webkit-animation: main-menu_reveal 0.3s 0.2s;
-            animation: main-menu_reveal 0.3s 0.2s;
-    -webkit-animation-fill-mode: backwards;
-            animation-fill-mode: backwards;
-  }
-  @-webkit-keyframes main-menu_reveal {
-    from {
-      opacity: 0;
-      transform: scale(0.8);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
+    animation: main-menu_reveal 0.3s 0.2s;
+    animation-fill-mode: backwards;
   }
   @keyframes main-menu_reveal {
     from {
@@ -231,7 +219,7 @@ header h1 {
 @media (min-width: 600px) {
   .main-nav {
     display: block;
-    background-color: #011827;
+    background-color: #021928;
     padding-top: 2rem;
   }
   .main-menu {
@@ -257,8 +245,7 @@ header h1 {
 .hero img {
   width: 100%;
   min-height: 40vh;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 @media (min-width: 600px) {
   .hero img {
@@ -314,8 +301,7 @@ header h1 {
 .testimonial-item figure {
   display: grid;
   grid-template-columns: 74px auto;
-  -moz-column-gap: 1em;
-       column-gap: 1em;
+  column-gap: 1em;
 }
 .testimonial-item figure blockquote {
   margin: 0;
@@ -481,10 +467,7 @@ header h1 {
   padding: 5px;
   border-radius: 20px;
   box-shadow: 0 0 2px #b3acac;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  user-select: none;
   margin: 1rem;
 }
 @media (max-width: 600px) {
@@ -594,7 +577,7 @@ header h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #011827;
+  background-color: #021928;
   color: white;
   padding: 3rem 1rem;
 }
@@ -618,8 +601,7 @@ header h1 {
   margin: 0 0 2rem;
 }
 .usps .usp .usp-image {
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .usps .usp .usp-title,
 .usps .usp .usp-intro,
@@ -653,7 +635,7 @@ header h1 {
 }
 
 footer {
-  background-color: #011827;
+  background-color: #021928;
   color: white;
   padding: 1rem 1rem 3rem;
 }
@@ -760,8 +742,7 @@ footer a:hover {
   max-width: 700px;
   height: auto;
   margin: 20vh auto;
-  -webkit-animation: fadeInModal 0.6s;
-          animation: fadeInModal 0.6s;
+  animation: fadeInModal 0.6s;
   padding-bottom: 40px;
 }
 .backdrop .modal-content .modal-heading {
@@ -785,6 +766,9 @@ footer a:hover {
   padding: 4px;
   border-radius: 5px;
 }
+.backdrop .modal-content .time-number[type=number] {
+  padding-left: 10px;
+}
 .backdrop .modal-content .modal-button {
   cursor: pointer;
   margin: 40px auto;
@@ -796,21 +780,9 @@ footer a:hover {
   cursor: pointer;
 }
 .backdrop .modal-content .errorMessage {
-  -webkit-animation: blinkWrongMessage;
-          animation: blinkWrongMessage;
-  -webkit-animation-duration: 0.4s;
-          animation-duration: 0.4s;
-  -webkit-animation-timing-function: ease-in;
-          animation-timing-function: ease-in;
-}
-
-@-webkit-keyframes fadeInModal {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+  animation: blinkWrongMessage;
+  animation-duration: 0.4s;
+  animation-timing-function: ease-in;
 }
 
 @keyframes fadeInModal {
@@ -818,14 +790,6 @@ footer a:hover {
     opacity: 0;
   }
   100% {
-    opacity: 1;
-  }
-}
-@-webkit-keyframes blinkWrongMessage {
-  25%, 75% {
-    opacity: 0;
-  }
-  50%, 100% {
     opacity: 1;
   }
 }

@@ -52,6 +52,9 @@
       padding: 4px;
       border-radius: 5px;
     }
+    .time-number[type="number"] {
+      padding-left: 10px;
+    }
 
     .modal-button {
       cursor: pointer;

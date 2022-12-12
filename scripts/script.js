@@ -476,7 +476,7 @@ function modalPopUp2() {
   input4.setAttribute("min", minParticipants);
   input4.setAttribute("max", maxParticipants);
   input4.setAttribute("placeholder", minParticipants);
-  input4.classList.add("input", "input-participants");
+  input4.classList.add("input", "time-number");
 
   //appending all created elements to modal
   form.append(
