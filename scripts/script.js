@@ -420,12 +420,14 @@ function modalPopUp2() {
   const errorMessages = {
     nameError: "You must enter your team name!",
     emailError: "You must enter an valid email!",
-    emptyError: "You must enter an valid email!",
+    emptyError: "Inputfield is empty!",
     shortError: "Your team name must be at least 3 letters long",
+    phoneError: "This is not a phone number",
   };
   const completedMessages = {
     nameCompleted: "Your team name is valid",
     emailCompleted: "This email is valid",
+    phoneCompleted: "Valid phone number",
   };
 
   //creating modal
@@ -453,12 +455,14 @@ function modalPopUp2() {
   input2.classList.add("input");
   input2.type = "email";
 
-  const numberLabel = document.createElement("p");
-  numberLabel.classList.add("label");
-  numberLabel.innerText = "Enter your phone number";
-  const inputNumber = document.createElement("input");
-  inputNumber.classList.add("input");
-  inputNumber.type = "tel";
+  const phoneLabel = document.createElement("p");
+  phoneLabel.classList.add("label");
+  phoneLabel.innerText = "Enter your phone number";
+  const phoneNumber = document.createElement("input");
+  phoneNumber.classList.add("input");
+  phoneNumber.type = "tel";
+  phoneNumber.minLength = 8;
+  phoneNumber.maxLength = 14;
 
   const timeLabel = document.createElement("p");
   timeLabel.classList.add("label");
@@ -492,8 +496,8 @@ function modalPopUp2() {
     input1,
     emailLabel,
     input2,
-    numberLabel,
-    inputNumber,
+    phoneLabel,
+    phoneNumber,
     timeLabel,
     input3,
     participantsLabel,
@@ -555,9 +559,31 @@ function modalPopUp2() {
       emailLabel.style.color = "black";
     }
 
+    if (phoneNumber.value === "") {
+      phoneLabel.innerText = errorMessages.emptyError;
+      phoneLabel.style.color = "red";
+      phoneLabel.classList.add("errorMessage");
+    } else if (phoneNumber.value.length < 8) {
+      phoneLabel.innerText = errorMessages.phoneError;
+      phoneLabel.style.color = "red";
+      phoneLabel.classList.add("errorMessage");
+    } else if (phoneNumber.value.length > 14) {
+      phoneLabel.innerText = errorMessages.phoneError;
+      phoneLabel.style.color = "red";
+      phoneLabel.classList.add("errorMessage");
+    } else if (isNaN(phoneNumber.value)) {
+      phoneLabel.innerText = errorMessages.phoneError;
+      phoneLabel.style.color = "red";
+      phoneLabel.classList.add("errorMessage");
+    } else {
+      phoneLabel.innerText = completedMessages.phoneCompleted;
+      phoneLabel.style.color = "black";
+    }
+
     if (
       nameLabel.innerText == completedMessages.nameCompleted &&
-      emailLabel.innerText == completedMessages.emailCompleted
+      emailLabel.innerText == completedMessages.emailCompleted &&
+      phoneLabel.innerText == completedMessages.phoneCompleted
     ) {
       //POST Request
       const bookingResult = await fetch(
@@ -569,7 +595,7 @@ function modalPopUp2() {
             challenge: allChallenges[cardId].id,
             name: input1.value,
             email: input2.value,
-            phone: inputNumber.value,
+            phone: phoneNumber.value,
             date: inputDate.value,
             time: input3.value,
             participants: parseInt(input4.value.match(/\d+/g)),
@@ -608,7 +634,9 @@ function modalPopUp2() {
     //displaying info about the booking
     bookingDoneText1.innerText = "Your team name is: " + bookingInfo.nameInfo;
     bookingDoneText2.innerText =
-      "We have sent a confirmation mail to: " + bookingInfo.emailInfo;
+      "We have sent confirmation to: " +
+      bookingInfo.emailInfo +
+      " and to your phone";
 
     bookingDoneText3.innerText =
       "This room is booked for " +
