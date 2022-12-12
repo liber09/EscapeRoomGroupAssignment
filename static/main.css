@@ -344,6 +344,7 @@ header h1 {
   margin: 1em;
   box-shadow: 0 0 1em rgba(0, 0, 0, 0.2);
   overflow: hidden;
+  transition: 0.3s;
 }
 .challenge-item .challenge-title,
 .challenge-item .challenge-description,
@@ -372,6 +373,11 @@ header h1 {
   grid-column: 2/3;
   font-size: 0.7em;
   padding: 1em;
+}
+.challenge-item:hover {
+  box-shadow: 0 0 1.2em rgba(0, 0, 0, 0.5);
+  transform: scale(1.015);
+  transition-duration: 0.3s;
 }
 
 .challenges-cta {
