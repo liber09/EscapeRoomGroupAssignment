@@ -367,11 +367,17 @@ header h1 {
 .challenge-item .button {
   margin: 0.5rem;
 }
-.challenge-item .fa-solid {
+.challenge-item .wrapper {
+  position: relative;
+  grid-column: span 2;
+}
+.challenge-item i {
   font-size: 40px;
-  position: absolute;
-  color: white;
+  right: 0;
   padding: 15px;
+  position: absolute;
+  z-index: 1;
+  color: white;
 }
 .challenge-item .challenge-image {
   grid-column: span 2;

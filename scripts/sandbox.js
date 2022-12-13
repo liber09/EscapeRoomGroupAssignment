@@ -7,9 +7,12 @@ function addChallengesToDom(challenge) {
     list.innerHTML += `
     
     <li class="challenge-item" id="${challenge.id}"> 
+    <div class="wrapper">
     <i class="fa-solid fa-house"></i>
-      <img class="challenge-image" alt="Hacker" src=${challenge.image} />
+    <img class="challenge-image" alt="Hacker" src=${challenge.image} />
+    <div>
       <h3 class="challenge-title">${challenge.title} (${challenge.type})</h3>
+      
       <ul
         role="meter"
         class="rating"
@@ -40,9 +43,15 @@ function addChallengesToDom(challenge) {
   } else {
     list.innerHTML += `
     <li class="challenge-item">
+    
+    <div class="wrapper">
     <i class="fa-solid fa-laptop"></i> 
+    
+    
       <img class="challenge-image" alt="Hacker" src=${challenge.image} />
+      </div>
       <h3 class="challenge-title">${challenge.title} (${challenge.type})</h3>
+      
       <ul
       id="challenge-${challenge.id}
         role="meter"

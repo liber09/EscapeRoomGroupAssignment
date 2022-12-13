@@ -30,12 +30,17 @@
   .button {
     margin: 0.5rem;
   }
-
-  .fa-solid {
+  .wrapper {
+    position: relative;
+    grid-column: span 2;
+  }
+  i {
     font-size: 40px;
-    position: absolute;
-    color: white;
+    right: 0;
     padding: 15px;
+    position: absolute;
+    z-index: 1;
+    color: white;
   }
   .challenge-image {
     grid-column: span 2;
