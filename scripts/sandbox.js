@@ -89,7 +89,7 @@ async function getChallenges() {
         const hostOnline =
           "https://liber09.github.io/EscapeRoomGroupAssignment/";
 
-          //----We are on index page
+        //----We are on index page
         if (
           (window.location.href !== host + "challenges.html" && counter < 3) ||
           (window.location.href !== hostOnline + "challenges.html" &&
@@ -98,7 +98,7 @@ async function getChallenges() {
           counter++; //count challenges on first page
           addChallengesToDom(challenge);
           setStarRating();
-        //----We are on challenges page
+          //----We are on challenges page
         } else if (
           window.location.href === host + "challenges.html" ||
           window.location.href === hostOnline + "challenges.html"
@@ -124,7 +124,9 @@ function setStarRating() {
     //the int part of rating value
     let ratingValueInt = Math.floor(ratingsUl[j].getAttribute("aria-valuenow"));
     //the decimal part of rating value
-    let ratingValueDecimal = (ratingsUl[j].getAttribute("aria-valuenow")%1).toFixed(1);
+    let ratingValueDecimal = (
+      ratingsUl[j].getAttribute("aria-valuenow") % 1
+    ).toFixed(1);
 
     for (let i = 0; i < ratingsList.length; i++) {
       //0-star rated challenge
@@ -132,7 +134,7 @@ function setStarRating() {
         let star = ratingsList[i];
         star.classList.remove("active");
         //0.5 star rated challenge
-        if(i == 0 && ratingValueDecimal != 0){
+        if (i == 0 && ratingValueDecimal != 0) {
           star.classList.add("half");
         }
         //1 star rated challenge
@@ -141,7 +143,7 @@ function setStarRating() {
           let star = ratingsList[i];
           star.classList.remove("active");
           //1.5 star rated challenge
-          if(i == 1 && ratingValueDecimal != 0){
+          if (i == 1 && ratingValueDecimal != 0) {
             star.classList.add("half");
           }
         }
@@ -151,7 +153,7 @@ function setStarRating() {
           let star = ratingsList[i];
           star.classList.remove("active");
           //2.5 star rated challenge
-          if(i == 2 && ratingValueDecimal != 0){
+          if (i == 2 && ratingValueDecimal != 0) {
             star.classList.add("half");
           }
         }
@@ -161,7 +163,7 @@ function setStarRating() {
           let star = ratingsList[i];
           star.classList.remove("active");
           //3.5 star rated challenge
-          if(i == 3 && ratingValueDecimal != 0){
+          if (i == 3 && ratingValueDecimal != 0) {
             star.classList.add("half");
           }
         }
@@ -171,7 +173,7 @@ function setStarRating() {
           let star = ratingsList[i];
           star.classList.remove("active");
           //4.5 star rated challenge
-          if (ratingValueDecimal != 0){
+          if (ratingValueDecimal != 0) {
             star.classList.add("half");
           }
         }
