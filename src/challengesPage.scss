@@ -38,9 +38,20 @@
 
 @media screen and (min-width: $bp-large) {
   .challengesBody {
+    max-width: auto;
     .challenge-list {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
+      min-width: 360px;
+    }
+  }
+}
+
+@media screen and (min-width: 2000px) {
+  .challengesBody {
+    .challenge-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
       min-width: 360px;
     }
   }
