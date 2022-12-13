@@ -124,8 +124,10 @@ if (
   //--------- FILTER BY SERACH TRIGGER ----------
 
   searchInput.addEventListener("keyup", () => {
-    this.filter = new FilterCollection(this);
-    render();
+    if(searchInput.value.length > 2){
+      this.filter = new FilterCollection(this);
+      render();
+    }
   });
 
   //--------- FILTER BY TYPE -----------
