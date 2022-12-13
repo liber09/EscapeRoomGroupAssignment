@@ -10,7 +10,7 @@ function addChallengesToDom(challenge) {
     <div class="wrapper">
     <i class="fa-solid fa-house"></i>
     <img class="challenge-image" alt="Hacker" src=${challenge.image} />
-    <div>
+    </div>
       <h3 class="challenge-title">${challenge.title} (${challenge.type})</h3>
       
       <ul
