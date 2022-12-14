@@ -9,6 +9,10 @@ header {
     font-weight: 700;
     font-size: 22px;
     width: 120px;
+    a {
+      color: white;
+      text-decoration: none;
+    }
 
     background-image: url("logo.png");
     background-size: 120px auto;

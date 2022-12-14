@@ -90,6 +90,10 @@ header h1 {
   background-size: 120px auto;
   background-repeat: no-repeat;
 }
+header h1 a {
+  color: white;
+  text-decoration: none;
+}
 @media (min-width: 600px) {
   header h1 {
     width: auto;
