@@ -430,6 +430,7 @@ function modalPopUp2() {
     nameCompleted: "Your team name is valid",
     emailCompleted: "This email is valid",
     phoneCompleted: "Valid phone number",
+    participantsCompleted: "Play Hard!",
   };
 
   //creating modal
@@ -488,8 +489,7 @@ function modalPopUp2() {
   input4.setAttribute("type", "number");
   input4.setAttribute("min", minParticipants);
   input4.setAttribute("max", maxParticipants);
-  input4.setAttribute("value", minParticipants);
-  input4.setAttribute("onkeypress", "return false"); //So user can't type own participants
+  input4.setAttribute("placeholder", minParticipants + "-" + maxParticipants);
   input4.classList.add("input", "time-number");
 
   //appending all created elements to modal
@@ -585,9 +585,32 @@ function modalPopUp2() {
     }
 
     if (
+      input4.value < minParticipants ||
+      input4.value > maxParticipants ||
+      input4.value >= 20
+    ) {
+      participantsLabel.innerText =
+        "Challenge only allows " +
+        minParticipants +
+        "-" +
+        maxParticipants +
+        " participants";
+      participantsLabel.style.color = "red";
+      participantsLabel.classList.add("errorMessage");
+      input4.value = null;
+    } else if (
+      input4.value >= minParticipants ||
+      input4.value <= maxParticipants
+    ) {
+      participantsLabel.style.color = "black";
+      participantsLabel.innerText = completedMessages.participantsCompleted;
+    }
+
+    if (
       nameLabel.innerText == completedMessages.nameCompleted &&
       emailLabel.innerText == completedMessages.emailCompleted &&
-      phoneLabel.innerText == completedMessages.phoneCompleted
+      phoneLabel.innerText == completedMessages.phoneCompleted &&
+      participantsLabel.innerText == completedMessages.participantsCompleted
     ) {
       //POST Request
       const bookingResult = await fetch(
