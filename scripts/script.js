@@ -124,7 +124,7 @@ if (
   //--------- FILTER BY SERACH TRIGGER ----------
 
   searchInput.addEventListener("keyup", () => {
-    if(searchInput.value.length > 2){
+    if (searchInput.value.length > 2) {
       this.filter = new FilterCollection(this);
       render();
     }
