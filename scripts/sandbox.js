@@ -1,4 +1,6 @@
 let list = document.querySelector(".challenge-list");
+let spinner = document.querySelectorAll('.spinner')
+console.log('spinner',spinner)
 
 let allChallenges;
 
@@ -83,13 +85,30 @@ function addChallengesToDom(challenge) {
   }
 }
 
+// display and hide spinner
+function displayLoader (){
+  spinner.forEach(spin=>{
+    spin.style.display = 'block'
+  })
+    
+ 
+}
+
+function hideLoader (){
+  spinner.forEach(spin=>{
+    spin.style.display = 'none'
+  })
+}
+
 // get all challenges
 async function getChallenges() {
+  displayLoader()
   try {
     let res = await fetch(
       "https://lernia-sjj-assignments.vercel.app/api/challenges"
     );
     if (res.ok) {
+      hideLoader()
       let data = await res.json();
       allChallenges = data.challenges;
 
