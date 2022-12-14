@@ -85,6 +85,23 @@ function addChallengesToDom(challenge) {
   }
 }
 
+// set Error when we cnnot load challenges
+function setError (message, color){
+  let challengeError = document.querySelector('.error')
+  challengeError.innerHTML  = `<p>${message}</p>`
+  challengeError.style.color = color
+  let challengeContainer = document.querySelector('.challenges')
+  challengeContainer.appendChild(challengeError)
+  let filterBtn = document.querySelector('#filterButton')
+  filterBtn.style.display = 'none'
+
+  setTimeout(()=>{
+      hideLoader()
+  },1000) 
+ 
+
+}
+
 // display and hide spinner
 function displayLoader (){
   spinner.forEach(spin=>{
@@ -107,7 +124,11 @@ async function getChallenges() {
     let res = await fetch(
       "https://lernia-sjj-assignments.vercel.app/api/challenges"
     );
-    if (res.ok) {
+
+    if(res.status !== 200){
+      setError('Challenges not found', 'black')
+
+    }else{
       hideLoader()
       let data = await res.json();
       allChallenges = data.challenges;
@@ -138,7 +159,11 @@ async function getChallenges() {
           setStarRating();
         }
       });
+
     }
+ 
+     
+    
   } catch (error) {
     console.log(error);
   }
