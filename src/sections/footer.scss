@@ -24,9 +24,11 @@ footer {
     a {
         color: white;
         text-decoration: none;
+        display: inline-block;
 
         &:hover {
             color: $c-lightblue;
+            transform: translateX(0.5rem);
         }
     }
 

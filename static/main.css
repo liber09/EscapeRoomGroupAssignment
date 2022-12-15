@@ -49,6 +49,10 @@ li {
   background-color: #8acfe5;
   color: white;
 }
+.button:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 1.2em rgba(0, 0, 0, 0.3);
+}
 
 .rating {
   display: flex;
@@ -89,6 +93,10 @@ header h1 {
   background-image: url("logo.png");
   background-size: 120px auto;
   background-repeat: no-repeat;
+}
+header h1 a:hover {
+  display: inline-block;
+  transform: scale(1.03);
 }
 @media (min-width: 600px) {
   header h1 {
@@ -240,6 +248,7 @@ header h1 {
   }
   .main-menu-item a:hover {
     color: #8acfe5;
+    transform: scale(1.09);
   }
 }
 .hero img {
@@ -685,9 +694,11 @@ footer .misc-link + .play-link {
 footer a {
   color: white;
   text-decoration: none;
+  display: inline-block;
 }
 footer a:hover {
   color: #8acfe5;
+  transform: translateX(0.5rem);
 }
 @media (min-width: 1000px) {
   footer {
@@ -807,6 +818,7 @@ footer a:hover {
   border-radius: 5px;
 }
 .backdrop .modal-content .time-number[type=number] {
+  width: 60px;
   padding-left: 10px;
 }
 .backdrop .modal-content .modal-button {
@@ -836,8 +848,96 @@ footer a:hover {
 @keyframes blinkWrongMessage {
   25%, 75% {
     opacity: 0;
+
   }
   50%, 100% {
     opacity: 1;
+  }
+}
+.contactBody {
+  background: rgb(54, 118, 157);
+  background: linear-gradient(0deg, rgb(54, 118, 157) 0%, rgb(71, 130, 165) 0%, rgb(146, 181, 202) 38%, rgb(241, 245, 248) 89%, rgb(255, 255, 255) 100%);
+}
+.contactBody h1 a {
+  text-decoration: none;
+  color: white;
+  display: inline-block;
+}
+.contactBody h1 a:hover {
+  transform: scale(1.03);
+}
+.contactBody main {
+  text-align: center;
+}
+.contactBody main h2 {
+  font-size: 2rem;
+}
+.contactBody main i {
+  padding: 20px;
+}
+.contactBody .email-logo {
+  width: 40%;
+  max-width: 400px;
+}
+.contactBody .contact-form {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: left;
+  min-height: 50vh;
+}
+.contactBody .contact-form form {
+  margin-top: 60px;
+}
+.contactBody .contact-form input {
+  width: 250px;
+  height: 40px;
+  border: 1px solid lightgray;
+  border-radius: 15px;
+  padding-left: 20px;
+  font-family: Roboto;
+}
+.contactBody .contact-form textarea {
+  font-family: Roboto;
+  border: 1px solid lightgray;
+  border-radius: 15px;
+  padding: 20px;
+}
+.contactBody .contact-form button {
+  width: 250px;
+  height: 40px;
+  border-radius: 15px;
+  border: none;
+  background-color: #8acfe5;
+  font-weight: 500;
+  cursor: pointer;
+}
+.contactBody .contact-form button:hover {
+  background-color: #36769d;
+}
+.contactBody .contact-form input,
+.contactBody .contact-form textarea,
+.contactBody .contact-form button {
+  margin: 5px;
+}
+.contactBody footer {
+  margin-top: 50px;
+}
+
+@media screen and (max-width: 600px) {
+  .contact-form {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .contact-form img {
+    margin: 30px auto;
+  }
+
+  .contact-form form {
+    margin: 0px auto;
+  }
+  .contact-form input,
+.contact-form textarea,
+.contact-form button {
+    width: 70%;
   }
 }
