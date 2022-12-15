@@ -132,7 +132,7 @@ async function getChallenges() {
   displayLoader()
   try {
     let res = await fetch(
-      "https://lernia-sjj-assignments.vercel.app/api/challenge"
+      "https://lernia-sjj-assignments.vercel.app/api/challenges"
     );
 
     if(res.status !== 200){
