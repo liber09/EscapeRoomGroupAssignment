@@ -1,4 +1,6 @@
 let list = document.querySelector(".challenge-list");
+let spinner = document.querySelectorAll('.spinner')
+console.log('spinner',spinner)
 
 let allChallenges;
 
@@ -31,7 +33,8 @@ function addChallengesToDom(challenge) {
       </ul>
       <small class="challenge-meta">${challenge.minParticipants}- ${challenge.maxParticipants} participants</small>
       <p class="challenge-description">
-       ${challenge.description}
+      ${maxChar(challenge.description)}
+     
       </p>
       <button class="button primary modal-open">Book this room</button>
       <p class="challenge-type" hidden>${challenge.type}</p>
@@ -71,7 +74,8 @@ function addChallengesToDom(challenge) {
       </ul>
       <small class="challenge-meta">${challenge.minParticipants}- ${challenge.maxParticipants} participants</small>
       <p class="challenge-description">
-       ${challenge.description}
+      ${maxChar(challenge.description)}
+     
       </p>
       <button class="button third online-modal">Take challenge online</button>
       <p class="challenge-type" hidden>${challenge.type}</p>
@@ -83,13 +87,76 @@ function addChallengesToDom(challenge) {
   }
 }
 
+// show max 3o chars for description
+function maxChar (str){
+  
+  let strArr = str.split('')
+ 
+  let newArr = strArr.slice(0,31) 
+  let remEl = strArr.slice(31, strArr.length)
+  let repEl = remEl.join('').replace(remEl.join(''), '"..."')
+  console.log('repEl', repEl)
+  let finalArr = newArr.join('') + ' ' + repEl
+  return finalArr
+
+}
+
+
+// set Error when we cannot load challenges
+function setError (message, color){
+  let challengeError = document.querySelector('.error-div')
+  challengeError.style.display = 'block'
+  list.style.display ='none'
+  challengeError.innerHTML  = `<p>${message}</p>`
+  challengeError.style.color = color
+  let challengeContainer = document.querySelector('.challenges')
+  challengeContainer.appendChild(challengeError)
+  if(window.location.href === 'http://127.0.0.1:5501/challenges.html'){
+    let filterBtn = document.querySelector('#filterButton')
+    filterBtn.style.display = 'none' 
+}
+
+  if(window.location.href === 'http://127.0.0.1:5501/index.html'){
+   let challengeBtns = document.querySelector('.challenges-cta')
+   challengeBtns.style.display = 'none' 
+               
+    }
+
+  setTimeout(()=>{
+      hideLoader()
+  },1000) 
+ 
+
+}
+
+// display and hide spinner
+function displayLoader (){
+  spinner.forEach(spin=>{
+    spin.style.display = 'block'
+  })
+    
+ 
+}
+
+function hideLoader (){
+  spinner.forEach(spin=>{
+    spin.style.display = 'none'
+  })
+}
+
 // get all challenges
 async function getChallenges() {
+  displayLoader()
   try {
     let res = await fetch(
       "https://lernia-sjj-assignments.vercel.app/api/challenges"
     );
-    if (res.ok) {
+
+    if(res.status !== 200){
+      setError('Challenges not found', 'white')
+
+    }else{
+      hideLoader()
       let data = await res.json();
       allChallenges = data.challenges;
 
@@ -119,7 +186,11 @@ async function getChallenges() {
           setStarRating();
         }
       });
+
     }
+ 
+     
+    
   } catch (error) {
     console.log(error);
   }

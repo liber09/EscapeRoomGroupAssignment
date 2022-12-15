@@ -79,3 +79,16 @@
   @include responsive-ctas;
   margin: 4rem 3rem;
 }
+
+.spinner{
+  display: none;
+
+}
+.error-div{
+  display: none;
+  background-color: #e3170a;
+  text-align: center;
+  padding: 0.1rem;
+  font-size: 1.6rem;
+  
+}

@@ -8,7 +8,7 @@ body {
 }
 @media (min-width: 1000px) {
   html,
-body {
+  body {
     font-size: 24px;
   }
 }
@@ -427,6 +427,18 @@ header h1 a:hover {
   }
 }
 
+.spinner {
+  display: none;
+}
+
+.error-div {
+  display: none;
+  background-color: #e3170a;
+  text-align: center;
+  padding: 0.1rem;
+  font-size: 1.6rem;
+}
+
 .filter {
   display: none;
   position: relative;
@@ -836,6 +848,7 @@ footer a:hover {
 @keyframes blinkWrongMessage {
   25%, 75% {
     opacity: 0;
+
   }
   50%, 100% {
     opacity: 1;
@@ -918,6 +931,7 @@ footer a:hover {
   .contact-form img {
     margin: 30px auto;
   }
+
   .contact-form form {
     margin: 0px auto;
   }
