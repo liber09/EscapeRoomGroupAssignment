@@ -85,15 +85,25 @@ function addChallengesToDom(challenge) {
   }
 }
 
-// set Error when we cnnot load challenges
+// set Error when we cannot load challenges
 function setError (message, color){
-  let challengeError = document.querySelector('.error')
+  let challengeError = document.querySelector('.error-div')
+  challengeError.style.display = 'block'
+  list.style.display ='none'
   challengeError.innerHTML  = `<p>${message}</p>`
   challengeError.style.color = color
   let challengeContainer = document.querySelector('.challenges')
   challengeContainer.appendChild(challengeError)
-  let filterBtn = document.querySelector('#filterButton')
-  filterBtn.style.display = 'none'
+  if(window.location.href === 'http://127.0.0.1:5501/challenges.html'){
+    let filterBtn = document.querySelector('#filterButton')
+    filterBtn.style.display = 'none' 
+}
+
+  if(window.location.href === 'http://127.0.0.1:5501/index.html'){
+   let challengeBtns = document.querySelector('.challenges-cta')
+   challengeBtns.style.display = 'none' 
+               
+    }
 
   setTimeout(()=>{
       hideLoader()
@@ -122,11 +132,11 @@ async function getChallenges() {
   displayLoader()
   try {
     let res = await fetch(
-      "https://lernia-sjj-assignments.vercel.app/api/challenges"
+      "https://lernia-sjj-assignments.vercel.app/api/challenge"
     );
 
     if(res.status !== 200){
-      setError('Challenges not found', 'black')
+      setError('Challenges not found', 'white')
 
     }else{
       hideLoader()
