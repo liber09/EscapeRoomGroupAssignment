@@ -32,6 +32,10 @@ li {
     background-color: #8acfe5;
     color: white;
   }
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 1.2em rgba(0, 0, 0, 0.3);
+  }
 }
 
 .rating {
