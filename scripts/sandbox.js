@@ -33,7 +33,8 @@ function addChallengesToDom(challenge) {
       </ul>
       <small class="challenge-meta">${challenge.minParticipants}- ${challenge.maxParticipants} participants</small>
       <p class="challenge-description">
-       ${challenge.description}
+      ${maxChar(challenge.description)}
+     
       </p>
       <button class="button primary modal-open">Book this room</button>
       <p class="challenge-type" hidden>${challenge.type}</p>
@@ -73,7 +74,8 @@ function addChallengesToDom(challenge) {
       </ul>
       <small class="challenge-meta">${challenge.minParticipants}- ${challenge.maxParticipants} participants</small>
       <p class="challenge-description">
-       ${challenge.description}
+      ${maxChar(challenge.description)}
+     
       </p>
       <button class="button third online-modal">Take challenge online</button>
       <p class="challenge-type" hidden>${challenge.type}</p>
@@ -84,6 +86,21 @@ function addChallengesToDom(challenge) {
     `;
   }
 }
+
+// show max 3o chars for description
+function maxChar (str){
+  
+  let strArr = str.split('')
+ 
+  let newArr = strArr.slice(0,31) 
+  let remEl = strArr.slice(31, strArr.length)
+  let repEl = remEl.join('').replace(remEl.join(''), '"..."')
+  console.log('repEl', repEl)
+  let finalArr = newArr.join('') + ' ' + repEl
+  return finalArr
+
+}
+
 
 // set Error when we cannot load challenges
 function setError (message, color){
