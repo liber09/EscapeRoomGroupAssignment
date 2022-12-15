@@ -8,7 +8,7 @@ body {
 }
 @media (min-width: 1000px) {
   html,
-  body {
+body {
     font-size: 24px;
   }
 }
@@ -191,8 +191,20 @@ header h1 {
     right: 1em;
     bottom: 1em;
     z-index: 1000;
-    animation: main-menu_reveal 0.3s 0.2s;
-    animation-fill-mode: backwards;
+    -webkit-animation: main-menu_reveal 0.3s 0.2s;
+            animation: main-menu_reveal 0.3s 0.2s;
+    -webkit-animation-fill-mode: backwards;
+            animation-fill-mode: backwards;
+  }
+  @-webkit-keyframes main-menu_reveal {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
   @keyframes main-menu_reveal {
     from {
@@ -245,7 +257,8 @@ header h1 {
 .hero img {
   width: 100%;
   min-height: 40vh;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 @media (min-width: 600px) {
   .hero img {
@@ -301,7 +314,8 @@ header h1 {
 .testimonial-item figure {
   display: grid;
   grid-template-columns: 74px auto;
-  column-gap: 1em;
+  -moz-column-gap: 1em;
+       column-gap: 1em;
 }
 .testimonial-item figure blockquote {
   margin: 0;
@@ -485,7 +499,10 @@ header h1 {
   padding: 5px;
   border-radius: 20px;
   box-shadow: 0 0 2px #b3acac;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   margin: 1rem;
 }
 @media (max-width: 600px) {
@@ -619,7 +636,8 @@ header h1 {
   margin: 0 0 2rem;
 }
 .usps .usp .usp-image {
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .usps .usp .usp-title,
 .usps .usp .usp-intro,
@@ -770,7 +788,8 @@ footer a:hover {
   max-width: 700px;
   height: auto;
   margin: 20vh auto;
-  animation: fadeInModal 0.6s;
+  -webkit-animation: fadeInModal 0.6s;
+          animation: fadeInModal 0.6s;
   padding-bottom: 40px;
 }
 .backdrop .modal-content .modal-heading {
@@ -809,9 +828,21 @@ footer a:hover {
   cursor: pointer;
 }
 .backdrop .modal-content .errorMessage {
-  animation: blinkWrongMessage;
-  animation-duration: 0.4s;
-  animation-timing-function: ease-in;
+  -webkit-animation: blinkWrongMessage;
+          animation: blinkWrongMessage;
+  -webkit-animation-duration: 0.4s;
+          animation-duration: 0.4s;
+  -webkit-animation-timing-function: ease-in;
+          animation-timing-function: ease-in;
+}
+
+@-webkit-keyframes fadeInModal {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeInModal {
@@ -822,11 +853,101 @@ footer a:hover {
     opacity: 1;
   }
 }
+@-webkit-keyframes blinkWrongMessage {
+  25%, 75% {
+    opacity: 0;
+  }
+  50%, 100% {
+    opacity: 1;
+  }
+}
 @keyframes blinkWrongMessage {
   25%, 75% {
     opacity: 0;
   }
   50%, 100% {
     opacity: 1;
+  }
+}
+.contactBody {
+  background: rgb(54, 118, 157);
+  background: linear-gradient(0deg, rgb(54, 118, 157) 0%, rgb(71, 130, 165) 0%, rgb(146, 181, 202) 38%, rgb(241, 245, 248) 89%, rgb(255, 255, 255) 100%);
+}
+.contactBody h1 a {
+  text-decoration: none;
+  color: white;
+}
+.contactBody main {
+  text-align: center;
+}
+.contactBody main h2 {
+  font-size: 2rem;
+}
+.contactBody main i {
+  padding: 20px;
+}
+.contactBody .email-logo {
+  width: 40%;
+  max-width: 400px;
+}
+.contactBody .contact-form {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: left;
+  min-height: 50vh;
+}
+.contactBody .contact-form form {
+  margin-top: 60px;
+}
+.contactBody .contact-form input {
+  width: 250px;
+  height: 40px;
+  border: 1px solid lightgray;
+  border-radius: 15px;
+  padding-left: 20px;
+  font-family: Roboto;
+}
+.contactBody .contact-form textarea {
+  font-family: Roboto;
+  border: 1px solid lightgray;
+  border-radius: 15px;
+  padding: 20px;
+}
+.contactBody .contact-form button {
+  width: 250px;
+  height: 40px;
+  border-radius: 15px;
+  border: none;
+  background-color: #8acfe5;
+  font-weight: 500;
+  cursor: pointer;
+}
+.contactBody .contact-form button:hover {
+  background-color: #36769d;
+}
+.contactBody .contact-form input,
+.contactBody .contact-form textarea,
+.contactBody .contact-form button {
+  margin: 5px;
+}
+.contactBody footer {
+  margin-top: 50px;
+}
+
+@media screen and (max-width: 600px) {
+  .contact-form {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .contact-form img {
+    margin: 30px auto;
+  }
+  .contact-form form {
+    margin: 0px auto;
+  }
+  .contact-form input,
+.contact-form textarea,
+.contact-form button {
+    width: 70%;
   }
 }
