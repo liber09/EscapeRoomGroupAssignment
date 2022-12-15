@@ -3,6 +3,11 @@
     a {
       text-decoration: none;
       color: white;
+      display: inline-block;
+      
+      &:hover {
+        transform: scale(1.03);
+      }
     }
   }
   background: rgb(54, 118, 157);

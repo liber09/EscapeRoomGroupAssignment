@@ -14,6 +14,11 @@ header {
     background-size: 120px auto;
     background-repeat: no-repeat;
 
+    a:hover {
+      display: inline-block;
+      transform: scale(1.03);
+    }
+
     @media (min-width: $bp-medium) {
       width: auto;
       font-size: 40px;
