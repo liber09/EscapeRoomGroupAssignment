@@ -26,7 +26,7 @@
   }
 
   .email-logo {
-    width: 30%;
+    width: 40%;
     max-width: 400px;
   }
   .contact-form {
@@ -36,7 +36,7 @@
     min-height: 50vh;
 
     form {
-      margin-top: 100px;
+      margin-top: 60px;
     }
     input {
       width: 250px;
@@ -58,13 +58,38 @@
       border-radius: 15px;
       border: none;
       background-color: $c-lightblue;
+      font-weight: 500;
       cursor: pointer;
+      &:hover {
+        background-color: $c-blue;
+      }
     }
 
     input,
     textarea,
     button {
       margin: 5px;
+    }
+  }
+  footer {
+    margin-top: 50px;
+  }
+}
+
+@media screen and (max-width: $bp-medium) {
+  .contact-form {
+    flex-direction: column;
+    justify-content: center;
+    img {
+      margin: 30px auto;
+    }
+    form {
+      margin: 0px auto;
+    }
+    input,
+    textarea,
+    button {
+      width: 70%;
     }
   }
 }

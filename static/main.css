@@ -887,7 +887,7 @@ footer a:hover {
   padding: 20px;
 }
 .contactBody .email-logo {
-  width: 30%;
+  width: 40%;
   max-width: 400px;
 }
 .contactBody .contact-form {
@@ -897,7 +897,7 @@ footer a:hover {
   min-height: 50vh;
 }
 .contactBody .contact-form form {
-  margin-top: 100px;
+  margin-top: 60px;
 }
 .contactBody .contact-form input {
   width: 250px;
@@ -919,10 +919,35 @@ footer a:hover {
   border-radius: 15px;
   border: none;
   background-color: #8acfe5;
+  font-weight: 500;
   cursor: pointer;
+}
+.contactBody .contact-form button:hover {
+  background-color: #36769d;
 }
 .contactBody .contact-form input,
 .contactBody .contact-form textarea,
 .contactBody .contact-form button {
   margin: 5px;
+}
+.contactBody footer {
+  margin-top: 50px;
+}
+
+@media screen and (max-width: 600px) {
+  .contact-form {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .contact-form img {
+    margin: 30px auto;
+  }
+  .contact-form form {
+    margin: 0px auto;
+  }
+  .contact-form input,
+.contact-form textarea,
+.contact-form button {
+    width: 70%;
+  }
 }
