@@ -1005,7 +1005,7 @@ footer a:hover {
 }
 .aboutUsBody .team-logo {
   width: 40%;
-  margin-top: -200px;
+  margin: -200px 0px 0px 20px;
 }
 .aboutUsBody .aboutUs-story {
   display: flex;
@@ -1016,6 +1016,24 @@ footer a:hover {
 .aboutUsBody .aboutUs-story p {
   margin: 130px 20px 0px 20px;
   max-width: 50%;
+}
+.aboutUsBody .aboutUs-employees {
+  display: flex;
+  max-width: 1800px;
+  margin: -100px auto 0px;
+}
+.aboutUsBody .aboutUs-employees blockquote {
+  max-height: 200px;
+  margin-bottom: 10%;
+}
+.aboutUsBody .aboutUs-employees figure {
+  margin-bottom: 10%;
+}
+.aboutUsBody .aboutUs-employees img {
+  max-width: 30%;
+}
+.aboutUsBody .aboutUs-employees img:hover {
+  transform: scale(1.2);
 }
 
 @media screen and (max-width: 600px) {
@@ -1031,5 +1049,23 @@ footer a:hover {
   .aboutUsBody .aboutUs-story p {
     margin: 40px auto 20px;
     max-width: 90%;
+  }
+}
+@media screen and (max-width: 780px) {
+  .aboutUs-employees {
+    margin-top: 500px;
+    flex-direction: column;
+  }
+  .aboutUs-employees div {
+    margin: auto;
+  }
+  .aboutUs-employees blockquote {
+    max-height: auto;
+    margin: auto;
+  }
+  .aboutUs-employees img,
+.aboutUs-employees figcaption,
+.aboutUs-employees figure {
+    margin: 50px;
   }
 }

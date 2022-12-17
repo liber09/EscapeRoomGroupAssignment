@@ -35,7 +35,7 @@
 
   .team-logo {
     width: 40%;
-    margin-top: -200px;
+    margin: -200px 0px 0px 20px;
   }
   .aboutUs-story {
     display: flex;
@@ -46,6 +46,27 @@
     p {
       margin: 130px 20px 0px 20px;
       max-width: 50%;
+    }
+  }
+  .aboutUs-employees {
+    display: flex;
+    max-width: 1800px;
+    margin: -100px auto 0px;
+
+    blockquote {
+      max-height: 200px;
+      margin-bottom: 10%;
+    }
+
+    figure {
+      margin-bottom: 10%;
+    }
+
+    img {
+      max-width: 30%;
+      &:hover {
+        transform: scale(1.2);
+      }
     }
   }
 }
@@ -66,6 +87,28 @@
         margin: 40px auto 20px;
         max-width: 90%;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .aboutUs-employees {
+    margin-top: 500px;
+    flex-direction: column;
+
+    div {
+      margin: auto;
+    }
+
+    blockquote {
+      max-height: auto;
+      margin: auto;
+    }
+
+    img,
+    figcaption,
+    figure {
+      margin: 50px;
     }
   }
 }
