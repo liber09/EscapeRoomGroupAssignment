@@ -978,3 +978,58 @@ footer a:hover {
     width: 70%;
   }
 }
+.aboutUsBody {
+  background: rgb(54, 118, 157);
+  background: linear-gradient(0deg, rgb(54, 118, 157) 0%, rgb(71, 130, 165) 0%, rgb(146, 181, 202) 38%, rgb(241, 245, 248) 89%, rgb(255, 255, 255) 100%);
+}
+.aboutUsBody h1 a {
+  text-decoration: none;
+  color: white;
+  display: inline-block;
+}
+.aboutUsBody h1 a:hover {
+  transform: scale(1.03);
+}
+.aboutUsBody div {
+  max-width: 1800px;
+  margin: auto;
+}
+.aboutUsBody main {
+  text-align: center;
+}
+.aboutUsBody main h2 {
+  font-size: 2rem;
+}
+.aboutUsBody main i {
+  padding: 20px;
+}
+.aboutUsBody .team-logo {
+  width: 40%;
+  margin-top: -200px;
+}
+.aboutUsBody .aboutUs-story {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: left;
+  min-height: 50vh;
+}
+.aboutUsBody .aboutUs-story p {
+  margin: 130px 20px 0px 20px;
+  max-width: 50%;
+}
+
+@media screen and (max-width: 600px) {
+  .aboutUsBody .aboutUs-story {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .aboutUsBody .aboutUs-story .team-logo {
+    width: 90%;
+    margin-top: -10px;
+  }
+  .aboutUsBody .aboutUs-story p {
+    margin: 40px auto 20px;
+    max-width: 90%;
+  }
+}
