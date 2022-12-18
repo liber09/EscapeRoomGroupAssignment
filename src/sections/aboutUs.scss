@@ -1,0 +1,114 @@
+.aboutUsBody {
+  h1 {
+    a {
+      text-decoration: none;
+      color: white;
+      display: inline-block;
+
+      &:hover {
+        transform: scale(1.03);
+      }
+    }
+  }
+  background: rgb(54, 118, 157);
+  background: linear-gradient(
+    0deg,
+    rgba(54, 118, 157, 1) 0%,
+    rgba(71, 130, 165, 1) 0%,
+    rgba(146, 181, 202, 1) 38%,
+    rgba(241, 245, 248, 1) 89%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  div {
+    max-width: 1800px;
+    margin: auto;
+  }
+  main {
+    text-align: center;
+    h2 {
+      font-size: 2rem;
+    }
+    i {
+      padding: 20px;
+    }
+  }
+
+  .team-logo {
+    width: 40%;
+    margin: -200px 0px 0px 20px;
+  }
+  .aboutUs-story {
+    display: flex;
+    justify-content: space-evenly;
+    text-align: left;
+    min-height: 50vh;
+
+    p {
+      margin: 130px 20px 0px 20px;
+      max-width: 50%;
+    }
+  }
+  .aboutUs-employees {
+    display: flex;
+    max-width: 1800px;
+    margin: -100px auto 0px;
+
+    blockquote {
+      max-height: 200px;
+      margin-bottom: 10%;
+    }
+
+    figure {
+      margin-bottom: 10%;
+    }
+
+    img {
+      max-width: 30%;
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $bp-medium) {
+  .aboutUsBody {
+    .aboutUs-story {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .team-logo {
+        width: 90%;
+        margin-top: -10px;
+      }
+
+      p {
+        margin: 40px auto 20px;
+        max-width: 90%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .aboutUs-employees {
+    margin-top: 500px;
+    flex-direction: column;
+
+    div {
+      margin: auto;
+    }
+
+    blockquote {
+      max-height: auto;
+      margin: auto;
+    }
+
+    img,
+    figcaption,
+    figure {
+      margin: 50px;
+    }
+  }
+}
