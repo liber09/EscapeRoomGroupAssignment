@@ -86,6 +86,22 @@ if (
           }
         });
       }
+      if (current_star_level_to<current_star_level_from){
+        current_star_level_from = current_star_level_to;
+        if (current_star_level_from == 1) {
+          starFrom.innerHTML = "&#9734";
+          current_star_level_from = 0;
+        } else {
+          current_star_level_from = i + 1;
+          starsFrom.forEach((starFrom, j) => {
+            if (current_star_level_from >= j + 1) {
+              starFrom.innerHTML = "&#9733";
+            } else {
+              starFrom.innerHTML = "&#9734";
+            }
+          });
+        }  
+      }        
     };
   });
 
