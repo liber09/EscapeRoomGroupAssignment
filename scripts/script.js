@@ -38,10 +38,8 @@ if (
       if (current_star_level_from == 1) {
         starFrom.innerHTML = "&#9734";
         current_star_level_from = 0;
-        current_star_level_to = 0;
       } else {
         current_star_level_from = i + 1;
-        current_star_level_to = i + 1;
         starsFrom.forEach((starFrom, j) => {
           if (starsFrom[1].innerHTML == "&#9733") {
             starsFrom[0].innerHTML = "&#9734";
@@ -51,6 +49,15 @@ if (
             } else {
               starFrom.innerHTML = "&#9734";
             }
+          }
+        });
+        if (current_star_level_from>current_star_level_to){
+          current_star_level_to = current_star_level_from;
+          if (current_star_level_to == 1) {
+            starTo.innerHTML = "&#9734";
+            current_star_level_to = 0;
+          } else {
+            current_star_level_to = i + 1;
             starsTo.forEach((starTo, j) => {
               if (current_star_level_to >= j + 1) {
                 starTo.innerHTML = "&#9733";
@@ -58,8 +65,8 @@ if (
                 starTo.innerHTML = "&#9734";
               }
             });
-          }
-        });
+          }          
+        }
       }
     };
   });
