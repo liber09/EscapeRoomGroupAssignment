@@ -51,7 +51,7 @@ if (
             }
           }
         });
-        if (current_star_level_from>current_star_level_to){
+        if (current_star_level_from > current_star_level_to) {
           current_star_level_to = current_star_level_from;
           if (current_star_level_to == 1) {
             starTo.innerHTML = "&#9734";
@@ -65,7 +65,7 @@ if (
                 starTo.innerHTML = "&#9734";
               }
             });
-          }          
+          }
         }
       }
     };
@@ -86,7 +86,7 @@ if (
           }
         });
       }
-      if (current_star_level_to<current_star_level_from){
+      if (current_star_level_to < current_star_level_from) {
         current_star_level_from = current_star_level_to;
         if (current_star_level_from == 1) {
           starFrom.innerHTML = "&#9734";
@@ -100,8 +100,8 @@ if (
               starFrom.innerHTML = "&#9734";
             }
           });
-        }  
-      }        
+        }
+      }
     };
   });
 
@@ -160,7 +160,7 @@ if (
       this.filter = new FilterCollection(this);
       render();
     }
-    if (searchInput.value.length === 0) || search.cl {
+    if (searchInput.value.length === 0) {
       render();
     }
   });
