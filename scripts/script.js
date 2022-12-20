@@ -160,6 +160,9 @@ if (
       this.filter = new FilterCollection(this);
       render();
     }
+    if (searchInput.value.length === 0) || search.cl {
+      render();
+    }
   });
 
   //--------- FILTER BY TYPE -----------
@@ -300,7 +303,7 @@ if (
         hiddenCount++;
       }
     }
-    if (hiddenCount == 30) {
+    if (hiddenCount == cards.length) {
       noMatch.style.display = "block";
     } else {
       noMatch.style.display = "none";
